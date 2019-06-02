@@ -34,6 +34,11 @@ public class GuestVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	@Override
+	public String toString() {
+		return "GuestVO [id=" + id + ", password=" + password + ", name=" + name + ", phone=" + phone + "]";
+	}
 	
 
 }

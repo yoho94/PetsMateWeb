@@ -23,4 +23,12 @@
 		SELECT ID, PASSWORD, NAME, PHONE FROM `GUEST` WHERE ID=#{id} and PASSWORD=#{password}
 	</select>
 	
+	<select id="signup">
+		INSERT INTO `GUEST` VALUES(#{id}, #{password}, #{name}, #{phone})
+	</select>
+	
+	<select id="findId" resultType="guestVO">
+		SELECT ID, PASSWORD, NAME, PHONE FROM `GUEST` WHERE ID=#{id}
+	</select>
+	
 </mapper>

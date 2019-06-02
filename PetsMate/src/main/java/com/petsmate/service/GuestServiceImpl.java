@@ -15,7 +15,7 @@ public class GuestServiceImpl implements GuestService {
 	private GuestDAO dao;
 	
 	@Override
-	public List<GuestVO> selectMember() throws Exception {
+	public List<GuestVO> selectGuest() throws Exception {
 		return dao.selectGuest();
 	}
 	
@@ -23,5 +23,22 @@ public class GuestServiceImpl implements GuestService {
 	public GuestVO login(GuestVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.login(vo);
+	}
+	
+	@Override
+	public void signup(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub		
+		dao.signup(vo);
+	}
+	
+	@Override
+	public boolean findId(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		GuestVO findVO = dao.findId(vo);
+		
+		if(findVO != null)
+			return true;
+		else
+			return false;
 	}
 }

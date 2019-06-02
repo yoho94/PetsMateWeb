@@ -6,7 +6,9 @@
 
 	<typeAliases>
 		<typeAlias type="com.petsmate.dto.GuestVO" alias="guestVO" />
+		<typeAlias type="com.petsmate.dto.PetVO" alias="petVO" />
 	</typeAliases>
+	
 
 </configuration>
 	

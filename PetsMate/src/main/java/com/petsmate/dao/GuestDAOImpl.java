@@ -28,4 +28,17 @@ public class GuestDAOImpl implements GuestDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(Namespace+".login", vo);
 	}
+	
+	@Override
+	public void signup(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(Namespace+".signup", vo);
+		
+	}
+	
+	@Override
+	public GuestVO findId(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(Namespace+".findId", vo);
+	}
 }
