@@ -73,6 +73,64 @@
 		
 		</tbody>
 	</table>
+	
+	<hr>
+	CALL 테이블
+		<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">serial_number</th>
+				<th scope="col">guest_id</th>
+				<th scope="col">driver_id</th>
+				<th scope="col">is_call</th>
+				<th scope="col">code</th>
+				<th scope="col">start_lat</th>
+				<th scope="col">start_long</th>
+				<th scope="col">dest_lat</th>
+				<th scope="col">dest_long</th>
+				<th scope="col">start_time</th>
+				<th scope="col">dest_time</th>
+				<th scope="col">guest_count</th>
+				<th scope="col">gen_time</th>
+				<th scope="col">is_shuttle</th>
+				<th scope="col">shuttle_code</th>
+				<th scope="col">ps</th>
+				<th scope="col">place_name</th>
+				<th scope="col">place_addr</th>
+				<th scope="col">place_name_start</th>
+				<th scope="col">place_addr_start</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="call" items="${callList}">
+				<tr>
+					<th scope="row">${call.serial_number }</th>
+					<td>${call.guest_id }</td>
+					<td>${call.driver_id }</td>
+					<td>${call.is_call }</td>
+					<td>${call.code }</td>
+					<td>${call.start_latitude }</td>
+					<td>${call.start_longitude }</td>
+					<td>${call.destination_latitude }</td>
+					<td>${call.destination_longitude }</td>
+					<td>${call.start_time }</td>
+					<td>${call.destination_time }</td>
+					<td>${call.guest_count }</td>
+					<td>${call.generate_time }</td>
+					<td>${call.is_shuttle }</td>
+					<td>${call.shuttle_code }</td>
+					<td>${call.ps }</td>
+					<td>${call.place_name }</td>
+					<td>${call.place_addr }</td>
+					<td>${call.place_name_start }</td>
+					<td>${call.place_addr_start }</td>
+				</tr>
+			</c:forEach>
+
+		</tbody>
+	</table>
+	
+	
 
 	<footer class="footer fixed-bottom mt-auto py-3"
 		style="background-color: #f5f5f5;">

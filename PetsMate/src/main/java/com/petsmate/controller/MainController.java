@@ -14,8 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.petsmate.dto.CallVO;
 import com.petsmate.dto.GuestVO;
+import com.petsmate.dto.PetList;
 import com.petsmate.dto.PetVO;
+import com.petsmate.service.CallService;
 import com.petsmate.service.GuestService;
 import com.petsmate.service.PetService;
 
@@ -28,6 +31,8 @@ public class MainController {
 	private GuestService guestService;
 	@Inject
 	private PetService petService;
+	@Inject
+	private CallService callService;
 
 	@RequestMapping("/test")
 	public void doA() {
@@ -49,7 +54,7 @@ public class MainController {
 		logger.info("로그인 폼 페이지");
 	}
 	@RequestMapping("/mypage")
-	public void doMypage() {
+	public void doMypage(HttpServletRequest req) throws Exception{
 		logger.info("마이페이지");
 	}
 	
@@ -60,15 +65,18 @@ public class MainController {
 		HttpSession session = req.getSession();
 		GuestVO loginGuest = guestService.login(vo);
 		List<PetVO> loginPet = petService.login(vo);
+		List<CallVO> loginCall = callService.login(vo);
 		
 		
 		if(loginGuest == null) {
 			session.setAttribute("guest", null);
 			session.setAttribute("petList", null);
+			session.setAttribute("callList", null);
 		}
 		else {
 			session.setAttribute("guest", loginGuest);
 			session.setAttribute("petList", loginPet);
+			session.setAttribute("callList", loginCall);
 		}
 		
 		return "redirect:/";
@@ -79,7 +87,7 @@ public class MainController {
 		logger.info("회원가입 폼 페이지");
 	}
 	
-	@RequestMapping(value = "/login/signup/signup", method = RequestMethod.POST)
+	@RequestMapping(value = "/login/signup/action", method = RequestMethod.POST)
 	public String signup(GuestVO vo, HttpServletRequest req, Model model) throws Exception {
 		logger.info("회원가입 버튼 클릭");
 		HttpSession session = req.getSession();
@@ -121,8 +129,46 @@ public class MainController {
 		guestService.signup(vo);
 		
 		model.addAttribute("msg", "회원가입 성공 !"); 
-		model.addAttribute("url", "/login");
+		model.addAttribute("url", "/login/signupPet");
+		session.setAttribute("guest", vo);
+		
+		
 				
+		return "alert";
+	}
+	@RequestMapping("/login/signupPet")
+	public void doSignupPet(GuestVO vo, Model model) {
+		logger.info("회원가입 (PET) 폼 페이지"); 
+	}
+	
+	@RequestMapping(value = "/login/signupPet/action", method = RequestMethod.POST)
+	public String doSignupPetAction(PetList petList, Model model, HttpServletRequest req) throws Exception{
+		logger.info("회원가입 (PET) Action");
+		
+		for(PetVO vo : petList.getPetList()) {
+			if(vo.getId() == null || vo.getId().equals("") ||
+					vo.getName() == null || vo.getName().equals("") ||
+					vo.getWeight() <= 0) {
+				model.addAttribute("msg", "이름, 무게는 값이 비어있으면 안됩니다."); 
+				model.addAttribute("url", "/login/signupPet");
+				
+				return "alert";
+			}
+		}
+		
+		for(PetVO vo : petList.getPetList())
+			petService.signup(vo);
+		
+		model.addAttribute("msg", "펫 추가 성공 !"); 
+		model.addAttribute("url", "/");
+		
+		HttpSession session = req.getSession();
+		GuestVO vo = (GuestVO) session.getAttribute("guest");
+		if(vo != null) {
+			List<PetVO> loginPet = petService.login(vo);
+			session.setAttribute("petList", loginPet);
+		}
+		
 		return "alert";
 	}
 	

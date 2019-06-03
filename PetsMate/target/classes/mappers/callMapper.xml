@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.petsmate.mapper.callMapper">
+
+	<!-- 
+		mybatis-config.xml의 typeAlias에 등록해두지 않았다면 
+		
+		<select id="selectMember" resultType="com.example.dto.MemberVO" >
+			SELECT ID, PW ,NAME FROM TEST
+		</select>
+		
+		이렇게 해야 한다.
+	-->
+	
+	<select id="login" resultType="callVO">
+		SELECT * FROM `CALL` WHERE GUEST_ID=#{id}
+	</select>
+	
+	<select id="insert">
+		INSERT INTO `CALL`(GUEST_ID, DRIVER_ID, IS_CALL, CODE, START_LATITUDE, START_LONGITUDE, DESTINATION_LATITUDE, DESTINATION_LONGITUDE, START_TIME, DESTINATION_TIME, GUEST_COUNT, GENERATE_TIME, IS_SHUTTLE, SHUTTLE_CODE, PS, PLACE_NAME, PLACE_ADDR, PLACE_NAME_START, PLACE_ADDR_START) VALUES(#{guest_id}, #{driver_id}, #{is_call}, #{code}, #{start_latitude}, #{start_longitude}, #{destination_latitude}, #{destination_longitude}, #{start_time}, #{destination_time}, #{guest_count}, #{generate_time}, #{is_shuttle}, #{shuttle_code}, #{ps}, #{place_name}, #{place_addr}, #{place_name_start}, #{place_addr_start})
+	</select>
+	
+	
+</mapper>

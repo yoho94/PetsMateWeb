@@ -1,8 +1,11 @@
 package com.petsmate.dto;
 
+import java.util.List;
+
 public class PetVO {
 	private String id, name, ps;
 	private int pet_code, weight;
+
 	public String getId() {
 		return id;
 	}
