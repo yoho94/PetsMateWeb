@@ -181,5 +181,11 @@ public class MainController {
 		
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/call")
+	public void doCall() {
+		logger.info("콜 페이지");
+	}
+	
 
 }
