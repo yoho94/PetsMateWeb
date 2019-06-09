@@ -50,7 +50,7 @@
 			<article class="card-body mx-auto" style="max-width: 450px;">
 				<h4 class="card-title mt-3 text-center">회원가입</h4>
 				<hr>
-				<form method="post" action="/login/signup/signup">
+				<form method="post" action="/login/signup/action">
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
