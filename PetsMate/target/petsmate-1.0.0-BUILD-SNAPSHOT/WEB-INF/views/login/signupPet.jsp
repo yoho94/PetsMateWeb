@@ -83,7 +83,7 @@
 	<!-- 	</form> -->
 
 	<div class="container">
-		<div class="card bg-light">
+		<div class="card bg-light mx-auto">
 			<article class="card-body mx-auto" style="min-width: 650px;">
 				<h4 class="card-title mt-3 text-center">회원가입 (PET)</h4>
 				<hr>

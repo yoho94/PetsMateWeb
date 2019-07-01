@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="signup">
-		INSERT INTO `GUEST` VALUES(#{id}, #{password}, #{name}, #{phone})
+		INSERT INTO `GUEST`(ID, PASSWORD, NAME, PHONE) VALUES(#{id}, #{password}, #{name}, #{phone})
 	</select>
 	
 	<select id="findId" resultType="guestVO">

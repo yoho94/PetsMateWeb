@@ -46,7 +46,7 @@
 </head>
 <body>
 	<div class="container" style="padding: 100px 15px 0;">
-		<div class="card bg-light">
+		<div class="card bg-light mx-auto col-sm-7">
 			<article class="card-body mx-auto" style="max-width: 450px;">
 				<h4 class="card-title mt-3 text-center">회원가입</h4>
 				<hr>

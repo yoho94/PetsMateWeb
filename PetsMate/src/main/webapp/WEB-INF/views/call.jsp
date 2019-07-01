@@ -38,6 +38,42 @@
 		div.innerHTML += str;
 	}
 
+	function enterStart() {
+		if (window.event.keyCode == 13) {
+			searchStartPopup();
+			return false;
+		} else {
+			return;
+		}
+	}
+
+	function enterDes() {
+		if (window.event.keyCode == 13) {
+			searchDesPopup();
+			return false;
+		} else {
+			return;
+		}
+	}
+	
+	function searchStartPopup() {
+		var value = document.getElementById("place_name_start").value;
+		var url = "/call/map?value=" + value + "&isStart=true";
+		var name = "지도 검색";
+		var option = "width = 650, height = 450, top = 100, left = 200, location = no";
+		window.open(url, name, option);
+
+		// mapWin.document.getElementById("keyword").value = document.getElementById("place_name_start").value;
+	}
+
+	function searchDesPopup() {
+		var value = document.getElementById("place_name").value;
+		var url = "/call/map?value=" + value + "&isStart=false";
+		var name = "지도 검색";
+		var option = "width = 650, height = 450, top = 100, left = 200, location = no";
+		window.open(url, name, option);
+
+	}
 </script>
 </head>
 <body>
@@ -82,21 +118,27 @@
 	</header>
 
 	<div class="container" style="padding: 100px 15px 0;">
-		<div class="card bg-light">
+		<div class="card bg-light mx-auto col-sm-7">
 			<article class="card-body mx-auto" style="max-width: 450px;">
 				<h4 class="card-title mt-3 text-center">즉시호출</h4>
 				<hr>
 				<form method="post" action="/call/action">
+				<input type="hidden" name="start_latitude" id="start_latitude">
+				<input type="hidden" name="start_longitude" id="start_longitude">
+				<input type="hidden" name="destination_latitude" id="destination_latitude">
+				<input type="hidden" name="destination_longitude" id="destination_longitude">
+				<input type="hidden" name="place_addr" id="place_addr">
+				<input type="hidden" name="place_addr_start" id="place_addr_start">
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i
 								class="fa fa-map-marker-alt"></i>
 							</span>
 						</div>
-						<input name="searchStart" class="form-control"
+						<input name="place_name_start" class="form-control" id="place_name_start" onkeydown="return enterStart();"
 							placeholder="출발지 검색" type="text">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button">
+							<button class="btn btn-outline-secondary" type="button" onclick="searchStartPopup()">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
@@ -107,10 +149,10 @@
 								class="fa fa-map-marker-alt"></i>
 							</span>
 						</div>
-						<input name="searchDes" class="form-control"
+						<input name="place_name" class="form-control" id="place_name" onkeydown="return enterDes();"
 							placeholder="도착지 검색" type="text">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button">
+							<button class="btn btn-outline-secondary" type="button" onclick="searchDesPopup()">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
@@ -124,6 +166,28 @@
 					</div>
 					<div id='petDiv'>
 					</div>
+
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-user-plus"></i></span>
+						</div>
+						<select class="custom-select" name="guest_count" id="guest_count">
+						<option value=1 selected>보호자 탑승 인원</option>
+						<option value=0>0명</option>
+						<option value=1>1명</option>
+						<option value=2>2명</option>
+						<option value=3>3명</option>
+						<option value=4>4명</option>
+						</select>
+					</div>
+
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-clipboard"></i></span>
+						</div>
+						<textarea class="form-control" placeholder="특이사항 / 요청사항" name="ps" id="ps"></textarea>
+					</div>
+					
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-block">

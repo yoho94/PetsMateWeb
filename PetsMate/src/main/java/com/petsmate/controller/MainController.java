@@ -1,5 +1,6 @@
 package com.petsmate.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -183,8 +184,61 @@ public class MainController {
 	}
 	
 	@RequestMapping("/call")
-	public void doCall() {
+	public String doCall(HttpServletRequest req, Model model) {
 		logger.info("콜 페이지");
+		HttpSession session = req.getSession();
+		GuestVO vo = (GuestVO) session.getAttribute("guest");
+		
+		if(vo == null) {
+			model.addAttribute("msg", "로그인 하셔야 이용가능합니다."); 
+			model.addAttribute("url", "/login");
+			
+			return "alert";
+		}
+		
+		
+		return "/call";
+	}
+	
+	@RequestMapping("/call/map")
+	public String doCallMap() {
+		logger.info("callMap 페이지");
+		return "/call/call_map";
+	}
+	
+	@RequestMapping(value = "/call/action", method = RequestMethod.POST)
+	public String doCallAction(Model model, CallVO vo, PetList petList, HttpServletRequest req) throws Exception {
+		
+		HttpSession session = req.getSession();
+		GuestVO guestVo = (GuestVO) session.getAttribute("guest");
+		
+		if(guestVo == null) {
+			model.addAttribute("msg", "로그인 하셔야 이용가능합니다."); 
+			model.addAttribute("url", "/login");
+			
+			return "alert";
+		}
+		
+		String start = vo.getStart_latitude();
+		String des = vo.getDestination_latitude();
+		
+		if(start == null || start.isEmpty() || des == null || des.isEmpty()) {
+			model.addAttribute("msg", "출발지, 도착지 모두 선택해주세요."); 
+			model.addAttribute("url", "/call");
+			
+			return "alert";
+		}
+		
+		vo.setGuest_id(guestVo.getId());
+		vo.setStart_time(new Timestamp(System.currentTimeMillis()));
+		vo.setCode(0);
+		
+		callService.insert(vo);
+		
+		model.addAttribute("msg", "콜 요청 성공 !"); 
+		model.addAttribute("url", "/");
+		
+		return "alert";
 	}
 	
 

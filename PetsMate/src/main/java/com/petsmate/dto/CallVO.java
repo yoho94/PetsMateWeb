@@ -3,32 +3,33 @@ package com.petsmate.dto;
 import java.sql.Timestamp;
 
 public class CallVO {
-	private int serial_number, code, guest_count, shuttle_code;
+	private Integer serial_number, code, guest_count, shuttle_code;
 	private String guest_id, driver_id, start_latitude, start_longitude, destination_latitude, destination_longitude, place_name, place_addr, place_name_start, place_addr_start, ps;
 	private Timestamp start_time, destination_time, generate_time;
 	private boolean is_call, is_shuttle;
-	public int getSerial_number() {
+	
+	public Integer getSerial_number() {
 		return serial_number;
 	}
-	public void setSerial_number(int serial_number) {
+	public void setSerial_number(Integer serial_number) {
 		this.serial_number = serial_number;
 	}
-	public int getCode() {
+	public Integer getCode() {
 		return code;
 	}
-	public void setCode(int code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
-	public int getGuest_count() {
+	public Integer getGuest_count() {
 		return guest_count;
 	}
-	public void setGuest_count(int guest_count) {
+	public void setGuest_count(Integer guest_count) {
 		this.guest_count = guest_count;
 	}
-	public int getShuttle_code() {
+	public Integer getShuttle_code() {
 		return shuttle_code;
 	}
-	public void setShuttle_code(int shuttle_code) {
+	public void setShuttle_code(Integer shuttle_code) {
 		this.shuttle_code = shuttle_code;
 	}
 	public String getGuest_id() {
@@ -127,7 +128,6 @@ public class CallVO {
 	public void setIs_shuttle(boolean is_shuttle) {
 		this.is_shuttle = is_shuttle;
 	}
-
 	
 	
 
