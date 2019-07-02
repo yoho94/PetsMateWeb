@@ -26,5 +26,16 @@ public class PetDAOImpl implements PetDAO{
 	public void signup(PetVO vo) throws Exception {
 		sqlSession.insert(Namespace+".signup", vo);
 	}
+	
+	@Override
+	public void update(PetVO vo) throws Exception {
+		sqlSession.update(Namespace+".update", vo);		
+	}
+	
+	@Override
+	public void delete(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete(Namespace+".delete", vo);
+	}
 
 }

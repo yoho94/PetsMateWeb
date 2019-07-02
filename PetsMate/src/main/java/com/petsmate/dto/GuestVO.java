@@ -1,7 +1,17 @@
 package com.petsmate.dto;
 
 public class GuestVO {
-	private String id, password, name, phone;
+	private String id, password, name, phone, token;
+	
+	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public String getId() {
 		return id;

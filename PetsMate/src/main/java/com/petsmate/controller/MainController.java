@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.petsmate.dto.CallVO;
+import com.petsmate.dto.DriverVO;
 import com.petsmate.dto.GuestVO;
 import com.petsmate.dto.PetList;
 import com.petsmate.dto.PetVO;
 import com.petsmate.service.CallService;
+import com.petsmate.service.DriverService;
 import com.petsmate.service.GuestService;
 import com.petsmate.service.PetService;
 
@@ -34,6 +36,8 @@ public class MainController {
 	private PetService petService;
 	@Inject
 	private CallService callService;
+	@Inject
+	private DriverService driverService;
 
 	@RequestMapping("/test")
 	public void doA() {
@@ -57,6 +61,52 @@ public class MainController {
 	@RequestMapping("/mypage")
 	public void doMypage(HttpServletRequest req) throws Exception{
 		logger.info("마이페이지");
+		
+		HttpSession session = req.getSession();
+		GuestVO vo = (GuestVO)session.getAttribute("guest");		
+		List<DriverVO> driverList = driverService.selectDriver();
+		List<CallVO> loginCall = callService.login(vo);
+		
+		session.setAttribute("driverList", driverList);
+		session.setAttribute("callList", loginCall);
+	}
+	
+	@RequestMapping(value = "/mypage/action", method = RequestMethod.POST)
+	public String doMypagePetAction(PetList petList, Model model, HttpServletRequest req) throws Exception{
+		logger.info("회원가입 (PET) Action");
+		
+		for(PetVO vo : petList.getPetList()) {
+			if(vo.getId() == null || vo.getId().equals("") ||
+					vo.getName() == null || vo.getName().equals("") ||
+					vo.getWeight() <= 0) {
+				model.addAttribute("msg", "이름, 무게는 값이 비어있으면 안됩니다."); 
+				model.addAttribute("url", "/mypage");
+				
+				return "alert";
+			}
+		}
+		
+		HttpSession session = req.getSession();
+		GuestVO guestVO = (GuestVO) session.getAttribute("guest");
+		
+		petService.delete(guestVO);
+		
+		for(PetVO vo : petList.getPetList()) {
+				petService.signup(vo);
+			
+		}
+		
+		model.addAttribute("msg", "펫 수정 성공 !"); 
+		model.addAttribute("url", "/mypage");
+		
+		
+		
+		if(guestVO != null) {
+			List<PetVO> loginPet = petService.login(guestVO);
+			session.setAttribute("petList", loginPet);
+		}
+		
+		return "alert";
 	}
 	
 	@RequestMapping(value = "/login/login", method = RequestMethod.POST)

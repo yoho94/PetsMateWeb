@@ -4,8 +4,8 @@ import java.util.List;
 
 public class PetVO {
 	private String id, name, ps;
-	private int pet_code, weight;
-
+	private Integer pet_code, weight;
+	
 	public String getId() {
 		return id;
 	}
@@ -24,23 +24,19 @@ public class PetVO {
 	public void setPs(String ps) {
 		this.ps = ps;
 	}
-	public int getPet_code() {
+	public Integer getPet_code() {
 		return pet_code;
 	}
-	public void setPet_code(int pet_code) {
+	public void setPet_code(Integer pet_code) {
 		this.pet_code = pet_code;
 	}
-	public int getWeight() {
+	public Integer getWeight() {
 		return weight;
 	}
-	public void setWeight(int weight) {
+	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
-	@Override
-	public String toString() {
-		return "PetVO [id=" + id + ", name=" + name + ", ps=" + ps + ", pet_code=" + pet_code + ", weight=" + weight
-				+ "]";
-	}
+	
 	
 	
 

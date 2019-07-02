@@ -26,4 +26,16 @@ public class PetServiceImpl implements PetService{
 		// TODO Auto-generated method stub
 		dao.signup(vo);
 	}
+	
+	@Override
+	public void update(PetVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.update(vo);
+	}
+	
+	@Override
+	public void delete(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.delete(vo);
+	}
 }
