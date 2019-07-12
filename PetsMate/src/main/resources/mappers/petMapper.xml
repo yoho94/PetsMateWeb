@@ -31,5 +31,9 @@
 		DELETE FROM `PET` WHERE ID=#{id}
 	</select>
 	
+	<select id="deleteOne">
+		DELETE FROM `PET` WHERE PET_CODE=#{pet_code}
+	</select>
+	
 	
 </mapper>

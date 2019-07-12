@@ -37,5 +37,11 @@ public class PetDAOImpl implements PetDAO{
 		// TODO Auto-generated method stub
 		sqlSession.delete(Namespace+".delete", vo);
 	}
+	
+	@Override
+	public void deleteOne(PetVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete(Namespace+".deleteOne", vo);
+	}
 
 }

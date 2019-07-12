@@ -72,8 +72,18 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/mypage/action", method = RequestMethod.POST)
-	public String doMypagePetAction(PetList petList, Model model, HttpServletRequest req) throws Exception{
-		logger.info("회원가입 (PET) Action");
+	public String doMypagePetAction(PetList petList, Model model, HttpServletRequest req) throws Exception{ // TODO 신규 추가가 아니면 PET_CODE 변경 없이 데이터 변경하기.
+		logger.info("마이페이지 (PET) Action");
+		
+		HttpSession session = req.getSession();
+		GuestVO guestVO = (GuestVO) session.getAttribute("guest");
+		
+		if(guestVO == null) {
+			model.addAttribute("msg", "로그인을 하셔야 이용할 수 있습니다."); 
+			model.addAttribute("url", "/login");
+			
+			return "alert";
+		}
 		
 		for(PetVO vo : petList.getPetList()) {
 			if(vo.getId() == null || vo.getId().equals("") ||
@@ -86,51 +96,63 @@ public class MainController {
 			}
 		}
 		
-		HttpSession session = req.getSession();
-		GuestVO guestVO = (GuestVO) session.getAttribute("guest");
 		
-		petService.delete(guestVO);
 		
-		for(PetVO vo : petList.getPetList()) {
-				petService.signup(vo);
-			
-		}
+		List<PetVO> newListPet = petList.getPetList();
+		List<PetVO> oldListPet = petService.login(guestVO);
+		
+		int del = newListPet.size() - oldListPet.size();
+		
+//		petService.delete(guestVO);
+//		
+//		for(PetVO vo : petList.getPetList()) {
+//				petService.signup(vo);
+//			
+//		}
 		
 		model.addAttribute("msg", "펫 수정 성공 !"); 
 		model.addAttribute("url", "/mypage");
 		
 		
-		
-		if(guestVO != null) {
-			List<PetVO> loginPet = petService.login(guestVO);
-			session.setAttribute("petList", loginPet);
-		}
+		List<PetVO> loginPet = petService.login(guestVO);
+		session.setAttribute("petList", loginPet);
 		
 		return "alert";
 	}
 	
 	@RequestMapping(value = "/login/login", method = RequestMethod.POST)
-	public String login(GuestVO vo, HttpServletRequest req, Model model) throws Exception { // TODO 로그인 안내 메시지 넣기
+	public String login(GuestVO vo, HttpServletRequest req, Model model) throws Exception {
 		logger.info("로그인 버튼 클릭");
 		
 		HttpSession session = req.getSession();
 		GuestVO loginGuest = guestService.login(vo);
-		List<PetVO> loginPet = petService.login(vo);
-		List<CallVO> loginCall = callService.login(vo);
+		
+		
 		
 		
 		if(loginGuest == null) {
 			session.setAttribute("guest", null);
 			session.setAttribute("petList", null);
 			session.setAttribute("callList", null);
+			
+			model.addAttribute("msg", "아이디 혹은 비밀번호가 틀렸습니다."); 
+			model.addAttribute("url", "/login");
+			
+			return "alert";
 		}
 		else {
+			List<PetVO> loginPet = petService.login(vo);
+			List<CallVO> loginCall = callService.login(vo);
+			
 			session.setAttribute("guest", loginGuest);
 			session.setAttribute("petList", loginPet);
 			session.setAttribute("callList", loginCall);
+			
+			model.addAttribute("msg", "로그인 성공 !"); 
+			model.addAttribute("url", "/");
+			
+			return "alert";
 		}
-		
-		return "redirect:/";
 	}
 	
 	@RequestMapping("/login/signup")

@@ -23,5 +23,13 @@
 		INSERT INTO `PET`(ID, NAME, WEIGHT, PS) VALUES(#{id}, #{name}, #{weight}, #{ps})
 	</select>
 	
+	<select id="update">
+		UPDATE `PET` SET NAME=#{name}, WEIGHT=#{weight}, PS=#{ps} WHERE PET_CODE=#{pet_code}
+	</select>
+	
+	<select id="delete">
+		DELETE FROM `PET` WHERE ID=#{id}
+	</select>
+	
 	
 </mapper>

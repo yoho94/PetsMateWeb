@@ -10,4 +10,5 @@ public interface PetService {
 	public void signup(PetVO vo) throws Exception;
 	public void update(PetVO vo) throws Exception;
 	public void delete(GuestVO vo) throws Exception;
+	public void deleteOne(PetVO vo) throws Exception;
 }

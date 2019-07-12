@@ -38,4 +38,10 @@ public class PetServiceImpl implements PetService{
 		// TODO Auto-generated method stub
 		dao.delete(vo);
 	}
+	
+	@Override
+	public void deleteOne(PetVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteOne(vo);
+	}
 }

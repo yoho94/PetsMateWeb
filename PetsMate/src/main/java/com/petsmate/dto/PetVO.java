@@ -36,6 +36,11 @@ public class PetVO {
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
+	@Override
+	public String toString() {
+		return "PetVO [id=" + id + ", name=" + name + ", ps=" + ps + ", pet_code=" + pet_code + ", weight=" + weight
+				+ "]";
+	}
 	
 	
 	
