@@ -117,5 +117,9 @@
 	<script defer src="/resources/js/all.js"></script>
 	<script src="/resources/js/jquery-3.4.1.js"></script>
 	<script src="/resources/js/bootstrap.js"></script>
+	
+	<br>
+	<br>
+	<br>
 </body>
 </html>

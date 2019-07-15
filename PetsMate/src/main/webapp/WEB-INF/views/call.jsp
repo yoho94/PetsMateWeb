@@ -27,7 +27,8 @@
 			addDiv();
 		}
 		div2 = document.getElementById("petDiv_"+count);		
-		str2 = "<input name='pet_code' class='form-control' type='checkbox' value='"+code+"'>"+name;
+// 		str2 = "<input name='pet_code' class='form-control' type='checkbox' value='"+code+"'>"+name;
+		str2 = "<div class='col'> <div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' name='pet_code' id='pet_code"+cnt+"' value='"+code+"'> <label class='form-check-label' for='pet_code"+cnt+"'>"+name+"</label> </div> </div>";
 		div2.innerHTML += str2;
 		cnt++;
 	}
@@ -120,7 +121,7 @@
 	<div class="container" style="padding: 100px 15px 0;">
 		<div class="card bg-light mx-auto col-sm-7">
 			<article class="card-body mx-auto" style="max-width: 450px;">
-				<h4 class="card-title mt-3 text-center">즉시호출</h4>
+				<h4 class="card-title mt-3 text-center">즉시호출 / 예약</h4>
 				<hr>
 				<form method="post" action="/call/action">
 				<input type="hidden" name="start_latitude" id="start_latitude">
@@ -161,8 +162,25 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-sync-alt"></i></span>
 						</div>
-						<input name="is_shuttle" class="form-control" type="radio" value="false" checked="checked">편도
-						<input name="is_shuttle" class="form-control" type="radio" value="true">왕복
+
+						<div class="col">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									name="is_shuttle" id="is_shuttle1" value="false" checked="checked">
+								<label class="form-check-label" for="is_shuttle1">편도</label>
+							</div>
+						</div>
+
+						<div class="col">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="is_shuttle"
+									id="is_shuttle2" value="false"> <label
+									class="form-check-label" for="is_shuttle2">왕복</label>
+							</div>
+						</div>
+
+<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="false" checked="checked">편도 -->
+<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="true">왕복 -->
 					</div>
 					<div id='petDiv'>
 					</div>
@@ -189,9 +207,11 @@
 					</div>
 					
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-primary">
 							호출</button>
+						<button type="submit" class="btn btn-danger">
+							예약</button>
 					</div>
 				</form>
 			</article>
@@ -214,5 +234,8 @@
 	petAdd("${pet.pet_code}", "${pet.name}");
 	</c:forEach>
 	</script>
+	<br>
+	<br>
+	<br>
 </body>
 </html>

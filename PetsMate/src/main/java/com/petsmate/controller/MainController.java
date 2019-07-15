@@ -59,20 +59,30 @@ public class MainController {
 		logger.info("로그인 폼 페이지");
 	}
 	@RequestMapping("/mypage")
-	public void doMypage(HttpServletRequest req) throws Exception{
+	public String doMypage(HttpServletRequest req, Model model) throws Exception{
 		logger.info("마이페이지");
 		
 		HttpSession session = req.getSession();
-		GuestVO vo = (GuestVO)session.getAttribute("guest");		
+		GuestVO vo = (GuestVO)session.getAttribute("guest");
+		
+		if(vo == null) {
+			model.addAttribute("msg", "로그인을 해주세요."); 
+			model.addAttribute("url", "/login");
+			
+			return "alert";
+		}
+		
 		List<DriverVO> driverList = driverService.selectDriver();
 		List<CallVO> loginCall = callService.login(vo);
 		
 		session.setAttribute("driverList", driverList);
 		session.setAttribute("callList", loginCall);
+		
+		return "/mypage";
 	}
 	
 	@RequestMapping(value = "/mypage/action", method = RequestMethod.POST)
-	public String doMypagePetAction(PetList petList, Model model, HttpServletRequest req) throws Exception{ // TODO 신규 추가가 아니면 PET_CODE 변경 없이 데이터 변경하기.
+	public String doMypagePetAction(PetList petList, Model model, HttpServletRequest req) throws Exception{
 		logger.info("마이페이지 (PET) Action");
 		
 		HttpSession session = req.getSession();
@@ -101,7 +111,37 @@ public class MainController {
 		List<PetVO> newListPet = petList.getPetList();
 		List<PetVO> oldListPet = petService.login(guestVO);
 		
-		int del = newListPet.size() - oldListPet.size();
+		int del = oldListPet.size() - newListPet.size();
+		
+		if(del > 0) {
+			for(int i=0; i<del; i++) {
+				int delIndex = (oldListPet.size() - i);
+				PetVO vo = oldListPet.get(delIndex-1);
+				petService.deleteOne(vo);
+			}			
+			
+			for(int i=0; i<newListPet.size(); i++) {
+				PetVO vo = newListPet.get(i);
+				vo.setPet_code(oldListPet.get(i).getPet_code());
+				petService.update(vo);
+			}
+
+		} else {
+			for(int i=0; i<Math.abs(del); i++) {
+				int addIndex = newListPet.size() - i;
+				PetVO vo = newListPet.get(addIndex-1);
+				petService.signup(vo);
+			}
+			
+			for(int i=0; i<newListPet.size() - Math.abs(del); i++) {
+				PetVO vo = newListPet.get(i);
+				vo.setPet_code(oldListPet.get(i).getPet_code());
+				petService.update(vo);
+			}
+		}
+		
+
+			
 		
 //		petService.delete(guestVO);
 //		
@@ -304,6 +344,7 @@ public class MainController {
 		vo.setGuest_id(guestVo.getId());
 		vo.setStart_time(new Timestamp(System.currentTimeMillis()));
 		vo.setCode(0);
+		vo.setIs_call(true);
 		
 		callService.insert(vo);
 		
