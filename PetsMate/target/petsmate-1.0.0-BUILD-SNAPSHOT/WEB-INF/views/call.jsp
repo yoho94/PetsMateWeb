@@ -6,6 +6,12 @@
 <title>Pets&Mate</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/css/all.css">
+<script src="/resources/js/jquery-3.4.1.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
+<script src='/resources/moment/moment-with-locales.js'></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
 <!-- <script type="text/javascript" -->
 <!-- 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=krakspsq17&callback=initMap"></script> -->
 <script type="text/javascript">
@@ -17,21 +23,23 @@
 	// 			zoom : 10
 	// 		});
 	// 	}
-// 	"<div class='form-group input-group' id='petDiv'> <div class='input-group-prepend'>	<span class='input-group-text'> <i class='fa fa-dog'></i></span></div><input name='pet_code' class='form-control' type='checkbox' value='"+code+"'>"+name+"</div>"
-	
+	// 	"<div class='form-group input-group' id='petDiv'> <div class='input-group-prepend'>	<span class='input-group-text'> <i class='fa fa-dog'></i></span></div><input name='pet_code' class='form-control' type='checkbox' value='"+code+"'>"+name+"</div>"
+
 	var cnt = 0;
 	var count = 0;
 	function petAdd(code, name) {
-		if(cnt%2 == 0){
+		if (cnt % 2 == 0) {
 			count++;
 			addDiv();
 		}
-		div2 = document.getElementById("petDiv_"+count);		
-		str2 = "<input name='pet_code' class='form-control' type='checkbox' value='"+code+"'>"+name;
+		div2 = document.getElementById("petDiv_" + count);
+		// 		str2 = "<input name='pet_code' class='form-control' type='checkbox' value='"+code+"'>"+name;
+		str2 = "<div class='col'> <div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' name='pet_code' id='pet_code"+cnt+"' value='"+code+"'> <label class='form-check-label' for='pet_code"+cnt+"'>"
+				+ name + "</label> </div> </div>";
 		div2.innerHTML += str2;
 		cnt++;
 	}
-	
+
 	function addDiv() {
 		div = document.getElementById("petDiv");
 		str = "<div class='form-group input-group' id='petDiv_"+count+"'> <div class='input-group-prepend'>	<span class='input-group-text'> <i class='fa fa-dog'></i></span></div></div>";
@@ -55,7 +63,7 @@
 			return;
 		}
 	}
-	
+
 	function searchStartPopup() {
 		var value = document.getElementById("place_name_start").value;
 		var url = "/call/map?value=" + value + "&isStart=true";
@@ -120,25 +128,28 @@
 	<div class="container" style="padding: 100px 15px 0;">
 		<div class="card bg-light mx-auto col-sm-7">
 			<article class="card-body mx-auto" style="max-width: 450px;">
-				<h4 class="card-title mt-3 text-center">즉시호출</h4>
+				<h4 class="card-title mt-3 text-center">즉시호출 / 예약</h4>
 				<hr>
 				<form method="post" action="/call/action">
-				<input type="hidden" name="start_latitude" id="start_latitude">
-				<input type="hidden" name="start_longitude" id="start_longitude">
-				<input type="hidden" name="destination_latitude" id="destination_latitude">
-				<input type="hidden" name="destination_longitude" id="destination_longitude">
-				<input type="hidden" name="place_addr" id="place_addr">
-				<input type="hidden" name="place_addr_start" id="place_addr_start">
+					<input type="hidden" name="start_latitude" id="start_latitude">
+					<input type="hidden" name="start_longitude" id="start_longitude">
+					<input type="hidden" name="destination_latitude"
+						id="destination_latitude"> <input type="hidden"
+						name="destination_longitude" id="destination_longitude"> <input
+						type="hidden" name="place_addr" id="place_addr"> <input
+						type="hidden" name="place_addr_start" id="place_addr_start">
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i
 								class="fa fa-map-marker-alt"></i>
 							</span>
 						</div>
-						<input name="place_name_start" class="form-control" id="place_name_start" onkeydown="return enterStart();"
+						<input name="place_name_start" class="form-control"
+							id="place_name_start" onkeydown="return enterStart();"
 							placeholder="출발지 검색" type="text">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button" onclick="searchStartPopup()">
+							<button class="btn btn-outline-secondary" type="button"
+								onclick="searchStartPopup()">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
@@ -149,10 +160,11 @@
 								class="fa fa-map-marker-alt"></i>
 							</span>
 						</div>
-						<input name="place_name" class="form-control" id="place_name" onkeydown="return enterDes();"
-							placeholder="도착지 검색" type="text">
+						<input name="place_name" class="form-control" id="place_name"
+							onkeydown="return enterDes();" placeholder="도착지 검색" type="text">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button" onclick="searchDesPopup()">
+							<button class="btn btn-outline-secondary" type="button"
+								onclick="searchDesPopup()">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
@@ -161,23 +173,60 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-sync-alt"></i></span>
 						</div>
-						<input name="is_shuttle" class="form-control" type="radio" value="false" checked="checked">편도
-						<input name="is_shuttle" class="form-control" type="radio" value="true">왕복
+
+						<div class="col">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="is_shuttle"
+									id="is_shuttle1" value="false" checked="checked"> <label
+									class="form-check-label" for="is_shuttle1">편도</label>
+							</div>
+						</div>
+
+						<div class="col">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="is_shuttle"
+									id="is_shuttle2" value="false"> <label
+									class="form-check-label" for="is_shuttle2">왕복</label>
+							</div>
+						</div>
+
+						<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="false" checked="checked">편도 -->
+						<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="true">왕복 -->
 					</div>
-					<div id='petDiv'>
-					</div>
+					
+					            <div class="form-group">
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+					
+<!-- 					<div class='form-group'> -->
+<!-- 						<div class='input-group date'> -->
+<!-- 							<div class="input-group-prepend"> -->
+<!-- 								<span class="input-group-text"><i class="fa fa-clock"></i></span> -->
+<!-- 							</div> -->
+<!-- 							<input class='form-control form_datetime' type='text' readonly data-link-field="shuttleTime" placeholder="왕복 날짜 선택"/> -->
+<!-- 						</div> -->
+<!-- 						<input type='hidden' id='shuttleTime'/> -->
+
+<!-- 					</div> -->
+
+					<div id='petDiv'></div>
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-user-plus"></i></span>
 						</div>
 						<select class="custom-select" name="guest_count" id="guest_count">
-						<option value=1 selected>보호자 탑승 인원</option>
-						<option value=0>0명</option>
-						<option value=1>1명</option>
-						<option value=2>2명</option>
-						<option value=3>3명</option>
-						<option value=4>4명</option>
+							<option value=1 selected>보호자 탑승 인원</option>
+							<option value=0>0명</option>
+							<option value=1>1명</option>
+							<option value=2>2명</option>
+							<option value=3>3명</option>
+							<option value=4>4명</option>
 						</select>
 					</div>
 
@@ -185,13 +234,14 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-clipboard"></i></span>
 						</div>
-						<textarea class="form-control" placeholder="특이사항 / 요청사항" name="ps" id="ps"></textarea>
+						<textarea class="form-control" placeholder="특이사항 / 요청사항" name="ps"
+							id="ps"></textarea>
 					</div>
-					
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">
-							호출</button>
+
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-primary">호출</button>
+						<button type="submit" class="btn btn-danger">예약</button>
 					</div>
 				</form>
 			</article>
@@ -206,13 +256,36 @@
 	</footer>
 
 
-	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>
-	
 	<script type="text/javascript">
-	<c:forEach items="${petList}" var="pet">
-	petAdd("${pet.pet_code}", "${pet.name}");
-	</c:forEach>
+		<c:forEach items="${petList}" var="pet">
+		petAdd("${pet.pet_code}", "${pet.name}");
+		</c:forEach>
 	</script>
+	<script type="text/javascript">
+
+	$.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'fa fa-clock',
+            date: 'fa fa-calendar',
+            up: 'fa fa-arrow-up',
+            down: 'fa fa-arrow-down',
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-calendar-check-o',
+            clear: 'fa fa-trash',
+            close: 'fa fa-times'
+        } });
+	
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            locale: 'ko',
+            disabledDates: [
+                ]
+        });
+    });
+	</script>
+	<br>
+	<br>
+	<br>
 </body>
 </html>

@@ -136,7 +136,7 @@
 </head>
 <body style="padding: 100px 15px 0;">
 
-	${guest.id}님 환영합니다.
+<%-- 	${guest.id}님 환영합니다. --%>
 	<br>
 	
 	<div class="container">
@@ -204,175 +204,157 @@
 		}
 	%>
 
-	<!-- 	<form> -->
-	<!-- 	<table class="table table-striped table-bordered" id="petTable"> -->
-	<!-- 		<thead> -->
-	<!-- 			<tr> -->
-	<!-- 				<th scope="col">Name</th> -->
-	<!-- 				<th scope="col">Weight</th> -->
-	<!-- 				<th scope="col">Ps</th> -->
-	<!-- 			</tr> -->
-	<!-- 		</thead> -->
-	<!-- 		<tbody> -->
-	<%-- 			<c:forEach var="pet" items="${petList}"> --%>
-	<%-- 			<input name='petList[0].id' type='hidden' value='${guest.id }'> --%>
-	<%-- 			<input name='petList[0].code' type='hidden' value='${pet.pet_code }'> --%>
-	<!-- 				<tr> -->
-	<%-- 					<td><input type="text" value='${pet.name }'></td> --%>
-	<%-- 					<td><input type="number" value='${pet.weight }'></td> --%>
-	<%-- 					<td><input type="text" value='${pet.ps }'></td> --%>
-	<!-- 				</tr> -->
-	<%-- 			</c:forEach> --%>
+	<hr>
+	<div class="container">
+		<div class="card bg-light mx-auto">
+			<article class="card-body mx-auto" style="min-width: 650px;">
+				<table class="table table-striped table-bordered" id='callTable'>
+					<%
+						List<CallVO> callList = (List<CallVO>) session.getAttribute("callList");
+						CallVO callTable;
 
-	<!-- 		</tbody> -->
-	<!-- 	</table> -->
-	<!-- 	</form> -->
+						List<DriverVO> driverList = (List<DriverVO>) session.getAttribute("driverList");
+						DriverVO driverTable;
 
-	<table class="table table-striped table-bordered" id='callTable'>
-		<%
-			List<CallVO> callList = (List<CallVO>) session.getAttribute("callList");
-			CallVO callTable;
+						String title, str1, str2, str3, str4, str5;
+						String icon;
+						String name = "", phone = "";
 
-			List<DriverVO> driverList = (List<DriverVO>) session.getAttribute("driverList");
-			DriverVO driverTable;
+						String iconRed = "<span class='red_dot'></span>";
+						String iconGreen = "<span class='green_dot'></span>";
+						String iconBlue = "<span class='blue_dot'></span>";
+						String iconYellow = "<span class='yellow_dot'></span>";
 
-			String title, str1, str2, str3, str4, str5;
-			String icon;
-			String name = "", phone = "";
+						out.print("<thead>");
+						out.print("<tr>");
 
-			String iconRed = "<span class='red_dot'></span>";
-			String iconGreen = "<span class='green_dot'></span>";
-			String iconBlue = "<span class='blue_dot'></span>";
-			String iconYellow = "<span class='yellow_dot'></span>";
+						out.print("<th scope='col'>");
+						out.print("상태");
+						out.print("</th>");
+						out.print("<th scope='col'>");
+						out.print("예약시간");
+						out.print("</th>");
+						out.print("<th scope='col'>");
+						out.print("출발시간");
+						out.print("</th>");
+						out.print("<th scope='col'>");
+						out.print("기사님");
+						out.print("</th>");
+						out.print("<th scope='col'>");
+						out.print("출발지");
+						out.print("</th>");
+						out.print("<th scope='col'>");
+						out.print("도착지");
+						out.print("</th>");
 
-			out.print("<thead>");
-			out.print("<tr>");
+						out.print("</tr>");
+						out.print("</thead>");
 
-			out.print("<th scope='col'>");
-			out.print("상태");
-			out.print("</th>");
-			out.print("<th scope='col'>");
-			out.print("예약시간");
-			out.print("</th>");
-			out.print("<th scope='col'>");
-			out.print("출발시간");
-			out.print("</th>");
-			out.print("<th scope='col'>");
-			out.print("기사님");
-			out.print("</th>");
-			out.print("<th scope='col'>");
-			out.print("출발지");
-			out.print("</th>");
-			out.print("<th scope='col'>");
-			out.print("도착지");
-			out.print("</th>");
+						out.print("<tbody>");
+						for (int i = 0; i < callList.size(); i++) {
+							callTable = callList.get(i);
 
-			out.print("</tr>");
-			out.print("</thead>");
+							str1 = "";
+							str2 = "";
+							str3 = "";
+							str4 = "";
+							str5 = "";
 
-			out.print("<tbody>");
-			for (int i = 0; i < callList.size(); i++) {
-				callTable = callList.get(i);
+							switch (callTable.getCode()) {
+							case 0:
+								if (callTable.isIs_call())
+									title = " 콜 대기";
+								else
+									title = " 예약 대기";
+								icon = iconYellow;
+								break;
+							case 1:
+								title = " 수락";
+								icon = iconGreen;
+								break;
+							case 2:
+								title = " 거절";
+								icon = iconRed;
+								break;
+							case 10:
+							case 12:
+								title = " 운행 중";
+								icon = iconGreen;
+								break;
+							case 11:
+								title = " 미 탑승";
+								icon = iconRed;
+								break;
+							case 13:
+								title = " 도착";
+								icon = iconBlue;
+								break;
+							default:
+								title = " 에러";
+								icon = iconRed;
+								break;
+							}
 
-				str1 = "";
-				str2 = "";
-				str3 = "";
-				str4 = "";
-				str5 = "";
+							icon += title;
+							str1 += callTable.getGenerate_time();
+							str2 += callTable.getStart_time();
 
-				switch (callTable.getCode()) {
-				case 0:
-					if (callTable.isIs_call())
-						title = " 콜 대기";
-					else
-						title = " 예약 대기";
-					icon = iconYellow;
-					break;
-				case 1:
-					title = " 수락";
-					icon = iconGreen;
-					break;
-				case 2:
-					title = " 거절";
-					icon = iconRed;
-					break;
-				case 10:
-				case 12:
-					title = " 운행 중";
-					icon = iconGreen;
-					break;
-				case 11:
-					title = " 미 탑승";
-					icon = iconRed;
-					break;
-				case 13:
-					title = " 도착";
-					icon = iconBlue;
-					break;
-				default:
-					title = " 에러";
-					icon = iconRed;
-					break;
-				}
+							if (callTable.getDriver_id() == null || callTable.getDriver_id().isEmpty()) {
+							}
 
-				icon += title;
-				str1 += callTable.getGenerate_time();
-				str2 += callTable.getStart_time();
+							else {
+								for (int j = 0; j < driverList.size(); j++) {
+									if (callTable.getDriver_id().equalsIgnoreCase(driverList.get(j).getId())) {
+										name = driverList.get(j).getName();
+										phone = driverList.get(j).getPhone();
+										phone = phone.substring(0, 3) + "-" + phone.substring(3, 7) + "-"
+												+ phone.substring(7, phone.length());
 
-				if (callTable.getDriver_id() == null || callTable.getDriver_id().isEmpty()) {
-				}
+									}
+								}
+							}
 
-				else {
-					for (int j = 0; j < driverList.size(); j++) {
-						if (callTable.getDriver_id().equalsIgnoreCase(driverList.get(j).getId())) {
-							name = driverList.get(j).getName();
-							phone = driverList.get(j).getPhone();
-							phone = phone.substring(0, 3) + "-" + phone.substring(3, 7) + "-"
-									+ phone.substring(7, phone.length());
+							str3 += name + " / " + phone;
+							if (name.isEmpty() && phone.isEmpty())
+								str3 = "없음";
 
+							str4 += callTable.getPlace_name_start();
+							str5 += callTable.getPlace_name();
+
+							out.print("<tr>");
+
+							out.print("<td>");
+							out.print(icon);
+							out.print("</td>");
+
+							out.print("<td>");
+							out.print(str1);
+							out.print("</td>");
+
+							out.print("<td>");
+							out.print(str2);
+							out.print("</td>");
+
+							out.print("<td>");
+							out.print(str3);
+							out.print("</td>");
+
+							out.print("<td>");
+							out.print(str4);
+							out.print("</td>");
+
+							out.print("<td>");
+							out.print(str5);
+							out.print("</td>");
+
+							out.print("</tr>");
 						}
-					}
-				}
-				
-				str3 += name + " / " + phone;
-				if(name.isEmpty() && phone.isEmpty())
-					str3 = "없음";
-				
-				str4 += callTable.getPlace_name_start();
-				str5 += callTable.getPlace_name();
-
-				out.print("<tr>");
-
-				out.print("<td>");
-				out.print(icon);
-				out.print("</td>");
-
-				out.print("<td>");
-				out.print(str1);
-				out.print("</td>");
-
-				out.print("<td>");
-				out.print(str2);
-				out.print("</td>");
-
-				out.print("<td>");
-				out.print(str3);
-				out.print("</td>");
-
-				out.print("<td>");
-				out.print(str4);
-				out.print("</td>");
-
-				out.print("<td>");
-				out.print(str5);
-				out.print("</td>");
-
-				out.print("</tr>");
-			}
-			out.print("</tbody>");
-		%>
-	</table>
-
+						out.print("</tbody>");
+					%>
+				</table>
+			</article>
+		</div>
+	</div>
 
 	<footer class="footer fixed-bottom mt-auto py-3"
 		style="background-color: #f5f5f5;">
@@ -381,5 +363,8 @@
 		</div>
 	</footer>
 
+<br>
+<br>
+<br>
 </body>
 </html>
