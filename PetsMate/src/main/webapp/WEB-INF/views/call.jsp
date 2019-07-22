@@ -297,6 +297,7 @@
 	<script type="text/javascript">
 
 	$.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+	
         icons: {
             time: 'fa fa-clock',
             date: 'fa fa-calendar',
@@ -311,9 +312,7 @@
 	
     $(function () {
         $('#datetimepicker1').datetimepicker({
-            locale: 'ko',
-            disabledDates: [
-                ]
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0)
         });
     });
 	</script>
