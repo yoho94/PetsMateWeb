@@ -169,6 +169,29 @@
 							</button>
 						</div>
 					</div>
+
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-calendar-minus"></i></span>
+						</div>
+
+						<div class="col">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="is_call"
+									id="is_shuttle1" value="false" checked="checked"> <label
+									class="form-check-label" for="is_shuttle1"> 콜 </label>
+							</div>
+						</div>
+
+						<div class="col">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="is_call"
+									id="is_shuttle2" value="false"> <label
+									class="form-check-label" for="is_shuttle2">예약</label>
+							</div>
+						</div>
+					</div>
+
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-sync-alt"></i></span>
@@ -193,17 +216,27 @@
 						<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="false" checked="checked">편도 -->
 						<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="true">왕복 -->
 					</div>
-					
-					            <div class="form-group">
-                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div>
-            </div>
-					
-<!-- 					<div class='form-group'> -->
+
+					<div class="form-group input-group">
+						<div class="input-group-prepend" data-target="#datetimepicker1"
+							data-toggle="datetimepicker">
+							<div class="input-group-text">
+								<i class="fa fa-clock"></i>
+							</div>
+						</div>
+						<div class="date" data-target-input="#datetimepicker1">
+							<input type="text" class="form-control datetimepicker-input" id="datetimepicker1"
+								data-target="#datetimepicker1" name='shuttle_time' data-format="yyyy-MM-dd hh:mm"/>
+						</div>
+						<div class="input-group-append" data-target="#datetimepicker1"
+							data-toggle="datetimepicker">
+							<button class="btn btn-outline-secondary" type="button">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+
+					<!-- 					<div class='form-group'> -->
 <!-- 						<div class='input-group date'> -->
 <!-- 							<div class="input-group-prepend"> -->
 <!-- 								<span class="input-group-text"><i class="fa fa-clock"></i></span> -->

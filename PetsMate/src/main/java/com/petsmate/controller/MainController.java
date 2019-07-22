@@ -320,6 +320,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/call/action", method = RequestMethod.POST)
 	public String doCallAction(Model model, CallVO vo, PetList petList, HttpServletRequest req) throws Exception {
+		logger.info("콜 액션");
 		
 		HttpSession session = req.getSession();
 		GuestVO guestVo = (GuestVO) session.getAttribute("guest");
@@ -330,6 +331,8 @@ public class MainController {
 			
 			return "alert";
 		}
+		
+		logger.info(req.getParameter("shuttle_time")); // TODO ..
 		
 		String start = vo.getStart_latitude();
 		String des = vo.getDestination_latitude();
