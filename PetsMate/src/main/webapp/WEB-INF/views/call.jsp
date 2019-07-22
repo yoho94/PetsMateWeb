@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="/resources/css/all.css">
 <script src="/resources/js/jquery-3.4.1.js"></script>
 <script src="/resources/js/bootstrap.js"></script>
-<script src='/resources/moment/moment-with-locales.js'></script>
+<script src='/resources/moment/moment.js'></script>
+<script src='/resources/moment/ko.js'></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 
@@ -226,7 +227,7 @@
 						</div>
 						<div class="date" data-target-input="#datetimepicker1">
 							<input type="text" class="form-control datetimepicker-input" id="datetimepicker1"
-								data-target="#datetimepicker1" name='shuttle_time' data-format="yyyy-MM-dd hh:mm"/>
+								data-target="#datetimepicker1" name='shuttle_time' readonly/>
 						</div>
 						<div class="input-group-append" data-target="#datetimepicker1"
 							data-toggle="datetimepicker">
@@ -310,9 +311,14 @@
             close: 'fa fa-times'
         } });
 	
+	
     $(function () {
         $('#datetimepicker1').datetimepicker({
-            minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+        	locale: 'ko',
+        	minDate: moment().millisecond(0).second(0),
+        	ignoreReadonly: true
+//         	format: "YYYY-MM-DD HH:MM"
+//             minDate: moment().millisecond(0).second(0).minute(0).hour(0)
         });
     });
 	</script>
