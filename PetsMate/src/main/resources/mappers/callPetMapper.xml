@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.petsmate.mapper.callPetMapper">
+	
+	<select id="select" resultType="callPetVO">
+		SELECT * FROM `CALL_PET` WHERE SERIAL_NUMBER=#{serial_number}
+	</select>
+	
+	<select id="delete">
+		DELETE FROM `CALL_PET` WHERE SERIAL_NUMBER=#{serial_number}
+	</select>
+	
+	<select id="selectPet" resultType="callPetVO">
+		SELECT * FROM `CALL_PET` WHERE PET_CODE=#{pet_code}
+	</select>
+	
+	<select id="deletePet">
+		DELETE FROM `CALL_PET` WHERE PPET_CODE=#{pet_code}
+	</select>	
+	
+	<select id="insert">
+		INSERT INTO `CALL_PET`(SERIAL_NUMBER, ID, PET_CODE) VALUES(#{serial_number}, #{id}, #{pet_code})
+	</select>
+	
+	
+</mapper>

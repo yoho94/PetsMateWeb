@@ -1,6 +1,7 @@
 package com.petsmate.controller;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.petsmate.dao.CallPetDAO;
+import com.petsmate.dto.CallPetVO;
 import com.petsmate.dto.CallVO;
 import com.petsmate.dto.DriverVO;
 import com.petsmate.dto.GuestVO;
@@ -38,6 +41,8 @@ public class MainController {
 	private CallService callService;
 	@Inject
 	private DriverService driverService;
+	@Inject
+	private CallPetDAO callPetDAO;
 
 	@RequestMapping("/test")
 	public void doA() {
@@ -319,7 +324,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/call/action", method = RequestMethod.POST)
-	public String doCallAction(Model model, CallVO vo, PetList petList, HttpServletRequest req) throws Exception {
+	public String doCallAction(Model model, CallVO vo, HttpServletRequest req) throws Exception {
 		logger.info("콜 액션");
 		
 		HttpSession session = req.getSession();
@@ -349,7 +354,25 @@ public class MainController {
 		vo.setCode(0);
 		vo.setIs_call(true);
 		
-		callService.insert(vo);
+		int temp = callService.insert(vo);
+		
+		logger.info("시리얼 넘버 : "+vo.getSerial_number());
+		logger.info("temp : "+temp);
+		
+		String[] arrayPetCode = req.getParameterValues("pet_code");
+		
+		if(arrayPetCode != null) {
+//			logger.info("pet_code = " + Arrays.toString(arrayPetCode));
+			for(int i=0; i<arrayPetCode.length; i++) {
+				CallPetVO callPetVO = new CallPetVO();
+				
+				callPetVO.setSerial_number(vo.getSerial_number());
+				callPetVO.setId(vo.getGuest_id());
+				callPetVO.setPet_code(Integer.parseInt(arrayPetCode[i]));
+				
+				callPetDAO.insert(callPetVO);
+			}
+		}
 		
 		model.addAttribute("msg", "콜 요청 성공 !"); 
 		model.addAttribute("url", "/");

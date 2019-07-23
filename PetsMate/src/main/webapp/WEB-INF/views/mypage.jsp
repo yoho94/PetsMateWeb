@@ -36,7 +36,7 @@
 	var count = 1;
 	function add(ff) {
 		app = document.getElementById("pet_add_div");
-		var str = "<div class='form-group input-group'> <div class='input-group-prepend'> <span class='input-group-text'> <i class='fa fa-dog'></i>		</span></div><input name='petList["+count+"].code' type='hidden' id='code"+ count +"'> <input id='id"+ count +"' name='petList["+count+"].id' type='hidden' value='${guest.id }'> <input name='petList["+count+"].name' id='name"+ count +"' class='form-control' placeholder='이름'		type='text'> <input name='petList["
+		var str = "<div class='form-group input-group'> <div class='input-group-prepend'> <span class='input-group-text'> <i class='fa fa-dog'></i>		</span></div><input name='petList["+count+"].pet_code' type='hidden' id='code"+ count +"'> <input id='id"+ count +"' name='petList["+count+"].id' type='hidden' value='${guest.id }'> <input name='petList["+count+"].name' id='name"+ count +"' class='form-control' placeholder='이름'		type='text'> <input name='petList["
 				+ count
 				+ "].weight' class='form-control'		placeholder='몸무게(kg)' type='number' min='0' max='100' id='weight"+ count +"'> <input		name='petList["
 				+ count
@@ -152,7 +152,7 @@
 									<span class='input-group-text'> <i class='fa fa-dog'></i>
 									</span>
 								</div>
-								<input name='petList[0].code' type='hidden' id='code0'> <input
+								<input name='petList[0].pet_code' type='hidden' id='code0'> <input
 									name='petList[0].id' type='hidden' value='${guest.id }' id='id0'>
 								<input name='petList[0].name' class='form-control'
 									placeholder='이름' type='text' id='name0'> <input
