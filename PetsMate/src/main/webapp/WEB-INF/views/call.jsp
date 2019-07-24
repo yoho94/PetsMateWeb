@@ -173,23 +173,44 @@
 
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fa fa-calendar-minus"></i></span>
+							<span class="input-group-text"><i
+								class="fa fa-calendar-minus"></i></span>
 						</div>
 
 						<div class="col">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="is_call"
-									id="is_shuttle1" value="false" checked="checked"> <label
-									class="form-check-label" for="is_shuttle1"> 콜 </label>
+									id="is_call1" value="true" checked="checked"  data-toggle="collapse" data-target="#call_dropdowns"> <label
+									class="form-check-label" for="is_call1"> 콜 </label>
 							</div>
 						</div>
 
 						<div class="col">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="is_call"
-									id="is_shuttle2" value="false"> <label
-									class="form-check-label" for="is_shuttle2">예약</label>
+									id="is_call2" value="false"  data-toggle="collapse" data-target="#call_dropdowns"> <label
+									class="form-check-label" for="is_call2">예약</label>
 							</div>
+						</div>
+					</div>
+
+					<div class="form-group input-group collapse" id="call_dropdowns">
+						<div class="input-group-prepend" data-target="#datetimepicker2"
+							data-toggle="datetimepicker">
+							<div class="input-group-text">
+								<i class="fa fa-clock"></i>
+							</div>
+						</div>
+						<div class="date" data-target-input="#datetimepicker2">
+							<input type="text" class="form-control datetimepicker-input"
+								id="datetimepicker2" placeholder="예약 날짜, 시간 선택"
+								data-target="#datetimepicker2" name='re_time' readonly />
+						</div>
+						<div class="input-group-append" data-target="#datetimepicker2"
+							data-toggle="datetimepicker">
+							<button class="btn btn-outline-secondary" type="button">
+								<i class="fa fa-search"></i>
+							</button>
 						</div>
 					</div>
 
@@ -201,7 +222,7 @@
 						<div class="col">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="is_shuttle"
-									id="is_shuttle1" value="false" checked="checked"> <label
+									id="is_shuttle1" value="false" checked="checked" data-toggle="collapse" data-target="#shuttle_dropdowns"> <label
 									class="form-check-label" for="is_shuttle1">편도</label>
 							</div>
 						</div>
@@ -209,7 +230,7 @@
 						<div class="col">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" name="is_shuttle"
-									id="is_shuttle2" value="false"> <label
+									id="is_shuttle2" value="true" data-toggle="collapse" data-target="#shuttle_dropdowns"> <label
 									class="form-check-label" for="is_shuttle2">왕복</label>
 							</div>
 						</div>
@@ -218,7 +239,7 @@
 						<!-- 						<input name="is_shuttle" class="form-control" type="radio" value="true">왕복 -->
 					</div>
 
-					<div class="form-group input-group">
+					<div class="form-group input-group collapse" id="shuttle_dropdowns">
 						<div class="input-group-prepend" data-target="#datetimepicker1"
 							data-toggle="datetimepicker">
 							<div class="input-group-text">
@@ -226,7 +247,7 @@
 							</div>
 						</div>
 						<div class="date" data-target-input="#datetimepicker1">
-							<input type="text" class="form-control datetimepicker-input" id="datetimepicker1"
+							<input type="text" class="form-control datetimepicker-input" id="datetimepicker1" placeholder="왕복 날짜, 시간 선택"
 								data-target="#datetimepicker1" name='shuttle_time' readonly/>
 						</div>
 						<div class="input-group-append" data-target="#datetimepicker1"
@@ -298,7 +319,6 @@
 	<script type="text/javascript">
 
 	$.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
-	
         icons: {
             time: 'fa fa-clock',
             date: 'fa fa-calendar',
@@ -314,6 +334,16 @@
 	
     $(function () {
         $('#datetimepicker1').datetimepicker({
+        	locale: 'ko',
+        	minDate: moment().millisecond(0).second(0),
+        	ignoreReadonly: true
+//         	format: "YYYY-MM-DD HH:MM"
+//             minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker2').datetimepicker({
         	locale: 'ko',
         	minDate: moment().millisecond(0).second(0),
         	ignoreReadonly: true

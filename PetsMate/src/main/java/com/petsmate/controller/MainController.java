@@ -350,14 +350,82 @@ public class MainController {
 		}
 		
 		vo.setGuest_id(guestVo.getId());
-		vo.setStart_time(new Timestamp(System.currentTimeMillis()));
+//		vo.setStart_time(new Timestamp(System.currentTimeMillis()));
 		vo.setCode(0);
-		vo.setIs_call(true);
+		logger.info(vo.toString());
 		
-		int temp = callService.insert(vo);
+		if(vo.isIs_call()) {
+			vo.setStart_time(new Timestamp(System.currentTimeMillis()));
+		} else {
+			String startTimeStr = req.getParameter("re_time");
+			if(startTimeStr == null) {
+				model.addAttribute("msg", "예약 시간을 선택해주세요."); 
+				model.addAttribute("url", "/call");
+				
+				return "alert";
+			} else {
+				Timestamp startTime = pickerToTimestamp(startTimeStr);
+//				logger.info("스타트 타임 : "+startTime.toString());
+				vo.setStart_time(startTime);
+			}
+		}
 		
-		logger.info("시리얼 넘버 : "+vo.getSerial_number());
-		logger.info("temp : "+temp);
+		if(vo.isIs_shuttle()) {
+			String shuttleTimeStr = req.getParameter("shuttle_time");
+			if(shuttleTimeStr == null) {
+				model.addAttribute("msg", "왕복 시간을 선택해주세요."); 
+				model.addAttribute("url", "/call");
+				
+				return "alert";
+			}
+			
+			CallVO shuttleVO = new CallVO();
+			shuttleVO.setCode(0);
+			shuttleVO.setStart_time(pickerToTimestamp(shuttleTimeStr));
+			shuttleVO.setDestination_latitude(vo.getStart_latitude());
+			shuttleVO.setDestination_longitude(vo.getStart_longitude());
+			shuttleVO.setGuest_count(vo.getGuest_count());
+			shuttleVO.setGuest_id(vo.getGuest_id());
+			shuttleVO.setIs_shuttle(true);
+			shuttleVO.setIs_call(false);
+			shuttleVO.setPlace_addr(vo.getPlace_addr_start());
+			shuttleVO.setPlace_addr_start(vo.getPlace_addr());
+			shuttleVO.setPlace_name(vo.getPlace_name_start());
+			shuttleVO.setPlace_name_start(vo.getPlace_name());
+			shuttleVO.setPs(vo.getPs());
+			shuttleVO.setStart_latitude(vo.getDestination_latitude());
+			shuttleVO.setStart_longitude(vo.getDestination_longitude());
+			
+			callService.insert(vo);
+			callService.insert(shuttleVO);
+			
+			vo.setShuttle_code(shuttleVO.getSerial_number());
+			shuttleVO.setShuttle_code(vo.getSerial_number());
+			
+			callService.updateShuttle(vo);
+			callService.updateShuttle(shuttleVO);
+			
+			String[] arrayPetCode = req.getParameterValues("pet_code");
+			
+			if(arrayPetCode != null) {
+//				logger.info("pet_code = " + Arrays.toString(arrayPetCode));
+				for(int i=0; i<arrayPetCode.length; i++) {
+					CallPetVO callPetVO = new CallPetVO();
+					
+					callPetVO.setSerial_number(shuttleVO.getSerial_number());
+					callPetVO.setId(vo.getGuest_id());
+					callPetVO.setPet_code(Integer.parseInt(arrayPetCode[i]));
+					
+					callPetDAO.insert(callPetVO);
+				}
+			}
+			
+		} else {
+			int temp = callService.insert(vo);
+			
+	//		logger.info("시리얼 넘버 : "+vo.getSerial_number());
+	//		logger.info("temp : "+temp);
+		}
 		
 		String[] arrayPetCode = req.getParameterValues("pet_code");
 		
@@ -380,5 +448,23 @@ public class MainController {
 		return "alert";
 	}
 	
+	
+	public Timestamp pickerToTimestamp(String str) {
+		Timestamp time = null;
+		
+		int year = Integer.parseInt(str.substring(0, 4)) - 1900;
+		int month = Integer.parseInt(str.substring(5,7)) - 1;
+		int date = Integer.parseInt(str.substring(8, 10));
+		int hour = 0;
+		int minute = Integer.parseInt(str.substring(18,20));
+		
+		if(str.substring(12, 14).equalsIgnoreCase("AM")) {
+			hour = Integer.parseInt(str.substring(15, 17));
+		} else {
+			hour = Integer.parseInt(str.substring(15, 17)) + 12;
+		}
+		
+		return new Timestamp(year, month, date, hour, minute, 0, 0);
+	}
 
 }

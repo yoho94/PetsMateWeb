@@ -128,6 +128,17 @@ public class CallVO {
 	public void setIs_shuttle(boolean is_shuttle) {
 		this.is_shuttle = is_shuttle;
 	}
+	@Override
+	public String toString() {
+		return "CallVO [serial_number=" + serial_number + ", code=" + code + ", guest_count=" + guest_count
+				+ ", shuttle_code=" + shuttle_code + ", guest_id=" + guest_id + ", driver_id=" + driver_id
+				+ ", start_latitude=" + start_latitude + ", start_longitude=" + start_longitude
+				+ ", destination_latitude=" + destination_latitude + ", destination_longitude=" + destination_longitude
+				+ ", place_name=" + place_name + ", place_addr=" + place_addr + ", place_name_start=" + place_name_start
+				+ ", place_addr_start=" + place_addr_start + ", ps=" + ps + ", start_time=" + start_time
+				+ ", destination_time=" + destination_time + ", generate_time=" + generate_time + ", is_call=" + is_call
+				+ ", is_shuttle=" + is_shuttle + "]";
+	}
 	
 	
 

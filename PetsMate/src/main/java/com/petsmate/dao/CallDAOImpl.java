@@ -27,5 +27,11 @@ public class CallDAOImpl  implements CallDAO{
 	public int insert(CallVO vo) throws Exception {		
 		return sqlSession.insert(Namespace+".insert", vo);
 	}
+	
+	@Override
+	public int updateShuttle(CallVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(Namespace+".updateShuttle",vo);
+	}
 
 }

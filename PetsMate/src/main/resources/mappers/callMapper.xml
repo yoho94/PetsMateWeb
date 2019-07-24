@@ -28,6 +28,10 @@
 		</selectKey>
 	</insert>
 	
+	<select id="updateShuttle">
+		UPDATE `CALL` SET SHUTTLE_CODE=#{shuttle_code} WHERE SERIAL_NUMBER=#{serial_number}
+	</select>
+	
 <!-- 	<select id="insert"> -->
 <!-- 		INSERT INTO `CALL`(GUEST_ID, DRIVER_ID, IS_CALL, CODE, START_LATITUDE, START_LONGITUDE, DESTINATION_LATITUDE, DESTINATION_LONGITUDE, START_TIME, DESTINATION_TIME, GUEST_COUNT, GENERATE_TIME, IS_SHUTTLE, SHUTTLE_CODE, PS, PLACE_NAME, PLACE_ADDR, PLACE_NAME_START, PLACE_ADDR_START) VALUES(#{guest_id}, #{driver_id}, #{is_call}, #{code}, #{start_latitude}, #{start_longitude}, #{destination_latitude}, #{destination_longitude}, #{start_time}, #{destination_time}, #{guest_count}, now(), #{is_shuttle}, #{shuttle_code}, #{ps}, #{place_name}, #{place_addr}, #{place_name_start}, #{place_addr_start}) -->
 <!-- 	</select> -->

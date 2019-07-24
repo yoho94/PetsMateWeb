@@ -8,4 +8,5 @@ import com.petsmate.dto.GuestVO;
 public interface CallService {
 	public List<CallVO> login(GuestVO vo) throws Exception;
 	public int insert(CallVO vo) throws Exception;
+	public int updateShuttle(CallVO vo) throws Exception;
 }

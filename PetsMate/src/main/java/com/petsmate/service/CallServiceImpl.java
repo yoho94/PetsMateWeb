@@ -27,5 +27,11 @@ public class CallServiceImpl implements CallService{
 		// TODO Auto-generated method stub
 		return dao.insert(vo);
 	}
+	
+	@Override
+	public int updateShuttle(CallVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.updateShuttle(vo);
+	}
 
 }
