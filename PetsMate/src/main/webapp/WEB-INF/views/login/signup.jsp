@@ -173,5 +173,32 @@ if(loginGuest != null) {
 	response.sendRedirect("/");
 }
 
+String email = (String) session.getAttribute("email");
+String name = (String) session.getAttribute("name");
+
 %>
+<script type="text/javascript">
+function setFacebook() {
+
+	$('#id').val("<%=email %>" + "@facebook.com");
+	$('#id').attr("readonly", true);
+	$('#password1').attr("readonly", true);
+	$('#password2').attr("readonly", true);
+	$('#isNaver').val("true");
+	$('#name').val("<%=name %>");
+
+}
+<%
+if(email != null && name != null) { %>
+	setFacebook();
+<%}%>
+
+<%
+	String uri[] = request.getRequestURI().split("/");
+	if(uri[uri.length-1].equalsIgnoreCase("signup.jsp")) { %>
+		naverLogin.logout();
+	<%}
+%>
+
+</script>
 </html>

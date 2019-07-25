@@ -60,17 +60,23 @@ public class MainController {
 		return "home";
 	}
 	
+	@RequestMapping("/home")
+	public String doHome2() {
+		return "home";
+	}
+	
 	@RequestMapping("/login")
 	public void doLogin() {
 		logger.info("로그인 폼 페이지");
 	}
 	@RequestMapping("/login/naverLogin")
 	public void doNaverLogin() {
-		
+		logger.info("네이버 로그인 페이지");
 	}
 	
 	@RequestMapping("/login/naverLogin/action")
 	public String doNaverAction(HttpServletRequest req, Model model) throws Exception {
+		logger.info("네이버 로그인 액션");
 		String email = req.getParameter("email");
 		HttpSession session = req.getSession();
 		
@@ -92,7 +98,50 @@ public class MainController {
 				
 			} else {
 				model.addAttribute("msg", "네이버 아이디로 회원가입이 필요합니다."); 
-				model.addAttribute("url", "/login/signup");
+				model.addAttribute("url", "/login/signupSNS");
+				
+				return "alert";
+			}
+		}
+		model.addAttribute("msg", "로그인 성공 !"); 
+		model.addAttribute("url", "/");
+		
+		return "alert";
+	}
+	
+	@RequestMapping("/login/facebookLogin")
+	public void doFacebookLogin() {
+		logger.info("페이스북 로그인 페이지");
+	}
+	
+	@RequestMapping("/login/facebookLogin/action")
+	public String doFacebookAction(HttpServletRequest req, Model model) throws Exception {
+		logger.info("페이스북 로그인 액션");
+		String email = req.getParameter("email");
+		String name = req.getParameter("name");
+		HttpSession session = req.getSession();
+		
+		if(email != null && !email.isEmpty()) {
+			GuestVO vo = new GuestVO();
+			GuestVO login = null;
+			vo.setId(email);
+			boolean isSignup = guestService.findId(vo);
+			
+			if(isSignup) {
+				login = guestService.naverLogin(vo);
+				
+				List<PetVO> loginPet = petService.login(vo);
+				List<CallVO> loginCall = callService.login(vo);
+				
+				session.setAttribute("guest", login);
+				session.setAttribute("petList", loginPet);
+				session.setAttribute("callList", loginCall);
+				
+			} else {
+				model.addAttribute("msg", "페이스북 아이디로 회원가입이 필요합니다."); 
+				model.addAttribute("url", "/login/signupSNS");
+				session.setAttribute("email", email);
+				session.setAttribute("name", name);
 				
 				return "alert";
 			}
@@ -241,8 +290,17 @@ public class MainController {
 	}
 	
 	@RequestMapping("/login/signup")
-	public void doSignup(){
+	public void doSignup(HttpServletRequest req){
+		HttpSession session = req.getSession();
+		session.invalidate();
 		logger.info("회원가입 폼 페이지");
+	}
+	
+	@RequestMapping("/login/signupSNS")
+	public String doSignup(){
+		logger.info("SNS 회원가입 폼 페이지");
+		
+		return "login/signup";
 	}
 	
 	@RequestMapping(value = "/login/signup/action", method = RequestMethod.POST)
@@ -363,7 +421,7 @@ public class MainController {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-		return "redirect:/";
+		return "/logout";
 	}
 	
 	@RequestMapping("/call")
