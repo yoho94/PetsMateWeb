@@ -5,6 +5,7 @@
 <head>
 <title>Pets&Mate - 로그인</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
 	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
@@ -88,6 +89,8 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-danger btn-block" >로그인</button>
+            <br>
+            <div id="naverIdLogin" class="text-center"></div>
         </div>
         <div class="clearfix">
             <label class="mr-auto checkbox-inline"><input type="checkbox" id="remember"> 아이디 저장</label>
@@ -97,9 +100,40 @@
         <a href="/login/findID" class="float-left"> 아이디 찾기</a> 
         <a href="/login/findPW" class="float-right">비밀번호 찾기 </a>
         </div>
+        
+            
     </form>
     
+
+    
 </div>
+
+<script type="text/javascript">
+	var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "7nlmp3_oTZszqdkLgv2u",
+			callbackUrl: "http://localhost:8080/login/naverLogin",
+			isPopup: false, /* 팝업을 통한 연동처리 여부 */
+			loginButton: {color: "green", type: 3, height: 53}, /* 로그인 버튼의 타입을 지정 */
+			callbackHandle: false
+		}
+	);
+	
+	/* 설정정보를 초기화하고 연동을 준비 */
+	naverLogin.init();
+
+	naverLogin.getLoginStatus(function (status) {
+		if (status) {
+			var email = naverLogin.user.getEmail();
+			var name = naverLogin.user.getNickName();
+			var profileImage = naverLogin.user.getProfileImage();
+			var birthday = naverLogin.user.getBirthday();			var uniqId = naverLogin.user.getId();
+			var age = naverLogin.user.getAge();
+		} else {
+			console.log("AccessToken이 올바르지 않습니다.");
+		}
+	});
+</script>
 
 	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
 		<div class="container" style="text-align: center;">

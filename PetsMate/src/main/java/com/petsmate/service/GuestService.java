@@ -9,4 +9,5 @@ public interface GuestService {
 	public GuestVO login(GuestVO vo) throws Exception;
 	public void signup(GuestVO vo) throws Exception;
 	public boolean findId(GuestVO vo) throws Exception;
+	public GuestVO naverLogin(GuestVO vo) throws Exception;
 }

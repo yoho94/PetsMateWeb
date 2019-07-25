@@ -41,4 +41,10 @@ public class GuestServiceImpl implements GuestService {
 		else
 			return false;
 	}
+	
+	@Override
+	public GuestVO naverLogin(GuestVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.findId(vo);
+	}
 }

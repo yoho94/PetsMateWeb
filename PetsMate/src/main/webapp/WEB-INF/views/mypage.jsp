@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-<title>Pets&Mate - 로그인</title>
+<title>Pets&Mate - 마이페이지</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css"
@@ -21,17 +21,17 @@
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('#callTable')
-								.DataTable(
-										{
-											"language" : {
-												"url" : "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
-											}
-										});
-					});
+// 	$(document)
+// 			.ready(
+// 					function() {
+// 						$('#callTable')
+// 								.DataTable(
+// 										{
+// 											"language" : {
+// 												"url" : "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+// 											}
+// 										});
+// 					});
 
 	var count = 1;
 	function add(ff) {
@@ -216,7 +216,7 @@
 						List<DriverVO> driverList = (List<DriverVO>) session.getAttribute("driverList");
 						DriverVO driverTable;
 
-						String title, str1, str2, str3, str4, str5;
+						String title, str1, str2, str3, str4, str5, str0;
 						String icon;
 						String name = "", phone = "";
 
@@ -227,6 +227,10 @@
 
 						out.print("<thead>");
 						out.print("<tr>");
+						
+						out.print("<th scope='col'>");
+						out.print("코드");
+						out.print("</th>");
 
 						out.print("<th scope='col'>");
 						out.print("상태");
@@ -267,37 +271,44 @@
 								else
 									title = " 예약 대기";
 								icon = iconYellow;
+								str0 = "0";
 								break;
 							case 1:
 								title = " 수락";
 								icon = iconGreen;
+								str0 = "1";
 								break;
 							case 2:
 								title = " 거절";
 								icon = iconRed;
+								str0 = "2";
 								break;
 							case 10:
 							case 12:
 								title = " 운행 중";
 								icon = iconGreen;
+								str0 = "10";
 								break;
 							case 11:
 								title = " 미 탑승";
 								icon = iconRed;
+								str0 = "11";
 								break;
 							case 13:
 								title = " 도착";
 								icon = iconBlue;
+								str0 = "13";
 								break;
 							default:
 								title = " 에러";
 								icon = iconRed;
+								str0 = "200";
 								break;
 							}
 
 							icon += title;
-							str1 += callTable.getGenerate_time();
-							str2 += callTable.getStart_time();
+							str1 += callTable.myPageGenTime();
+							str2 += callTable.myPageStartTime();
 
 							if (callTable.getDriver_id() == null || callTable.getDriver_id().isEmpty()) {
 							}
@@ -322,6 +333,10 @@
 							str5 += callTable.getPlace_name();
 
 							out.print("<tr>");
+							
+							out.print("<td>");
+							out.print(str0);
+							out.print("</td>");
 
 							out.print("<td>");
 							out.print(icon);
@@ -367,4 +382,23 @@
 <br>
 <br>
 </body>
+<script type="text/javascript">
+var table = $('#callTable').DataTable({
+	"columnDefs":  [
+	    { "width": "0%", "targets": 0 },
+	    { "width": "13%", "targets": 1 },
+	    { "width": "20%", "targets": 2 },
+	    { "width": "20%", "targets": 3 },
+	    { "width": "10%", "targets": 4 }
+	   ],
+	"language" : {
+				"url" : "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+			}});
+
+table
+// 	.column(0).visible(true)
+	.order([0, 'desc'], [3, 'asc'])
+	.column(0).visible(false)
+	.draw();
+</script>
 </html>

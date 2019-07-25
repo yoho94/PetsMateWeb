@@ -1,3 +1,4 @@
+<%@page import="com.petsmate.dto.GuestVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -6,6 +7,7 @@
 <title>Pets&Mate - 회원가입</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/css/all.css">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
 	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
@@ -56,7 +58,7 @@
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<input name="id" class="form-control" placeholder="아이디"
+						<input name="id" class="form-control" placeholder="아이디" id='id'
 							type="text">
 					</div>
 					<div class="form-group input-group">
@@ -64,7 +66,7 @@
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input name="password1" class="form-control" placeholder="비밀번호"
+						<input name="password1" class="form-control" placeholder="비밀번호" id='password1'
 							type="password">
 					</div>
 					<!-- form-group// -->
@@ -73,7 +75,7 @@
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input name="password2" class="form-control" placeholder="비밀번호 확인"
+						<input name="password2" class="form-control" placeholder="비밀번호 확인" id='password2'
 							type="password">
 					</div>
 					<!-- form-group// -->
@@ -82,7 +84,7 @@
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<input name="name" class="form-control" placeholder="이름"
+						<input name="name" class="form-control" placeholder="이름" id='name'
 							type="text">
 					</div>
 					<!-- form-group// -->
@@ -100,6 +102,7 @@
 						<button type="submit" class="btn btn-primary btn-block">
 							등록</button>
 					</div>
+					<input name="isNaver" type="hidden" value='false' id='isNaver' />
 				</form>
 			</article>
 		</div>
@@ -122,4 +125,53 @@
 	<br>
 	<br>
 </body>
+<script type="text/javascript">
+
+var naverLogin = new naver.LoginWithNaverId(
+	{
+		clientId: "7nlmp3_oTZszqdkLgv2u",
+		callbackUrl: "http://localhost:8080/login/naverLogin",
+		isPopup: false
+	}
+);
+/* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
+naverLogin.init();
+
+/* (5) 현재 로그인 상태를 확인 */
+window.addEventListener('load', function () {
+	naverLogin.getLoginStatus(function (status) {
+		if (status) {
+			/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+			setLoginStatus();
+		}
+	});
+});
+
+/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+function setLoginStatus() {
+	var email = naverLogin.user.getEmail();
+	var name = naverLogin.user.getNickName();
+	var profileImage = naverLogin.user.getProfileImage();
+	var birthday = naverLogin.user.getBirthday();			var uniqId = naverLogin.user.getId();
+	var age = naverLogin.user.getAge();
+
+	$('#id').val(email);
+	$('#id').attr("readonly",true);
+	$('#password1').attr("readonly",true);
+	$('#password2').attr("readonly",true);
+	$('#isNaver').val("true");
+	$('#name').val(name);
+	
+}
+
+</script>
+
+<% 
+
+GuestVO loginGuest = (GuestVO) session.getAttribute("guest"); 
+if(loginGuest != null) {
+	response.sendRedirect("/");
+}
+
+%>
 </html>

@@ -3,6 +3,7 @@ package com.petsmate.controller;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -63,6 +64,45 @@ public class MainController {
 	public void doLogin() {
 		logger.info("로그인 폼 페이지");
 	}
+	@RequestMapping("/login/naverLogin")
+	public void doNaverLogin() {
+		
+	}
+	
+	@RequestMapping("/login/naverLogin/action")
+	public String doNaverAction(HttpServletRequest req, Model model) throws Exception {
+		String email = req.getParameter("email");
+		HttpSession session = req.getSession();
+		
+		if(email != null && !email.isEmpty()) {
+			GuestVO vo = new GuestVO();
+			GuestVO login = null;
+			vo.setId(email);
+			boolean isSignup = guestService.findId(vo);
+			
+			if(isSignup) {
+				login = guestService.naverLogin(vo);
+				
+				List<PetVO> loginPet = petService.login(vo);
+				List<CallVO> loginCall = callService.login(vo);
+				
+				session.setAttribute("guest", login);
+				session.setAttribute("petList", loginPet);
+				session.setAttribute("callList", loginCall);
+				
+			} else {
+				model.addAttribute("msg", "네이버 아이디로 회원가입이 필요합니다."); 
+				model.addAttribute("url", "/login/signup");
+				
+				return "alert";
+			}
+		}
+		model.addAttribute("msg", "로그인 성공 !"); 
+		model.addAttribute("url", "/");
+		
+		return "alert";
+	}
+	
 	@RequestMapping("/mypage")
 	public String doMypage(HttpServletRequest req, Model model) throws Exception{
 		logger.info("마이페이지");
@@ -211,7 +251,32 @@ public class MainController {
 		HttpSession session = req.getSession();
 		String pw1 = req.getParameter("password1");
 		String pw2 = req.getParameter("password2");
-		vo.setPassword(pw1);
+		boolean isNaver = Boolean.parseBoolean(req.getParameter("isNaver"));
+		if(isNaver) {
+			StringBuffer temp = new StringBuffer();
+			Random rnd = new Random();
+			for (int i = 0; i < 20; i++) {
+			    int rIndex = rnd.nextInt(3);
+			    switch (rIndex) {
+			    case 0:
+			        // a-z
+			        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+			        break;
+			    case 1:
+			        // A-Z
+			        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+			        break;
+			    case 2:
+			        // 0-9
+			        temp.append((rnd.nextInt(10)));
+			        break;
+			    }
+			}
+			
+			vo.setPassword(temp.toString());
+		}
+		else
+			vo.setPassword(pw1);
 		
 		if(vo.getName() == null || vo.getName().equals("") ||
 				vo.getId() == null || vo.getId().equals("") ||
@@ -223,6 +288,7 @@ public class MainController {
 			return "alert";
 		}
 		
+		if(!isNaver)
 		if(!pw1.equals(pw2)) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요."); 
 			model.addAttribute("url", "/login/signup");

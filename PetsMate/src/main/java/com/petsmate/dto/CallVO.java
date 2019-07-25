@@ -140,6 +140,66 @@ public class CallVO {
 				+ ", is_shuttle=" + is_shuttle + "]";
 	}
 	
+	public String myPageGenTime() {
+		StringBuilder str = new StringBuilder();
+		
+		int year = generate_time.getYear() + 1900;
+		int month = generate_time.getMonth() + 1;
+		int date = generate_time.getDate();
+		int day = generate_time.getDay();
+		
+		int hours = generate_time.getHours();
+		int minutes = generate_time.getMinutes();
+		
+		str.append(String.format("%04d.%02d.%02d", year, month, date));
+//		str.append(year+"."+month+"."+date);
+		String dayStr[] = {"일", "월", "화", "수", "목", "금", "토"};
+		
+		str.append(" "+dayStr[day]);
+		String ampm;
+		
+		if(hours < 12) {
+			ampm = "오전";
+		} else {
+			hours -= 12;
+			ampm = "오후";
+		}
+		
+		str.append(String.format(" %s %02d:%02d", ampm, hours, minutes));
+//		str.append(" " + ampm + " " + hours + ":" + minutes);
+		
+		return str.toString();
+	}
 	
+	public String myPageStartTime() {
+		StringBuilder str = new StringBuilder();
+		
+		int year = start_time.getYear() + 1900;
+		int month = start_time.getMonth() + 1;
+		int date = start_time.getDate();
+		int day = start_time.getDay();
+		
+		int hours = start_time.getHours();
+		int minutes = start_time.getMinutes();
+		
+		str.append(String.format("%04d.%02d.%02d", year, month, date));
+//		str.append(year+"."+month+"."+date);
+		String dayStr[] = {"일", "월", "화", "수", "목", "금", "토"};
+		
+		str.append(" "+dayStr[day]);
+		String ampm;
+		
+		if(hours < 12) {
+			ampm = "오전";
+		} else {
+			hours -= 12;
+			ampm = "오후";
+		}
+		
+		str.append(String.format(" %s %02d:%02d", ampm, hours, minutes));
+//		str.append(" " + ampm + " " + hours + ":" + minutes);
+		
+		return str.toString();
+	}
 
 }
