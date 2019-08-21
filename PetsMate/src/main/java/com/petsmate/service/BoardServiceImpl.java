@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.petsmate.domain.BoardVO;
 import com.petsmate.persistence.BoardDAO;
-
+import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -36,5 +36,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void delete(int bno) throws Exception {
 		dao.delete(bno);
+	}
+	
+	//목록
+	public List<BoardVO> list() throws Exception {
+		return dao.list();
+	
 	}
 }

@@ -8,25 +8,32 @@
 	<insert id="write">
 		insert into myBoard(bno, title,
 		content, writer)
-        values (myBoard_seq.nextval, #{title} #{content} #{writer})
+		values (myBoard_seq.nextval, #{title} #{content} #{writer})
 	</insert>
-	
-		<insert id="read">
+
+	<insert id="read">
 		insert into myBoard(bno, title,
 		content, writer)
-        values (myBoard_seq.nextval, #{title} #{content} #{writer})
+		values (myBoard_seq.nextval, #{title} #{content} #{writer})
 	</insert>
-	
-		<insert id="update">
+
+	<insert id="update">
 		insert into myBoard(bno, title,
 		content, writer)
-        values (myBoard_seq.nextval, #{title} #{content} #{writer})
+		values (myBoard_seq.nextval, #{title} #{content} #{writer})
 	</insert>
-	
-		<insert id="delete">
+
+	<insert id="delete">
 		insert into myBoard(bno, title,
 		content, writer)
-        values (myBoard_seq.nextval, #{title} #{content} #{writer})
+		values (myBoard_seq.nextval, #{title} #{content} #{writer})
 	</insert>
+
+	<!-- 목록 -->
+	<select id="list" resultType="com.kuzuro.domain.BoardVO">
+		select bno, title, writer, regDate
+		    from myBoard
+		        order by bno desc
+	</select>
 
 </mapper>

@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import com.petsmate.domain.BoardVO;
+import java.util.List;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -38,5 +39,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public void delete(int bno) throws Exception {
 		sql.delete(namespace + ".delete", bno);
 	}
+	
+	 // 목록
+	 @Override
+	 public List<BoardVO> list() throws Exception {
+	  return sql.selectList(namespace + ".list");
+	 }
 
 }

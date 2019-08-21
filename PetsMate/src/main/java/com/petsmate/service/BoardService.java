@@ -1,6 +1,7 @@
 package com.petsmate.service;
 
 import com.petsmate.domain.BoardVO;
+import java.util.List;
 
 public interface BoardService {
 
@@ -16,4 +17,6 @@ public interface BoardService {
 	// 삭제
 	public void delete(int bno) throws Exception;
 
+	// 목록
+	public List<BoardVO> list() throws Exception;
 }

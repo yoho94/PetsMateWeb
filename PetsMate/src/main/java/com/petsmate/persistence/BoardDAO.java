@@ -1,6 +1,7 @@
 package com.petsmate.persistence;
 
 import com.petsmate.domain.BoardVO;
+import java.util.List;
 
 public interface BoardDAO {
 
@@ -15,5 +16,8 @@ public interface BoardDAO {
 
 	// 삭제
 	public void delete(int bno) throws Exception;
+	
+	 // 목록
+	 public List<BoardVO> list() throws Exception;
 
 }
