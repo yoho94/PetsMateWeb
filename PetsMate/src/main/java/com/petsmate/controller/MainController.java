@@ -50,6 +50,7 @@ public class MainController {
 		logger.info("test 실행..........");
 	}
 	
+	
 	@RequestMapping("/test2")
 	public void doTest2() {
 		logger.info("테스트 실행 !");

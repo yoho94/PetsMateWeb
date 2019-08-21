@@ -49,6 +49,8 @@
 	<context:component-scan
 		base-package="com.petsmate.service"></context:component-scan>
 
-
+     <!-- 패키지 -->
+     <context:component-scan base-package="com.petsmate.domain" />
+     <context:component-scan base-package="com.petsmate.persistence" />
 
 </beans>

@@ -5,6 +5,8 @@
 <configuration>
 
 	<typeAliases>
+	
+		<typeAlias type="com.petsmate.domain.BoardVO" alias="boardVO" />
 		<typeAlias type="com.petsmate.dto.GuestVO" alias="guestVO" />
 		<typeAlias type="com.petsmate.dto.PetVO" alias="petVO" />
 		<typeAlias type="com.petsmate.dto.CallVO" alias="callVO" />
