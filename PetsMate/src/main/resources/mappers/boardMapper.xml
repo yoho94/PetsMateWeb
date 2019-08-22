@@ -5,35 +5,41 @@
 
 <mapper namespace="com.petsmate.mapper.boardMapper">
 
+	<!-- 작성 -->
 	<insert id="write">
-		insert into myBoard(bno, title,
-		content, writer)
-		values (myBoard_seq.nextval, #{title} #{content} #{writer})
+		insert into `myBoard` (title, content, writer,
+		regDate)
+		values
+		(#{title}, #{content}, #{writer}, now())
 	</insert>
 
-	<insert id="read">
-		insert into myBoard(bno, title,
-		content, writer)
-		values (myBoard_seq.nextval, #{title} #{content} #{writer})
-	</insert>
+	<!-- 조회 -->
+	<select id="read" resultType="boardVO">
+		select * from myBoard where bno =
+		#{bno}
+	</select>
 
-	<insert id="update">
-		insert into myBoard(bno, title,
-		content, writer)
-		values (myBoard_seq.nextval, #{title} #{content} #{writer})
-	</insert>
+	<!-- 수정 -->
+	<update id="update">
+		update myBoard
+		set
+		title = #{title},
+		content =
+		#{content}
+		where bno = #{bno}
+	</update>
 
-	<insert id="delete">
-		insert into myBoard(bno, title,
-		content, writer)
-		values (myBoard_seq.nextval, #{title} #{content} #{writer})
-	</insert>
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete from
+		myBoard
+		where bno = #{bno}
+	</delete>
 
 	<!-- 목록 -->
-	<select id="list" resultType="com.kuzuro.domain.BoardVO">
+	<select id="list" resultType="com.petsmate.domain.BoardVO">
 		select bno, title, writer, regDate
-		    from myBoard
-		        order by bno desc
+		from myBoard order by bno desc
 	</select>
 
 </mapper>

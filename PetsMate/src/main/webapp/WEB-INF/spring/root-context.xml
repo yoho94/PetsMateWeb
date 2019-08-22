@@ -46,11 +46,10 @@
 	<!-- bean 등록 -->
 	<context:component-scan
 		base-package="com.petsmate.dao"></context:component-scan>
-	<context:component-scan
-		base-package="com.petsmate.service"></context:component-scan>
-
+		
      <!-- 패키지 -->
      <context:component-scan base-package="com.petsmate.domain" />
      <context:component-scan base-package="com.petsmate.persistence" />
+     <context:component-scan base-package="com.petsmate.service" />
 
 </beans>

@@ -14,8 +14,6 @@
 
 		<hr />
 
-		<nav>처음화면 - 글쓰기 - 로그인</nav>
-
 		<hr />
 
 		<section id="container">

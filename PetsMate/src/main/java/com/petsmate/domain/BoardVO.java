@@ -4,12 +4,16 @@ import java.util.Date;
 
 public class BoardVO {
 	/*
-	 *     bno       int      not null,    
-	 *     title     varchar2(30)          
-	 *     content   varchar2(200)        
-	 *     writer    varchar2(30)    
-	 *     regDate   date          default sysdate,
+	 *     bno       int,      not null, auto_increment,   
+	 *     title     varchar2(30)   not null,       
+	 *     content   text        not null,
+	 *     writer    varchar2(30)    not null,
+	 *     regDate   date          {(default getdate,)(default current_timestamp,)}
 	 *     viewCnt   int           default 0,
+	       primary key(bno)
+           ); 
+           
+           alter table myBoard change bno bno int(11) not null auto_increment;
 	 */
 	private int bno;
 	private String title;
@@ -65,5 +69,13 @@ public class BoardVO {
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
 	}
+
+	@Override
+	public String toString() {
+		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regDate="
+				+ regDate + ", viewCnt=" + viewCnt + "]";
+	}
+	
+	
 
 }

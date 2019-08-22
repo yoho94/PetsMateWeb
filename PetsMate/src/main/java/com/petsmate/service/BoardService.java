@@ -1,6 +1,7 @@
 package com.petsmate.service;
 
 import com.petsmate.domain.BoardVO;
+
 import java.util.List;
 
 public interface BoardService {
@@ -19,4 +20,5 @@ public interface BoardService {
 
 	// 목록
 	public List<BoardVO> list() throws Exception;
+
 }
