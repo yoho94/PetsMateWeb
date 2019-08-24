@@ -45,7 +45,7 @@ public class BoardController {
 		logger.info(vo.toString());
 		service.write(vo);
 
-		return "redirect:/";
+		return "redirect:/board/list";
 	}
 
 	// 글 조회

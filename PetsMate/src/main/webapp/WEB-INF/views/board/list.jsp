@@ -1,19 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
 <title>게시판</title>
 </head>
-	<link rel="stylesheet" href="/resources/css/bootstrap.css">
-	<link rel="stylesheet" href="/resources/css/all.css">
-	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>
-	
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<link rel="stylesheet" href="/resources/css/all.css">
+<script src="/resources/js/jquery-3.4.1.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
 	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
 		width="30" heigth="30" alt=""></a>
@@ -50,21 +50,24 @@
 	</div>
 
 </nav>
-	
-<body style='margin-top : 70px'>
+
+<body style='margin-top: 70px'>
 	<div id="root">
 		<header>
 			<h1>게시판</h1>
 		</header>
 		<hr />
-                <a href="/board/write">글 쓰기</a>
+		<a href="/board/write">글 쓰기</a>
 		<hr />
 		<section id="container">
 			<h2>글 목록</h2>
 
-			<table class ='table table-bordered'>
+			<table class='table table-bordered'>
 				<tr>
-					<th>글 번호</th><th>글 제목</th><th>작성자</th><th>작성일자</th>
+					<th>글 번호</th>
+					<th>글 제목</th>
+					<th>작성자</th>
+					<th>작성일자</th>
 				</tr>
 
 				<!-- 목록 시작 -->
@@ -80,12 +83,27 @@
 				<!-- 목록 끝 -->
 
 			</table>
+
 		</section>
 
 		<hr />
 
 	</div>
 
+
+	<footer class="footer fixed-bottom mt-auto py-3"
+		style="background-color: #f5f5f5;">
+		<div class="container" style="text-align: center;">
+			<span class="text-muted">고객센터 053-0000-0000</span>
+		</div>
+	</footer>
+
+
+	<script src="/resources/js/jquery-3.4.1.js"></script>
+	<script src="/resources/js/bootstrap.js"></script>
+	<br>
+	<br>
+	<br>
 </body>
 
 
