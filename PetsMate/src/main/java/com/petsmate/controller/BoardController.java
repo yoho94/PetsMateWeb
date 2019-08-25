@@ -39,7 +39,7 @@ public class BoardController {
 	}
 
 	// 글 작성 post
-	@RequestMapping(value = "/write/action", method = RequestMethod.POST)
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String postWrite(BoardVO vo) throws Exception {
 		logger.info("post write");
 		logger.info(vo.toString());
