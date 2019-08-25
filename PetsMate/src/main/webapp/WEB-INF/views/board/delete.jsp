@@ -68,18 +68,18 @@
 
 			<form role="form" method="post" autocomplete="off">
 
-				<p>
+				<div>
 					<label for="bno">글 번호</label> <input type="text" id="bno"
 						name="bno" value="${delete}" readonly="readonly" />
-				</p>
+				</div>
 
-				<p>정말로 삭제하시겠습니까?</p>
+				<div>정말로 삭제하시겠습니까?</div>
 
-				<p>
+				<div>
 
-					<button type="submit">예, 삭제합니다.</button>
-					<br />
-					<button id="cancel_btn">아니오, 삭제하지 않습니다.</button>
+					<button type="submit">삭제</button>
+					
+					<button id="cancel_btn">취소</button>
 
 
 					<script>
@@ -97,7 +97,7 @@
 								});
 					</script>
 
-				</p>
+				</div>
 
 			</form>
 

@@ -1,23 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <html>
 <head>
 <title>게시판</title>
 
-<!-- 제이쿼리 -->
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-
 </head>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
-	<link rel="stylesheet" href="/resources/css/all.css">
-	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>
-	
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+<link rel="stylesheet" href="/resources/css/all.css">
+<script src="/resources/js/jquery-3.4.1.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
+
+<!-- Top Menu -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
-	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
+	<a class="navbar-brand" href="/"> <img src="/resources/img/home.png"
 		width="30" heigth="30" alt=""></a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -52,8 +52,8 @@
 	</div>
 
 </nav>
-	
-<body>
+
+<body class="container" style="margin-top: 70px">
 
 	<div id="root">
 		<header>
@@ -64,28 +64,35 @@
 
 		<hr />
 
-		<section id="container">
+		<section id="containerr">
 
 			<form role="form" method="post" autocomplete="off">
 
-				<p>
-					<label for="bno">글 번호</label><input type="text" id="bno" name="bno" value="${read.bno}" readonly="readonly" />
-				</p>
+				<div class="form-group">
+					<label for="bno">글 번호</label> 
+					<input type="text"
+						class="form-control" id="bno" name="bno" value="${read.bno}"
+						readonly="readonly" />
+				</div>
 
-				<p>
-					<label for="title">글 제목</label><input type="text" id="title" name="title" value="${read.title}" readonly="readonly"   />
-				</p>
-				<p>
+				<div class="form-group">
+					<label for="title">글 제목</label> <input type="text"
+						class="form-control" id="title" name="title" value="${read.title}"
+						readonly="readonly"   />
+				</div>
+				<div class="form-group">
 					<label for="content">글 내용</label>
-					<textarea id="content" name="content" readonly="readonly">${read.content}</textarea>
-				</p>
-				<p>
-					<label for="writer">작성자</label><input type="text" id="writer"
-						name="writer" value="${read.writer}" readonly="readonly" /><br />
-					<label>작성 날짜</label> <span><fmt:formatDate
-							value="${read.regDate}" pattern="yyyy-MM-dd" /></span>
-				</p>
-				<p>
+					<textarea id="content" class="form-control" name="content" rows="10"
+						readonly="readonly">${read.content}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="writer">작성자</label> <input type="text"
+						class="form-control" id="writer" name="writer"
+						value="${read.writer}" readonly="readonly" /><br /> <label>작성
+						날짜</label> <span><fmt:formatDate value="${read.regDate}"
+							pattern="yyyy-MM-dd" /></span>
+				</div>
+				<div class="form-group">
 					<button id="modity_btn">수정</button>
 					<button id="delete_btn">삭제</button>
 
@@ -112,7 +119,7 @@
 						});
 					</script>
 
-				</p>
+					</div>
 			</form>
 
 		</section>
@@ -121,7 +128,8 @@
 	</div>
 
 
-	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
+	<footer class="footer fixed-bottom mt-auto py-3"
+		style="background-color: #f5f5f5;">
 		<div class="container" style="text-align: center;">
 			<span class="text-muted">고객센터 053-0000-0000</span>
 		</div>
@@ -129,7 +137,7 @@
 
 
 	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>	
+	<script src="/resources/js/bootstrap.js"></script>
 	<br>
 	<br>
 	<br>

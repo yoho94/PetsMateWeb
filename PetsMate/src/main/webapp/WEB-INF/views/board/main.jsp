@@ -39,8 +39,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="/">홈
-					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">홈 </a></li>
 					<li class="nav-item"><a class="nav-link" href="/intro">Pets&Mate
 							소개</a></li>
 					<li class="nav-item"><a class="nav-link" href="/price">요금예약안내</a></li>
@@ -66,10 +65,11 @@
 		</nav>
 	</header>
 
-게시판입니다.
+	게시판입니다.
 
 
-	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
+	<footer class="footer fixed-bottom mt-auto py-3"
+		style="background-color: #f5f5f5;">
 		<div class="container" style="text-align: center;">
 			<span class="text-muted">고객센터 053-0000-0000</span>
 		</div>
@@ -77,7 +77,7 @@
 
 
 	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>	
+	<script src="/resources/js/bootstrap.js"></script>
 	<br>
 	<br>
 	<br>

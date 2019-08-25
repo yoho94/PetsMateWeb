@@ -19,8 +19,17 @@ public class BoardVO {
 	private String title;
 	private String content;
 	private String writer;
+	private String password;
 	private Date regDate;
 	private int viewCnt;
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
 
 	public int getBno() {
 		return bno;

@@ -53,8 +53,7 @@
 
 </nav>
 
-<body>
-
+<body class="container" style="margin-top: 70px">
 	<div id="root">
 		<header>
 			<h1>게시판</h1>
@@ -68,27 +67,28 @@
 
 			<form role="form" method="post" autocomplete="off">
 
-				<p>
-					<label for="bno">글 번호</label> <input type="text" id="bno"
-						name="bno" value="${modify.bno}" readonly="readonly" />
-				</p>
+				<div class="form-group">
+					<label for="bno">글 번호</label> 
+					<input type="text" class="form-control" id="bno" name="bno" value="${modify.bno}" readonly="readonly" />
+				</div>
 
-
-				<p>
-					<label for="title">글 제목</label> <input type="text" id="title"
-						name="title" value="${modify.title}" />
-				</p>
-				<p>
+				<div class="form-group">
+					<label for="title">글 제목</label>
+					<input type="text" class="form-control" id="title"name="title" value="${modify.title}" />
+				</div>
+				<div class="form-group">
 					<label for="content">글 내용</label>
-					<textarea id="content" name="content">${modify.content}</textarea>
-				</p>
-				<p>
-					<label for="writer">작성자</label> <input type="text" id="writer"
+					<textarea id="content" class="form-control" name="content" rows="10">${modify.content}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="writer">작성자</label> 
+					<input type="text" class="form-control" id="writer"
 						name="writer" value="${modify.writer}" readonly="readonly" /><br />
+					
 					<label>작성 날짜</label> <span><fmt:formatDate
 							value="${modify.regDate}" pattern="yyyy-MM-dd" /></span>
-				</p>
-				<p>
+				</div>
+				<div>
 					<button type="submit">수정</button>
 					<button id="cancel_btn">취소</button>
 
@@ -105,7 +105,7 @@
 									formObj.submit();
 								});
 					</script>
-				</p>
+				</div>
 
 			</form>
 

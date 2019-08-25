@@ -6,12 +6,12 @@
 <title>게시판</title>
 </head>
 
-	<link rel="stylesheet" href="/resources/css/bootstrap.css">
-	<link rel="stylesheet" href="/resources/css/all.css">
-	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>
-	
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<link rel="stylesheet" href="/resources/css/all.css">
+<script src="/resources/js/jquery-3.4.1.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
 	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
 		width="30" heigth="30" alt=""></a>
@@ -48,8 +48,8 @@
 	</div>
 
 </nav>
-	
-<body style='margin-top : 70px'>
+
+<body class="container" style='margin-top: 70px'>
 
 	<div id="root">
 		<header>
@@ -63,21 +63,26 @@
 		<section id="container">
 
 			<form role="form" method="post" autocomplete="off">
-				<p>
-					<label for="title">글 제목</label><input type="text" id="title"
-						name="title" />
-				</p>
-				<p>
+				<div class="form-group">
+
+					<label for="title">글 제목</label> <input type="text" name='title'
+						class="form-control" id="title">
+				</div>
+				<div class="form-group">
 					<label for="content">글 내용</label>
-					<textarea id="content" name="content"></textarea>
-				</p>
-				<p>
-					<label for="writer">작성자</label><input type="text" id="writer"
-						name="writer" />
-				</p>
-				<p>
+					<textarea class="form-control" id="content" rows="10" name='content'></textarea>
+				</div>
+				<div class="form-group">
+					<label for="writer">작성자</label> <input type="text" name='writer'
+						class="form-control" id="writer">
+				</div>
+				<div class="form-group">
+					<label for="writer">글 비밀번호</label> <input type="password" name='password'
+						class="form-control" id="password">
+				</div>
+				<div>
 					<button type="submit">작성</button>
-				</p>
+				</div>
 			</form>
 
 		</section>
@@ -87,7 +92,8 @@
 	</div>
 
 
-	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
+	<footer class="footer fixed-bottom mt-auto py-3"
+		style="background-color: #f5f5f5;">
 		<div class="container" style="text-align: center;">
 			<span class="text-muted">고객센터 053-0000-0000</span>
 		</div>
@@ -95,7 +101,7 @@
 
 
 	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>	
+	<script src="/resources/js/bootstrap.js"></script>
 	<br>
 	<br>
 	<br>

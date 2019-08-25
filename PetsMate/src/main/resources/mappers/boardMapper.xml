@@ -7,10 +7,9 @@
 
 	<!-- 작성 -->
 	<insert id="write">
-		insert into `myBoard` (title, content, writer,
-		regDate)
+		insert into `myBoard` (title, content, writer,regDate,password)
 		values
-		(#{title}, #{content}, #{writer}, now())
+		(#{title}, #{content}, #{writer}, now(), #{password})
 	</insert>
 
 	<!-- 조회 -->

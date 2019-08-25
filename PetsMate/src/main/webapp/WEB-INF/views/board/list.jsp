@@ -8,15 +8,19 @@
 <head>
 <title>게시판</title>
 </head>
+
+
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/css/all.css">
 <script src="/resources/js/jquery-3.4.1.js"></script>
 <script src="/resources/js/bootstrap.js"></script>
 
+<!-- Top Menu -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
-	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
-		width="30" heigth="30" alt=""></a>
+	<a class="navbar-brand" href="/"> <img
+		src="/resources/img/home.png" width="30" heigth="30" alt="">
+	</a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarNav" aria-controls="navbarNav"
@@ -48,10 +52,9 @@
 			</c:if>
 		</ul>
 	</div>
-
 </nav>
 
-<body style='margin-top: 70px'>
+<body class="container" style="margin-top: 70px">
 	<div id="root">
 		<header>
 			<h1>게시판</h1>
@@ -62,7 +65,7 @@
 		<section id="container">
 			<h2>글 목록</h2>
 
-			<table class='table table-bordered'>
+			<table class="table table-bordered">
 				<tr>
 					<th>글 번호</th>
 					<th>글 제목</th>
@@ -81,13 +84,9 @@
 					</tr>
 				</c:forEach>
 				<!-- 목록 끝 -->
-
 			</table>
-
 		</section>
-
 		<hr />
-
 	</div>
 
 
@@ -104,6 +103,7 @@
 	<br>
 	<br>
 	<br>
+
 </body>
 
 

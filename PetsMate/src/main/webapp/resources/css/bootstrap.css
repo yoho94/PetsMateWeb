@@ -6736,7 +6736,9 @@ button.bg-dark:focus {
 .d-block {
   display: block !important;
 }
-
+//<div class="d-table">
+	asdasdasdasdasd
+</div>
 .d-table {
   display: table !important;
 }
