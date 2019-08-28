@@ -45,17 +45,6 @@ public class MainController {
 	@Inject
 	private CallPetDAO callPetDAO;
 
-	@RequestMapping("/test")
-	public void doA() {
-		logger.info("test 실행..........");
-	}
-	
-	
-	@RequestMapping("/test2")
-	public void doTest2() {
-		logger.info("테스트 실행 !");
-	}
-	
 	@RequestMapping("/")
 	public String doHome() {
 		return "home";
@@ -66,93 +55,93 @@ public class MainController {
 		return "home";
 	}
 	
-	@RequestMapping("/login")
-	public void doLogin() {
-		logger.info("로그인 폼 페이지");
-	}
-	@RequestMapping("/login/naverLogin")
-	public void doNaverLogin() {
-		logger.info("네이버 로그인 페이지");
-	}
-	
-	@RequestMapping("/login/naverLogin/action")
-	public String doNaverAction(HttpServletRequest req, Model model) throws Exception {
-		logger.info("네이버 로그인 액션");
-		String email = req.getParameter("email");
-		HttpSession session = req.getSession();
-		
-		if(email != null && !email.isEmpty()) {
-			GuestVO vo = new GuestVO();
-			GuestVO login = null;
-			vo.setId(email);
-			boolean isSignup = guestService.findId(vo);
-			
-			if(isSignup) {
-				login = guestService.naverLogin(vo);
-				
-				List<PetVO> loginPet = petService.login(vo);
-				List<CallVO> loginCall = callService.login(vo);
-				
-				session.setAttribute("guest", login);
-				session.setAttribute("petList", loginPet);
-				session.setAttribute("callList", loginCall);
-				
-			} else {
-				model.addAttribute("msg", "네이버 아이디로 회원가입이 필요합니다."); 
-				model.addAttribute("url", "/login/signupSNS");
-				
-				return "alert";
-			}
-		}
-		model.addAttribute("msg", "로그인 성공 !"); 
-		model.addAttribute("url", "/");
-		
-		return "alert";
-	}
-	
-	@RequestMapping("/login/facebookLogin")
-	public void doFacebookLogin() {
-		logger.info("페이스북 로그인 페이지");
-	}
-	
-	@RequestMapping("/login/facebookLogin/action")
-	public String doFacebookAction(HttpServletRequest req, Model model) throws Exception {
-		logger.info("페이스북 로그인 액션");
-		String email = req.getParameter("email");
-		String name = req.getParameter("name");
-		HttpSession session = req.getSession();
-		
-		if(email != null && !email.isEmpty()) {
-			GuestVO vo = new GuestVO();
-			GuestVO login = null;
-			vo.setId(email);
-			boolean isSignup = guestService.findId(vo);
-			
-			if(isSignup) {
-				login = guestService.naverLogin(vo);
-				
-				List<PetVO> loginPet = petService.login(vo);
-				List<CallVO> loginCall = callService.login(vo);
-				
-				session.setAttribute("guest", login);
-				session.setAttribute("petList", loginPet);
-				session.setAttribute("callList", loginCall);
-				
-			} else {
-				model.addAttribute("msg", "페이스북 아이디로 회원가입이 필요합니다."); 
-				model.addAttribute("url", "/login/signupSNS");
-				session.setAttribute("email", email);
-				session.setAttribute("name", name);
-				
-				return "alert";
-			}
-		}
-		model.addAttribute("msg", "로그인 성공 !"); 
-		model.addAttribute("url", "/");
-		
-		return "alert";
-	}
-	
+//	@RequestMapping("/login")
+//	public void doLogin() {
+//		logger.info("로그인 폼 페이지");
+//	}
+//	@RequestMapping("/login/naverLogin")
+//	public void doNaverLogin() {
+//		logger.info("네이버 로그인 페이지");
+//	}
+//	
+//	@RequestMapping("/login/naverLogin/action")
+//	public String doNaverAction(HttpServletRequest req, Model model) throws Exception {
+//		logger.info("네이버 로그인 액션");
+//		String email = req.getParameter("email");
+//		HttpSession session = req.getSession();
+//		
+//		if(email != null && !email.isEmpty()) {
+//			GuestVO vo = new GuestVO();
+//			GuestVO login = null;
+//			vo.setId(email);
+//			boolean isSignup = guestService.findId(vo);
+//			
+//			if(isSignup) {
+//				login = guestService.naverLogin(vo);
+//				
+//				List<PetVO> loginPet = petService.login(vo);
+//				List<CallVO> loginCall = callService.login(vo);
+//				
+//				session.setAttribute("guest", login);
+//				session.setAttribute("petList", loginPet);
+//				session.setAttribute("callList", loginCall);
+//				
+//			} else {
+//				model.addAttribute("msg", "네이버 아이디로 회원가입이 필요합니다."); 
+//				model.addAttribute("url", "/login/signupSNS");
+//				
+//				return "alert";
+//			}
+//		}
+//		model.addAttribute("msg", "로그인 성공 !"); 
+//		model.addAttribute("url", "/");
+//		
+//		return "alert";
+//	}
+//	
+//	@RequestMapping("/login/facebookLogin")
+//	public void doFacebookLogin() {
+//		logger.info("페이스북 로그인 페이지");
+//	}
+//	
+//	@RequestMapping("/login/facebookLogin/action")
+//	public String doFacebookAction(HttpServletRequest req, Model model) throws Exception {
+//		logger.info("페이스북 로그인 액션");
+//		String email = req.getParameter("email");
+//		String name = req.getParameter("name");
+//		HttpSession session = req.getSession();
+//		
+//		if(email != null && !email.isEmpty()) {
+//			GuestVO vo = new GuestVO();
+//			GuestVO login = null;
+//			vo.setId(email);
+//			boolean isSignup = guestService.findId(vo);
+//			
+//			if(isSignup) {
+//				login = guestService.naverLogin(vo);
+//				
+//				List<PetVO> loginPet = petService.login(vo);
+//				List<CallVO> loginCall = callService.login(vo);
+//				
+//				session.setAttribute("guest", login);
+//				session.setAttribute("petList", loginPet);
+//				session.setAttribute("callList", loginCall);
+//				
+//			} else {
+//				model.addAttribute("msg", "페이스북 아이디로 회원가입이 필요합니다."); 
+//				model.addAttribute("url", "/login/signupSNS");
+//				session.setAttribute("email", email);
+//				session.setAttribute("name", name);
+//				
+//				return "alert";
+//			}
+//		}
+//		model.addAttribute("msg", "로그인 성공 !"); 
+//		model.addAttribute("url", "/");
+//		
+//		return "alert";
+//	}
+//	
 	@RequestMapping("/mypage")
 	public String doMypage(HttpServletRequest req, Model model) throws Exception{
 		logger.info("마이페이지");
@@ -424,157 +413,157 @@ public class MainController {
 		
 		return "/logout";
 	}
+//	
+//	@RequestMapping("/call")
+//	public String doCall(HttpServletRequest req, Model model) {
+//		logger.info("콜 페이지");
+//		HttpSession session = req.getSession();
+//		GuestVO vo = (GuestVO) session.getAttribute("guest");
+//		
+//		if(vo == null) {
+//			model.addAttribute("msg", "로그인 하셔야 이용가능합니다."); 
+//			model.addAttribute("url", "/login");
+//			
+//			return "alert";
+//		}
+//		
+//		
+//		return "/call";
+//	}
+//	
+//	@RequestMapping("/call/map")
+//	public String doCallMap() {
+//		logger.info("callMap 페이지");
+//		return "/call/call_map";
+//	}
+//	
+//	@RequestMapping(value = "/call/action", method = RequestMethod.POST)
+//	public String doCallAction(Model model, CallVO vo, HttpServletRequest req) throws Exception {
+//		logger.info("콜 액션");
+//		
+//		HttpSession session = req.getSession();
+//		GuestVO guestVo = (GuestVO) session.getAttribute("guest");
+//		
+//		if(guestVo == null) {
+//			model.addAttribute("msg", "로그인 하셔야 이용가능합니다."); 
+//			model.addAttribute("url", "/login");
+//			
+//			return "alert";
+//		}
+//		
+//		logger.info(req.getParameter("shuttle_time")); // TODO ..
+//		
+//		String start = vo.getStart_latitude();
+//		String des = vo.getDestination_latitude();
+//		
+//		if(start == null || start.isEmpty() || des == null || des.isEmpty()) {
+//			model.addAttribute("msg", "출발지, 도착지 모두 선택해주세요."); 
+//			model.addAttribute("url", "/call");
+//			
+//			return "alert";
+//		}
+//		
+//		vo.setGuest_id(guestVo.getId());
+////		vo.setStart_time(new Timestamp(System.currentTimeMillis()));
+//		vo.setCode(0);
+//		logger.info(vo.toString());
+//		
+//		if(vo.isIs_call()) {
+//			vo.setStart_time(new Timestamp(System.currentTimeMillis()));
+//		} else {
+//			String startTimeStr = req.getParameter("re_time");
+//			if(startTimeStr == null) {
+//				model.addAttribute("msg", "예약 시간을 선택해주세요."); 
+//				model.addAttribute("url", "/call");
+//				
+//				return "alert";
+//			} else {
+//				Timestamp startTime = pickerToTimestamp(startTimeStr);
+////				logger.info("스타트 타임 : "+startTime.toString());
+//				vo.setStart_time(startTime);
+//			}
+//		}
+//		
+//		if(vo.isIs_shuttle()) {
+//			String shuttleTimeStr = req.getParameter("shuttle_time");
+//			if(shuttleTimeStr == null) {
+//				model.addAttribute("msg", "왕복 시간을 선택해주세요."); 
+//				model.addAttribute("url", "/call");
+//				
+//				return "alert";
+//			}
+//			
+//			CallVO shuttleVO = new CallVO();
+//			shuttleVO.setCode(0);
+//			shuttleVO.setStart_time(pickerToTimestamp(shuttleTimeStr));
+//			shuttleVO.setDestination_latitude(vo.getStart_latitude());
+//			shuttleVO.setDestination_longitude(vo.getStart_longitude());
+//			shuttleVO.setGuest_count(vo.getGuest_count());
+//			shuttleVO.setGuest_id(vo.getGuest_id());
+//			shuttleVO.setIs_shuttle(true);
+//			shuttleVO.setIs_call(false);
+//			shuttleVO.setPlace_addr(vo.getPlace_addr_start());
+//			shuttleVO.setPlace_addr_start(vo.getPlace_addr());
+//			shuttleVO.setPlace_name(vo.getPlace_name_start());
+//			shuttleVO.setPlace_name_start(vo.getPlace_name());
+//			shuttleVO.setPs(vo.getPs());
+//			shuttleVO.setStart_latitude(vo.getDestination_latitude());
+//			shuttleVO.setStart_longitude(vo.getDestination_longitude());
+//			
+//			callService.insert(vo);
+//			callService.insert(shuttleVO);
+//			
+//			vo.setShuttle_code(shuttleVO.getSerial_number());
+//			shuttleVO.setShuttle_code(vo.getSerial_number());
+//			
+//			callService.updateShuttle(vo);
+//			callService.updateShuttle(shuttleVO);
+//			
+//			String[] arrayPetCode = req.getParameterValues("pet_code");
+//			
+//			if(arrayPetCode != null) {
+////				logger.info("pet_code = " + Arrays.toString(arrayPetCode));
+//				for(int i=0; i<arrayPetCode.length; i++) {
+//					CallPetVO callPetVO = new CallPetVO();
+//					
+//					callPetVO.setSerial_number(shuttleVO.getSerial_number());
+//					callPetVO.setId(vo.getGuest_id());
+//					callPetVO.setPet_code(Integer.parseInt(arrayPetCode[i]));
+//					
+//					callPetDAO.insert(callPetVO);
+//				}
+//			}
+//			
+//		} else {
+//			int temp = callService.insert(vo);
+//			
+//	//		logger.info("시리얼 넘버 : "+vo.getSerial_number());
+//	//		logger.info("temp : "+temp);
+//		}
+//		
+//		String[] arrayPetCode = req.getParameterValues("pet_code");
+//		
+//		if(arrayPetCode != null) {
+////			logger.info("pet_code = " + Arrays.toString(arrayPetCode));
+//			for(int i=0; i<arrayPetCode.length; i++) {
+//				CallPetVO callPetVO = new CallPetVO();
+//				
+//				callPetVO.setSerial_number(vo.getSerial_number());
+//				callPetVO.setId(vo.getGuest_id());
+//				callPetVO.setPet_code(Integer.parseInt(arrayPetCode[i]));
+//				
+//				callPetDAO.insert(callPetVO);
+//			}
+//		}
+//		
+//		model.addAttribute("msg", "콜 요청 성공 !"); 
+//		model.addAttribute("url", "/");
+//		
+//		return "alert";
+//	}
+//	
 	
-	@RequestMapping("/call")
-	public String doCall(HttpServletRequest req, Model model) {
-		logger.info("콜 페이지");
-		HttpSession session = req.getSession();
-		GuestVO vo = (GuestVO) session.getAttribute("guest");
-		
-		if(vo == null) {
-			model.addAttribute("msg", "로그인 하셔야 이용가능합니다."); 
-			model.addAttribute("url", "/login");
-			
-			return "alert";
-		}
-		
-		
-		return "/call";
-	}
-	
-	@RequestMapping("/call/map")
-	public String doCallMap() {
-		logger.info("callMap 페이지");
-		return "/call/call_map";
-	}
-	
-	@RequestMapping(value = "/call/action", method = RequestMethod.POST)
-	public String doCallAction(Model model, CallVO vo, HttpServletRequest req) throws Exception {
-		logger.info("콜 액션");
-		
-		HttpSession session = req.getSession();
-		GuestVO guestVo = (GuestVO) session.getAttribute("guest");
-		
-		if(guestVo == null) {
-			model.addAttribute("msg", "로그인 하셔야 이용가능합니다."); 
-			model.addAttribute("url", "/login");
-			
-			return "alert";
-		}
-		
-		logger.info(req.getParameter("shuttle_time")); // TODO ..
-		
-		String start = vo.getStart_latitude();
-		String des = vo.getDestination_latitude();
-		
-		if(start == null || start.isEmpty() || des == null || des.isEmpty()) {
-			model.addAttribute("msg", "출발지, 도착지 모두 선택해주세요."); 
-			model.addAttribute("url", "/call");
-			
-			return "alert";
-		}
-		
-		vo.setGuest_id(guestVo.getId());
-//		vo.setStart_time(new Timestamp(System.currentTimeMillis()));
-		vo.setCode(0);
-		logger.info(vo.toString());
-		
-		if(vo.isIs_call()) {
-			vo.setStart_time(new Timestamp(System.currentTimeMillis()));
-		} else {
-			String startTimeStr = req.getParameter("re_time");
-			if(startTimeStr == null) {
-				model.addAttribute("msg", "예약 시간을 선택해주세요."); 
-				model.addAttribute("url", "/call");
-				
-				return "alert";
-			} else {
-				Timestamp startTime = pickerToTimestamp(startTimeStr);
-//				logger.info("스타트 타임 : "+startTime.toString());
-				vo.setStart_time(startTime);
-			}
-		}
-		
-		if(vo.isIs_shuttle()) {
-			String shuttleTimeStr = req.getParameter("shuttle_time");
-			if(shuttleTimeStr == null) {
-				model.addAttribute("msg", "왕복 시간을 선택해주세요."); 
-				model.addAttribute("url", "/call");
-				
-				return "alert";
-			}
-			
-			CallVO shuttleVO = new CallVO();
-			shuttleVO.setCode(0);
-			shuttleVO.setStart_time(pickerToTimestamp(shuttleTimeStr));
-			shuttleVO.setDestination_latitude(vo.getStart_latitude());
-			shuttleVO.setDestination_longitude(vo.getStart_longitude());
-			shuttleVO.setGuest_count(vo.getGuest_count());
-			shuttleVO.setGuest_id(vo.getGuest_id());
-			shuttleVO.setIs_shuttle(true);
-			shuttleVO.setIs_call(false);
-			shuttleVO.setPlace_addr(vo.getPlace_addr_start());
-			shuttleVO.setPlace_addr_start(vo.getPlace_addr());
-			shuttleVO.setPlace_name(vo.getPlace_name_start());
-			shuttleVO.setPlace_name_start(vo.getPlace_name());
-			shuttleVO.setPs(vo.getPs());
-			shuttleVO.setStart_latitude(vo.getDestination_latitude());
-			shuttleVO.setStart_longitude(vo.getDestination_longitude());
-			
-			callService.insert(vo);
-			callService.insert(shuttleVO);
-			
-			vo.setShuttle_code(shuttleVO.getSerial_number());
-			shuttleVO.setShuttle_code(vo.getSerial_number());
-			
-			callService.updateShuttle(vo);
-			callService.updateShuttle(shuttleVO);
-			
-			String[] arrayPetCode = req.getParameterValues("pet_code");
-			
-			if(arrayPetCode != null) {
-//				logger.info("pet_code = " + Arrays.toString(arrayPetCode));
-				for(int i=0; i<arrayPetCode.length; i++) {
-					CallPetVO callPetVO = new CallPetVO();
-					
-					callPetVO.setSerial_number(shuttleVO.getSerial_number());
-					callPetVO.setId(vo.getGuest_id());
-					callPetVO.setPet_code(Integer.parseInt(arrayPetCode[i]));
-					
-					callPetDAO.insert(callPetVO);
-				}
-			}
-			
-		} else {
-			int temp = callService.insert(vo);
-			
-	//		logger.info("시리얼 넘버 : "+vo.getSerial_number());
-	//		logger.info("temp : "+temp);
-		}
-		
-		String[] arrayPetCode = req.getParameterValues("pet_code");
-		
-		if(arrayPetCode != null) {
-//			logger.info("pet_code = " + Arrays.toString(arrayPetCode));
-			for(int i=0; i<arrayPetCode.length; i++) {
-				CallPetVO callPetVO = new CallPetVO();
-				
-				callPetVO.setSerial_number(vo.getSerial_number());
-				callPetVO.setId(vo.getGuest_id());
-				callPetVO.setPet_code(Integer.parseInt(arrayPetCode[i]));
-				
-				callPetDAO.insert(callPetVO);
-			}
-		}
-		
-		model.addAttribute("msg", "콜 요청 성공 !"); 
-		model.addAttribute("url", "/");
-		
-		return "alert";
-	}
-	
-	
-	public Timestamp pickerToTimestamp(String str) {
+	public static Timestamp pickerToTimestamp(String str) {
 		Timestamp time = null;
 		
 		int year = Integer.parseInt(str.substring(0, 4)) - 1900;
