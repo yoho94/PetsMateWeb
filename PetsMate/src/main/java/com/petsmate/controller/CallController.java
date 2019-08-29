@@ -29,13 +29,7 @@ public class CallController {
 	private static final Logger logger = LoggerFactory.getLogger(CallController.class);
 	
 	@Inject
-	private GuestService guestService;
-	@Inject
-	private PetService petService;
-	@Inject
 	private CallService callService;
-	@Inject
-	private DriverService driverService;
 	@Inject
 	private CallPetDAO callPetDAO;
 	
