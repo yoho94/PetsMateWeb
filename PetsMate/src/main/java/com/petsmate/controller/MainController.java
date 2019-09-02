@@ -1,7 +1,6 @@
 package com.petsmate.controller;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -18,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.petsmate.dao.CallPetDAO;
+import com.petsmate.dao.ChatDAO;
 import com.petsmate.dto.CallPetVO;
 import com.petsmate.dto.CallVO;
+import com.petsmate.dto.ChatVO;
 import com.petsmate.dto.DriverVO;
 import com.petsmate.dto.GuestVO;
 import com.petsmate.dto.PetList;
@@ -44,6 +45,9 @@ public class MainController {
 	private DriverService driverService;
 	@Inject
 	private CallPetDAO callPetDAO;
+	
+	@Inject
+	private ChatDAO ChatDAO;
 
 	@RequestMapping("/test")
 	public void doA() {
@@ -62,7 +66,20 @@ public class MainController {
 	}
 	
 	@RequestMapping("/home")
-	public String doHome2() {
+	public String doHome2() throws Exception{
+		logger.info("홈 페이지");
+		
+//		List<ChatVO> chatList = ChatDAO.selectChat();
+		
+//		logger.info(chatList.get(0).toString());
+		
+//		ChatVO vo = new ChatVO();
+//		vo.setCHATID(0);
+//		
+//		ChatVO getVO = ChatDAO.selectOne(vo);
+//		
+//		logger.info(getVO.toString());
+		
 		return "home";
 	}
 	
