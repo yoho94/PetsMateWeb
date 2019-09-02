@@ -52,6 +52,7 @@ window.addEventListener('load', function () {
 			$('#email').val(email);
 			$('#form').submit();
 			
+			
 // 			var url = "http://" + window.location.hostname + ((location.port==""||location.port==undefined)?"":":" + location.port) + "/login/signup"
 // 			window.location.replace(url);
 			

@@ -39,7 +39,11 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
+
 					<li class="nav-item  active"><a class="nav-link" href="/">홈
+
+					<li class="nav-item active"><a class="nav-link" href="/">홈
+
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/intro">Pets&Mate
 							소개</a></li>
