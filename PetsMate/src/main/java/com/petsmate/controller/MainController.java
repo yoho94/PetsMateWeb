@@ -70,6 +70,7 @@ public class MainController {
 	public void doLogin() {
 		logger.info("로그인 폼 페이지");
 	}
+	
 	@RequestMapping("/login/naverLogin")
 	public void doNaverLogin() {
 		logger.info("네이버 로그인 페이지");
@@ -448,6 +449,12 @@ public class MainController {
 		return "/call/call_map";
 	}
 	
+	@RequestMapping("/iot2")
+	public String doIot() {
+		logger.info("iot 페이지 진입");
+		return "/iot";
+	}
+	
 	@RequestMapping(value = "/call/action", method = RequestMethod.POST)
 	public String doCallAction(Model model, CallVO vo, HttpServletRequest req) throws Exception {
 		logger.info("콜 액션");
@@ -576,7 +583,7 @@ public class MainController {
 	
 	public Timestamp pickerToTimestamp(String str) {
 		Timestamp time = null;
-		
+
 		int year = Integer.parseInt(str.substring(0, 4)) - 1900;
 		int month = Integer.parseInt(str.substring(5,7)) - 1;
 		int date = Integer.parseInt(str.substring(8, 10));
