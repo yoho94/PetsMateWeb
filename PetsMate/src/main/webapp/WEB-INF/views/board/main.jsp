@@ -47,7 +47,7 @@
 					<li class="nav-item"><a class="nav-link" href="/iot">IoT</a></li>
 					<li class="nav-item"><a class="nav-link" href="/qna">Q&A</a></li>
 					<li class="nav-item active"><a class="nav-link" href="/board">게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="/msg">대화하기</a></li>
+					<li class="nav-item"><a class="nav-link" href="/chat/chat_main">대화하기</a></li>
 				</ul>
 				<ul class="navbar-nav navbar-right">
 					<c:if test="${guest != null}">

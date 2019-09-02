@@ -18,7 +18,7 @@ import com.petsmate.dto.ChatVO;
 import com.petsmate.service.ChatService;
 
 @Controller
-@RequestMapping("/msg/*")
+@RequestMapping("/chat/*")
 public class ChatController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
@@ -29,7 +29,13 @@ public class ChatController {
 	@RequestMapping("/")
 	public String chatMain() {
 		logger.info("채팅 메인화면");
-		return "/msg/main";
+		return "/chat/chat_main";
+	}	
+	
+	@RequestMapping("/chat_main")
+	public String chatMain1() {
+		logger.info("채팅 메인화면");
+		return "/chat/chat_main";
 	}
 	
 	// 채팅장 입장 get
@@ -46,7 +52,7 @@ public class ChatController {
 		logger.info(vo.toString());
 		service.enter(vo);
 		
-		return "redirect:/msg/main";
+		return "redirect:/chat/chat_main";
 	}
 	
 	//채팅방 목록
@@ -75,7 +81,7 @@ public class ChatController {
 
 			service.delete(CHATID);
 
-			return "redirect:/msg/list";
+			return "redirect:/chat/chat_main";
 		}
 		
 		//채팅방 나가기 get
