@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.petsmate.domain.BoardVO;
+import com.petsmate.domain.Criteria;
+import com.petsmate.domain.PageMaker;
 import com.petsmate.service.BoardService;
 
 @Controller
@@ -50,13 +52,14 @@ public class BoardController {
 
 	// 글 조회
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void getRead(@RequestParam("bno") int bno, Model model) throws Exception {
+	public String getRead(@RequestParam("bno") int bno, Model model) throws Exception {
 		logger.info("get read");
 
 		BoardVO vo = service.read(bno);
 
 		model.addAttribute("read", vo);
 
+		return "redirect:/board/list";
 	}
 
 	@RequestMapping("/board/list")
@@ -115,6 +118,21 @@ public class BoardController {
 		service.delete(bno);
 
 		return "redirect:/board/list";
+	}
+
+	// 글 목록 + 페이징
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	 logger.info("get list page");
+	 
+	 List<BoardVO> list = service.listPage(cri);
+	 model.addAttribute("list", list);
+	 
+	 PageMaker pageMaker = new PageMaker();
+	 pageMaker.setCri(cri);
+	 pageMaker.setTotalCount(service.listCount());
+	 model.addAttribute("pageMaker", pageMaker);
+	 
 	}
 
 }

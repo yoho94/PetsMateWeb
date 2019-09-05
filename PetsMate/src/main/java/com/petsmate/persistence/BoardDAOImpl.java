@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import com.petsmate.domain.BoardVO;
+import com.petsmate.domain.Criteria;
+
 import java.util.List;
 
 @Repository
@@ -44,6 +46,18 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> list() throws Exception {
 		return sql.selectList(namespace + ".list");
+	}
+
+	// 목록 + 페이징
+	@Override
+	public List<BoardVO> listPage(Criteria cri) throws Exception {
+		return sql.selectList(namespace + ".listPage", cri);
+	}
+
+	// 게시물 총 갯수
+	@Override
+	public int listCount() throws Exception {
+		return sql.selectOne(namespace + ".listCount");
 	}
 
 }

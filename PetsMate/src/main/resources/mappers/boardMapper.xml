@@ -7,9 +7,11 @@
 
 	<!-- 작성 -->
 	<insert id="write">
-		insert into `myBoard` (title, content, writer,regDate,password)
+		insert into `myBoard` (title, content,
+		writer,regDate,password)
 		values
-		(#{title}, #{content}, #{writer}, now(), #{password})
+		(#{title}, #{content}, #{writer}, now(),
+		#{password})
 	</insert>
 
 	<!-- 조회 -->
@@ -39,6 +41,25 @@
 	<select id="list" resultType="com.petsmate.domain.BoardVO">
 		select bno, title, writer, regDate
 		from myBoard order by bno desc
+	</select>
+
+	<!-- 페이징 -->
+	<select id="listPage" resultType="com.petsmate.domain.BoardVO"
+		parameterType="com.petsmate.domain.Criteria">
+
+		select * from(
+		select * from myBoard order by bno asc
+		) myBoard
+		limit 0, 10
+
+	</select>
+
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		select count(bno)
+			from myBoard
+				where bno > 0
+	]]>
 	</select>
 
 </mapper>
