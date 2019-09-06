@@ -24,7 +24,7 @@
 	
 	</delete>
 	<!-- 목록 -->
-	<select id="list" resultType="com.petsmate.dto.ChatVO">
+	<select id="list" resultType="chatVO">
 		select CHATID, FROMID, TOID, CHATCONTENT,CHATTIME,TOKEN,
 		from 'CHAT' order by CHATID 
 	</select>
