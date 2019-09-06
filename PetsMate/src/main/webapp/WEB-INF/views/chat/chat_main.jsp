@@ -69,87 +69,54 @@
 
 		</nav>
 	</header>
-
-
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1" class=""></li>
-			<li data-target="#myCarousel" data-slide-to="2" class=""></li>
-		</ol>
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img class="img-fluid" src="/resources/img/home_img_1.jpg">
-				<rect width="100%" height="100%" fill="#777"></rect>
-				</img>
-				<div class="container">
-					<div class="carousel-caption text-left" style="bottom: auto; top: 100px;">
-						<p style="color:black;">
-							지금까지 이런 택시는 없었다<br>이것은 자가용인가 택시인가
-						</p>
+	
+	<body class="container" style="margin-top: 70px">
+		<div id="root">
+			<header>
+				<h1><font color=#ff6633"> 대화하기</font></h1>
+			</header>
+			<hr>
+			현재활성화 중인 채팅창입니다.
+			<hr>
+			<section id="container">
+				<h2>채팅 목록</h2>
+				
+					<table id="example-table-3" width="100%" class="table table-bordered table-hover text-center">
+					<thead>
+						<tr>
+							
+							<th>TOKEN</th>
+							<th>아이디</th>
+							<th>최근메시지</th>
+						</tr>
+						
+						<!--  목록 시작 -->
+					</thead>
+				</table>
+				</section>
+				
+				<center>
+				<section id="chatfx">
+				<form role="form" method="post" autocomplete="off">
+					<div class="form-TOKEN">
+						<input type="text" name='TOKENCODE' id="TOKEN"  style="width:300px;" placeholder="TONKEN 을 입력해주세요">
+					
 					</div>
+					<br>
+					<br>
+					<div>
+					
+					<button type="button" id="gochatBtn"class="btn btn-primary">채팅하기</button>
+					
+					<button type="button" id="deleteBtn"class="btn btn-danger">삭제하기</button>
 				</div>
-			</div>
-			<div class="carousel-item">
-				<svg class="bd-placeholder-img" width="100%" height="100%"
-					xmlns="http://www.w3.org/2000/svg"
-					preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-					<rect width="100%" height="100%" fill="#777"></rect></svg>
-				<div class="container">
-					<div class="carousel-caption">
-						<h1>Another example headline.</h1>
-						<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-							quam. Donec id elit non mi porta gravida at eget metus. Nullam id
-							dolor id nibh ultricies vehicula ut id elit.</p>
-						<p>
-							<a class="btn btn-lg btn-primary" href="#" role="button">Learn
-								more</a>
-						</p>
+				</div>
 					</div>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<svg class="bd-placeholder-img" width="100%" height="100%"
-					xmlns="http://www.w3.org/2000/svg"
-					preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-					<rect width="100%" height="100%" fill="#777"></rect></svg>
-				<div class="container">
-					<div class="carousel-caption text-right">
-						<h1>One more for good measure.</h1>
-						<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-							quam. Donec id elit non mi porta gravida at eget metus. Nullam id
-							dolor id nibh ultricies vehicula ut id elit.</p>
-						<p>
-							<a class="btn btn-lg btn-primary" href="#" role="button">Browse
-								gallery</a>
-						</p>
-					</div>
-				</div>
-			</div>
+				</form>
+				
+			</section>
 		</div>
-		<a class="carousel-control-prev" href="#myCarousel" role="button"
-			data-slide="prev"> <span class="carousel-control-prev-icon"
-			aria-hidden="true"></span> <span class="sr-only">Previous</span>
-		</a> <a class="carousel-control-next" href="#myCarousel" role="button"
-			data-slide="next"> <span class="carousel-control-next-icon"
-			aria-hidden="true"></span> <span class="sr-only">Next</span>
-		</a>
-	</div>
-
-	<div class="container marketing">
-		<div class="row featurette">
-			<div class="col-md-7">
-				<h2 class="featurette-heading"> <span class="text-muted"> </span>
-				</h2>
-				<p class="lead">병원방문, 유치원 및 미용픽업, 반려동물 카페 등 반려동물을 안전하게 모셔다 드립니다.</p>
-			</div>
-			<div class="col-md-5">
-				<img class="img-fluid" src="/resources/img/home_car.png">
-					<title>Placeholder</title><rect width="100%" height="100%"
-						fill="#eee"></rect></img>
-			</div>
-		</div>		
-	</div>
+	
 
 
 	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
