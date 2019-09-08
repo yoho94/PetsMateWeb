@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
@@ -15,6 +14,7 @@
 <script src="/resources/js/jquery-3.4.1.js"></script>
 <script src="/resources/js/bootstrap.js"></script>
 
+<!-- Top Menu -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
 	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
@@ -50,12 +50,17 @@
 			</c:if>
 		</ul>
 	</div>
-
 </nav>
 
 <body class="container" style='margin-top: 70px'>
 	<div id="root">
 
+		<header>
+			<h1>게시판</h1>
+		</header>
+		<hr />
+		<a href="/board/write">글 쓰기</a>
+		<hr />
 		<section id="container">
 			<h2>글 목록</h2>
 

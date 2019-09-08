@@ -9,7 +9,6 @@
 <title>게시판</title>
 </head>
 
-
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/css/all.css">
 <script src="/resources/js/jquery-3.4.1.js"></script>
@@ -18,9 +17,8 @@
 <!-- Top Menu -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
-	<a class="navbar-brand" href="/"> <img
-		src="/resources/img/home.png" width="30" heigth="30" alt="">
-	</a>
+	<a class="navbar-brand" href="/"> <img src="/resources/img/home.png" 
+	    width="30" heigth="30" alt=""></a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarNav" aria-controls="navbarNav"

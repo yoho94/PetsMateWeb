@@ -42,24 +42,22 @@ public class BoardController {
 
 	// 글 작성 post
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String postWrite(BoardVO vo) throws Exception {
+	public void postWrite(BoardVO vo) throws Exception {
 		logger.info("post write");
 		logger.info(vo.toString());
 		service.write(vo);
 
-		return "redirect:/board/list";
 	}
 
 	// 글 조회
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String getRead(@RequestParam("bno") int bno, Model model) throws Exception {
+	public void getRead(@RequestParam("bno") int bno, Model model) throws Exception {
 		logger.info("get read");
 
 		BoardVO vo = service.read(bno);
 
 		model.addAttribute("read", vo);
 
-		return "redirect:/board/list";
 	}
 
 	@RequestMapping("/board/list")

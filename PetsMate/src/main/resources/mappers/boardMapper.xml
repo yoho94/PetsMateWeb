@@ -48,7 +48,7 @@
 		parameterType="com.petsmate.domain.Criteria">
 
 		select * from(
-		select * from myBoard order by bno asc
+		select * from myBoard order by bno desc
 		) myBoard
 		limit 0, 10
 
