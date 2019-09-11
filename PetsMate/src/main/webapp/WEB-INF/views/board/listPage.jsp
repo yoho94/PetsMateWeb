@@ -63,8 +63,9 @@
 		<hr />
 		<section id="container">
 			<h2>글 목록</h2>
+			
+			<table class="table table-bordered">
 
-			<table>
 				<tr>
 					<th>글 번호</th>
 					<th>글 제목</th>
