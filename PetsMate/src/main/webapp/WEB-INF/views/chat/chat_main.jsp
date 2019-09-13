@@ -81,32 +81,58 @@
 			<section id="container">
 				<h2>채팅 목록</h2>
 				
-					<table id="example-table-3" width="100%" class="table table-bordered table-hover text-center">
-					<thead>
-						<tr>
-							
-							<th>TOKEN</th>
-							<th>아이디</th>
-							<th>최근메시지</th>
-						</tr>
-						
-						<!--  목록 시작 -->
-					</thead>
-				</table>
+					<br><br>
+	<div class="row">
+	
+	
+		<table id="example-table-3" width="100%" class="table table-bordered table-hover text-center">
+			<thead>
+				<tr>
+					<th>선택</th>
+					<th>TOKEN </th>
+					<th>아이디</th>
+					<th>최근메시지</th>
+					
+				</tr>
+			</thead>
+			<tbody>				
+				<tr>
+					<td><input type="checkbox" name="user_CheckBox" ></td>
+					<td>1234</td>
+					<td>user07</td>
+					<td>저기요</td>
+					
+				
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="user_CheckBox" ></td>
+					<td>2</td>
+					<td>user08</td>
+					<td>TEST</td>
+					
+					
+				</tr>
+			
+			</tbody>
+			
+			
+		</table>
+		<div class="col-lg-12" id="ex3_Result1" ></div> 
+		<div class="col-lg-12" id="ex3_Result2" ></div> 
+	</div>
+	
+	<br><br>
 				</section>
 				
-				<center>
-				<section id="chatfx">
-				<form role="form" method="post" autocomplete="off">
-					<div class="form-TOKEN">
-						<input type="text" name='TOKENCODE' id="TOKEN"  style="width:300px;" placeholder="TONKEN 을 입력해주세요">
-					
+				
+				
 					</div>
 					<br>
 					<br>
 					<div>
+					<center>
 					
-					<button type="button" id="gochatBtn"class="btn btn-primary">채팅하기</button>
+					<button type="button" id="gochatBtn"class="btn btn-primary" onclick="window.open('chat_room')">채팅하기</button>
 					
 					<button type="button" id="deleteBtn"class="btn btn-danger">삭제하기</button>
 				</div>

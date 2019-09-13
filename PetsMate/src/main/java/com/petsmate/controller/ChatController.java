@@ -38,6 +38,12 @@ public class ChatController {
 		return "/chat/chat_main";
 	}
 	
+	@RequestMapping("/chat_room")
+	public String chatRoom() {
+		logger.info("채팅방 화면");
+		return "/chat/chat_room";
+	}
+	
 	// 채팅장 입장 get
 	@RequestMapping(value = "/enter", method = RequestMethod.GET)
 	public void getEnter() throws Exception {
