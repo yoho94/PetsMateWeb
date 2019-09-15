@@ -99,23 +99,22 @@ public class BoardController {
 
 	// 글 수정  POST
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String postModify(BoardVO vo) throws Exception {
+	public void postModify(BoardVO vo) throws Exception {
 		logger.info("post modify");
 
 		service.update(vo);
 
-		return "redirect:/board/list";
 
 	}
 
 	// 글 삭제  POST
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String postDelete(@RequestParam("bno") int bno) throws Exception {
+	public void postDelete(@RequestParam("bno") int bno) throws Exception {
 		logger.info("post delete");
 
 		service.delete(bno);
 
-		return "redirect:/board/list";
+		
 	}
 
 	// 글 목록 + 페이징
