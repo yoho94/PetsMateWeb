@@ -141,5 +141,11 @@
 	<br>
 	<br>
 	<br>
+	<script>
+		$(document).ready(function() {
+			chatListFunction('ten');
+			getInfiniteChat();
+			})
+	</script>
 </body>
 </html>

@@ -19,7 +19,7 @@ public class ChatServiceImpl implements ChatService {
 	// 삭제
 	@Override
 	public void delete(int CHATID) throws Exception {
-		dao.delete(CHATID);
+	
 	}
 
 	
@@ -27,7 +27,8 @@ public class ChatServiceImpl implements ChatService {
 
 	// 목록
 	public List<ChatVO> list() throws Exception {
-		return dao.list();
+		return null;
+		
 	}
 
 
