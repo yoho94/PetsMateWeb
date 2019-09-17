@@ -50,7 +50,7 @@ public class ChatController {
 	
 	
 	
-	@RequestMapping("/")
+	@RequestMapping("/chatpractice")
 	public String chatpractice() {
 		logger.info("채팅 연습화면");
 		return "/chat/chatpractice";

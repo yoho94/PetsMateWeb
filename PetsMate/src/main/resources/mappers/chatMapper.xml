@@ -13,7 +13,7 @@ values(#{USER_user_id}, #{TUTOR_USER_user_id} , #{CLASS_class_id} )
 </insert>
 
 
-<select id ="isRoom" resultType = "ChatRoomVO">
+<select id ="isRoom" resultType = "chatRoomVO">
 
 select * from CHATROOM WHERE USER_user_id = #{USER_user_id} and TUTOR_USER_user_id = #{TUTOR_USER_user_id} 
 and CLASS_class_id = #{CLASS_class_id} 
@@ -26,7 +26,7 @@ values (#{message_sender}, #{message_receiver}, #{message_content} , #{CHATROOM_
 #{TUTOR_USER_user_id} , #{CLASS_class_id})
 </insert>
 
-<select id = "getPartner" resultType = "MessageVO">
+<select id = "getPartner" resultType = "messageVO">
 SELECT USER_user_id from MESSAGE where TUTOR_USER_user_id = #{TUTOR_USER_user_id} and CLASS_class_id = #{CLASS_class_id}
 </select>
 <select id = "getProfile" resultType = "String">
@@ -37,19 +37,19 @@ select user_profileImagePath from USER WHERE user_id = #{user_id}
 select user_name from USER where user_id = #{user_id}
 </select>
 
-<select id = "getMessageList" resultType = "MessageVO">
+<select id = "getMessageList" resultType = "messageVO">
 select m.* , user_name, user_profileImagePath from MESSAGE m left outer join USER u on m.message_sender = u.user_id where CHATROOM_chatroom_id = #{CHATROOM_chatroom_id}
 
 </select>
 
-<select id = "getRoomList" resultType = "ChatRoomVO">
+<select id = "getRoomList" resultType = "chatRoomVO">
 select * from CHATROOM where USER_user_id = #{USER_user_id}
 </select>
-<select id = "getRoomList2" resultType = "ChatRoomVO">
+<select id = "getRoomList2" resultType = "chatRoomVO">
 select * from CHATROOM where TUTOR_USER_user_id = #{TUTOR_USER_user_id}
 </select>
 
-<select id = "getRecentMessage" resultType = "MessageVO">
+<select id = "getRecentMessage" resultType = "messageVO">
 
 select m.* , class_name, class_id , TUTOR_tutor_id from MESSAGE m left outer join CLASS c on m.CLASS_class_id = c.class_id 
 where CHATROOM_chatroom_id = #{CHATROOM_chatroom_id} order by message_id desc limit 1;

@@ -13,6 +13,8 @@
 		<typeAlias type="com.petsmate.dto.DriverVO" alias="driverVO" />
 		<typeAlias type="com.petsmate.dto.CallPetVO" alias="callPetVO" />
 		<typeAlias type="com.petsmate.dto.ChatVO" alias="chatVO" />
+		<typeAlias type="com.petsmate.dto.ChatRoomVO" alias="chatRoomVO" />
+		<typeAlias type="com.petsmate.dto.MessageVO" alias="messageVO" />
 	</typeAliases>
 	
 
