@@ -134,11 +134,8 @@
 								<p class="bg-info">${repList.content}</p>
 
 								<div class="form-group">
-									<button type="button"
-										class="replyUpdate btn btn-warning btn-xs"
-										data-rno="${repList.rno}">수정</button>
-									<button type="button" class="replyDelete btn btn-danger btn-xs"
-										data-rno="${repList.rno}">삭제</button>
+									<button type="button" data-rno="${repList.rno}">수정</button>
+									<button type="button" data-rno="${repList.rno}">삭제</button>
 
 									<script>
 										$(".replyUpdate")
@@ -178,35 +175,28 @@
 						<form role="form" method="post" autocomplete="off"
 							class="form-horizontal">
 
-							<input type="hidden" id="bno" name="bno" value="${read.bno}"
-								readonly="readonly" /> <input type="hidden" id="page"
-								name="page" value="${scri.page}" readonly="readonly" /> <input
-								type="hidden" id="perPageNum" name="perPageNum"
-								value="${scri.perPageNum}" readonly="readonly" /> <input
-								type="hidden" id="searchType" name="searchType"
-								value="${scri.searchType}" readonly="readonly" /> <input
-								type="hidden" id="keyword" name="keyword"
-								= value="${scri.keyword}" readonly="readonly" />
+							<input type="hidden" id="bno" name="bno" value="${read.bno}" readonly="readonly" /> 
+							<input type="hidden" id="page" name="page" value="${scri.page}" readonly="readonly" /> 
+							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" readonly="readonly" /> 
+							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" readonly="readonly" /> 
+							<input type="hidden" id="keyword" name="keyword" = value="${scri.keyword}" readonly="readonly" />
 
 							<div class="form-group">
-								<label for="writer" class="col-sm-2 control-label">작성자</label>
+								<label for="writer">작성자</label>
 								<div class="col-sm-10">
-									<input type="text" id="writer" name="writer"
-										class="form-control" />
+									<input type="text" id="writer" name="writer" class="form-control" />
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="content" class="col-sm-2 control-label">댓글
-									내용</label>
+								<label for="content">댓글내용</label>
 								<div class="col-sm-10">
 									<textarea class="form-control" id="content" name="content"></textarea>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button type="button" class="repSubmit btn btn-success">작성</button>
+									<button type="submit">작성</button>
 								</div>
 								<script>
 									var formObj = $(".replyForm form[role='form']");

@@ -185,7 +185,6 @@ public class BoardController {
 
 		ReplyVO vo = null;
 
-
 		model.addAttribute("readReply", vo);
 	}
 
@@ -196,7 +195,6 @@ public class BoardController {
 		logger.info("reply delete");
 
 		ReplyVO vo = null;
-
 
 		model.addAttribute("readReply", vo);
 	}
