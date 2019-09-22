@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import com.petsmate.domain.BoardVO;
 import com.petsmate.domain.Criteria;
+import com.petsmate.domain.ReplyVO;
 import com.petsmate.persistence.BoardDAO;
 import java.util.List;
 
@@ -54,5 +55,11 @@ public class BoardServiceImpl implements BoardService {
 	public int listCount() throws Exception {
 		return dao.listCount();
 	}
+	
+	// 댓글 조회
+	@Override
+	public List<ReplyVO> readReply(int bno) throws Exception {
+		return dao.readReply(bno);
+	}
 
-}
+}  

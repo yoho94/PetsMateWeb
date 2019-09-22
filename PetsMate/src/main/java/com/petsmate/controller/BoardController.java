@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.petsmate.domain.BoardVO;
 import com.petsmate.domain.Criteria;
 import com.petsmate.domain.PageMaker;
+import com.petsmate.domain.ReplyVO;
 import com.petsmate.service.BoardService;
+import com.petsmate.service.ReplyService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -26,7 +28,10 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@Inject
-	BoardService service;
+	BoardService boardService;
+
+	@Inject
+	ReplyService RepService;
 
 	@RequestMapping("/")
 	public String boardMain() {
@@ -38,15 +43,16 @@ public class BoardController {
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {
 		logger.info("get write");
+
 	}
 
 	// 글 작성 post
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public void postWrite(BoardVO vo) throws Exception {
+	public String postWrite(BoardVO vo) throws Exception {
 		logger.info("post write");
 		logger.info(vo.toString());
-		service.write(vo);
-
+		boardService.write(vo);
+		return "redirect:/";
 	}
 
 	// 글 조회
@@ -54,9 +60,16 @@ public class BoardController {
 	public void getRead(@RequestParam("bno") int bno, Model model) throws Exception {
 		logger.info("get read");
 
-		BoardVO vo = service.read(bno);
+		BoardVO vo = boardService.read(bno);
 
 		model.addAttribute("read", vo);
+
+		List<ReplyVO> repList = RepService.readReply(bno);
+		for(int i=0; i<repList.size(); i++) {
+			System.out.println(repList.get(i).toString());
+		}
+		
+		model.addAttribute("repList", repList);
 
 	}
 
@@ -71,7 +84,7 @@ public class BoardController {
 	public void list(Model model) throws Exception {
 		logger.info("get list");
 
-		List<BoardVO> list = service.list();
+		List<BoardVO> list = boardService.list();
 
 		model.addAttribute("list", list);
 
@@ -82,8 +95,7 @@ public class BoardController {
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
 		logger.info("get modify");
 
-		BoardVO vo = service.read(bno);
-
+		BoardVO vo = boardService.read(bno);
 		model.addAttribute("modify", vo);
 
 	}
@@ -99,38 +111,94 @@ public class BoardController {
 
 	// 글 수정  POST
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String postModify(BoardVO vo) throws Exception {
+	public void postModify(BoardVO vo) throws Exception {
 		logger.info("post modify");
 
-		service.update(vo);
-
-		return "redirect:/board/list";
+		boardService.update(vo);
 
 	}
 
 	// 글 삭제  POST
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String postDelete(@RequestParam("bno") int bno) throws Exception {
+	public void postDelete(@RequestParam("bno") int bno) throws Exception {
 		logger.info("post delete");
 
-		service.delete(bno);
+		boardService.delete(bno);
 
-		return "redirect:/board/list";
 	}
 
 	// 글 목록 + 페이징
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-	 logger.info("get list page");
-	 
-	 List<BoardVO> list = service.listPage(cri);
-	 model.addAttribute("list", list);
-	 
-	 PageMaker pageMaker = new PageMaker();
-	 pageMaker.setCri(cri);
-	 pageMaker.setTotalCount(service.listCount());
-	 model.addAttribute("pageMaker", pageMaker);
-	 
+		logger.info("get list page");
+
+		List<BoardVO> list = boardService.listPage(cri);
+		model.addAttribute("list", list);
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(boardService.listCount());
+		model.addAttribute("pageMaker", pageMaker);
+
+	}
+
+	// 댓글 작성
+	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
+	public String replyWrite(ReplyVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("reply write");
+
+		RepService.writeReply(vo);
+
+		rttr.addAttribute("bno", vo.getBno());
+
+		return "redirect:/board/read";
+	}
+
+	// 댓글 수정 POST
+	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
+	public String replyUpdate(ReplyVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("reply update");
+
+		RepService.replyUpdate(vo);
+
+		rttr.addAttribute("bno", vo.getBno());
+		return "redirect:/board/read";
+	}
+
+	// 댓글 삭제 POST
+	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
+	public String replyDelete(ReplyVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("reply delete");
+
+		RepService.replyDelete(vo);
+
+		rttr.addAttribute("bno", vo.getBno());
+
+		return "redirect:/board/read";
+	}
+
+	// 댓글 수정 GET
+	@RequestMapping(value = "/replyUpdate", method = RequestMethod.GET)
+	public void getReplyUpdate(@RequestParam("rno") int rno, @ModelAttribute("scri") Model model)
+			throws Exception {
+		logger.info("reply update");
+
+		ReplyVO vo = null;
+
+
+		model.addAttribute("readReply", vo);
+	}
+
+	// 댓글 수정 GET
+	@RequestMapping(value = "/replyDelete", method = RequestMethod.GET)
+	public void getReplyDelete(@RequestParam("rno") int rno, @ModelAttribute("scri") Model model)
+			throws Exception {
+		logger.info("reply delete");
+
+		ReplyVO vo = null;
+
+
+		model.addAttribute("readReply", vo);
 	}
 
 }

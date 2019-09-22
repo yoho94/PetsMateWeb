@@ -17,8 +17,8 @@
 <!-- Top Menu -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
-	<a class="navbar-brand" href="/"> <img src="/resources/img/home.png"
-		width="30" heigth="30" alt=""></a>
+	<a class="navbar-brand" href="/"> <img
+		src="/resources/img/home.png" width="30" heigth="30" alt=""></a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarNav" aria-controls="navbarNav"
@@ -69,8 +69,7 @@
 			<form role="form" method="post" autocomplete="off">
 
 				<div class="form-group">
-					<label for="bno">글 번호</label> 
-					<input type="text"
+					<label for="bno">글 번호</label> <input type="text"
 						class="form-control" id="bno" name="bno" value="${read.bno}"
 						readonly="readonly" />
 				</div>
@@ -82,8 +81,8 @@
 				</div>
 				<div class="form-group">
 					<label for="content">글 내용</label>
-					<textarea id="content" class="form-control" name="content" rows="10"
-						readonly="readonly">${read.content}</textarea>
+					<textarea id="content" class="form-control" name="content"
+						rows="10" readonly="readonly">${read.content}</textarea>
 				</div>
 				<div class="form-group">
 					<label for="writer">작성자</label> <input type="text"
@@ -93,6 +92,7 @@
 							pattern="yyyy-MM-dd" /></span>
 				</div>
 				<div class="form-group">
+					<button id="list_btn"=>목록</button>
 					<button id="modity_btn">수정</button>
 					<button id="delete_btn">삭제</button>
 
@@ -119,27 +119,122 @@
 						});
 					</script>
 
+				</div>
+				<div id="reply">
+					<ol class="replyList">
+						<c:forEach items="${repList}" var="repList">
+							<li>
+								<p>
+									<span class="glyphicon glyphicon-user"></span>
+									${repList.writer} (
+									<fmt:formatDate value="${repList.regDate}" pattern="yyyy-MM-dd" />
+									)
+								</p>
+
+								<p class="bg-info">${repList.content}</p>
+
+								<div class="form-group">
+									<button type="button"
+										class="replyUpdate btn btn-warning btn-xs"
+										data-rno="${repList.rno}">수정</button>
+									<button type="button" class="replyDelete btn btn-danger btn-xs"
+										data-rno="${repList.rno}">삭제</button>
+
+									<script>
+										$(".replyUpdate")
+												.click(
+														function() {
+															self.location = "/board/replyUpdate?bno=${read.bno}"
+																	+ "&page=${scri.page}"
+																	+ "&perPageNum=${scri.perPageNum}"
+																	+ "&searchType=${scri.searchType}"
+																	+ "&keyword=${scri.keyword}"
+																	+ "&rno="
+																	+ $(this)
+																			.attr(
+																					"data-rno");
+														});
+
+										$(".replyDelete")
+												.click(
+														function() {
+															self.location = "/board/replyDelete?bno=${read.bno}"
+																	+ "&page=${scri.page}"
+																	+ "&perPageNum=${scri.perPageNum}"
+																	+ "&searchType=${scri.searchType}"
+																	+ "&keyword=${scri.keyword}"
+																	+ "&rno="
+																	+ $(this)
+																			.attr(
+																					"data-rno");
+														});
+									</script>
+								</div>
+							</li>
+						</c:forEach>
+					</ol>
+
+					<section class="replyForm">
+						<form role="form" method="post" autocomplete="off"
+							class="form-horizontal">
+
+							<input type="hidden" id="bno" name="bno" value="${read.bno}"
+								readonly="readonly" /> <input type="hidden" id="page"
+								name="page" value="${scri.page}" readonly="readonly" /> <input
+								type="hidden" id="perPageNum" name="perPageNum"
+								value="${scri.perPageNum}" readonly="readonly" /> <input
+								type="hidden" id="searchType" name="searchType"
+								value="${scri.searchType}" readonly="readonly" /> <input
+								type="hidden" id="keyword" name="keyword"
+								= value="${scri.keyword}" readonly="readonly" />
+
+							<div class="form-group">
+								<label for="writer" class="col-sm-2 control-label">작성자</label>
+								<div class="col-sm-10">
+									<input type="text" id="writer" name="writer"
+										class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="content" class="col-sm-2 control-label">댓글
+									내용</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" id="content" name="content"></textarea>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<button type="button" class="repSubmit btn btn-success">작성</button>
+								</div>
+								<script>
+									var formObj = $(".replyForm form[role='form']");
+
+									$(".repSubmit").click(function() {
+										formObj.attr("action", "replyWrite");
+										formObj.submit();
+									});
+								</script>
+							</div>
+						</form>
+
+					</section>
+
+					<hr />
+				</div>
+
+
+				<footer class="footer fixed-bottom mt-auto py-3"
+					style="background-color: #f5f5f5;">
+					<div class="container" style="text-align: center;">
+						<span class="text-muted">고객센터 053-0000-0000</span>
 					</div>
-			</form>
-
-		</section>
-
-		<hr />
-	</div>
+				</footer>
 
 
-	<footer class="footer fixed-bottom mt-auto py-3"
-		style="background-color: #f5f5f5;">
-		<div class="container" style="text-align: center;">
-			<span class="text-muted">고객센터 053-0000-0000</span>
-		</div>
-	</footer>
-
-
-	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>
-	<br>
-	<br>
-	<br>
+				<script src="/resources/js/jquery-3.4.1.js"></script>
+				<script src="/resources/js/bootstrap.js"></script>
+				<br> <br> <br>
 </body>
 </html>
