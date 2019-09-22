@@ -65,9 +65,9 @@ public class BoardController {
 		model.addAttribute("read", vo);
 
 		List<ReplyVO> repList = RepService.readReply(bno);
-		for(int i=0; i<repList.size(); i++) {
-			System.out.println(repList.get(i).toString());
-		}
+//		for(int i=0; i<repList.size(); i++) {
+//			System.out.println(repList.get(i).toString());
+//		}
 		
 		model.addAttribute("repList", repList);
 
