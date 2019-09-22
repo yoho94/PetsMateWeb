@@ -1,123 +1,211 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/css/bootstrap-grid.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/css/bootstrap-reboot.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/css/page.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/css/style.css">
+<script type="text/javascript"
+	src="../../../resources/js/jquery-3.2.1.js"></script>
+<script type="text/javascript"
+	src="../../../resources/js/sockjs.min.js"></script>
 
-
-<title>Pets&Mate</title>
-<link rel="stylesheet" href="/resources/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/style.css">
-
-</head>
 <style>
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
-}
 </style>
-<!-- Custom styles for this template -->
-<link href="/resources/css/carousel.css" rel="stylesheet">
+</head>
+
 <body>
-	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
-			style="background-color: #fe6f61;">
-			<a class="navbar-brand" href="/"><img
-				src="/resources/img/home.png" width="30" heigth="30" alt=""></a>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNav" aria-controls="navbarNav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+<c:set var="profile" value='<%=session.getAttribute("login")%>' />
 
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav mr-auto">
 
-					<li class="nav-item"><a class="nav-link" href="/">홈
 
-					
-
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="/intro">Pets&Mate
-							소개</a></li>
-					<li class="nav-item"><a class="nav-link" href="/price">요금예약안내</a></li>
-					<li class="nav-item"><a class="nav-link" href="/call">펫택시예약</a></li>
-					<li class="nav-item"><a class="nav-link" href="/iot">IoT</a></li>
-					<li class="nav-item"><a class="nav-link" href="/qna">Q&A</a></li>
-					<li class="nav-item"><a class="nav-link" href="/board/list">게시판</a></li>
-					<li class="nav-item active"><a class="nav-link" href="/chat/chat_main">대화하기</a></li>
-				</ul>
-				<ul class="navbar-nav navbar-right">
-					<c:if test="${guest != null}">
-						<li class="nav-item"><a class="nav-link" href="/mypage">마이페이지</a></li>
-					</c:if>
-					<c:if test="${guest == null}">
-						<li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
-					</c:if>
-					<c:if test="${guest != null}">
-						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-					</c:if>
-				</ul>
-			</div>
-
-		</nav>
-	</header>
-	
-	<!-- 채팅방 -->
-	<div class="chatbox">
-		<div class="chatlogs">
-			<div class="chat friend">
-				<div class="user-photo"><img src="/resources/img/icon.JPG"></div>
-				<p class="chat-message">what's up brother</p>
-			</div>
-			<div class="chat self">
-				<div class="user-photo"><img src="/resources/img/icon.JPG"></div>
-				<p class="chat-message">what's up </p>
-			</div>
-		
-		</div>
-		<div class="chat-form">
-			<textarea></textarea>
-			<button>Send</button>
-		
-		</div>
-	
-	
+ 	<div class="col-12 row justify-content-center align-items-center my-5 ">
+		<a href=""><img src="/resources/img/logo.PNG"
+			alt="logo" width="180px" class="img-fluid" /></a>
 	</div>
-	
-	
-
-	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
-		<div class="container" style="text-align: center;">
-			<span class="text-muted">고객센터 053-0000-0000</span>
+	<div class="col-12">
+		<div class="col-2" style="float: left">
+			<span><button type="button" id="golistBtn"class="btn btn-primary" 
+					onclick="window.open('chat_main')">목록</button></span>
 		</div>
-	</footer>
+		<div class="col-8" style="float: left; text-align: center;">
+			${driver_name } 님과 대화</div>
+		<div class="col-2" style="float: right">
+			
+		</div>
 
 
-	<script src="/resources/js/jquery-3.4.1.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>	
-	<br>
-	<br>
-	<br>
-	<script type="text/javascript">
-	$(document).ready(function() {
-		chatListFunction('ten');
-		getInfiniteChat();
-	});
-	</script>
+
+	</div>
+	<div class="col-12" style="margin-top: 40px; clear: both;">
+		<div class="col-10"
+			style="margin: 20px auto; text-align: center; color: white; background-color: #01D1FE; border: 1px solid #01D1FE; padding: 10px 10px; border-radius: 8px;">
+			궁금한 점이나 상세문의에 대해 이야기하세요. <br>
+		</div>
+
+	</div>
+	<!-- 채팅 내용 -->
+	<div class="col-12">
+		<div class="col-11"
+			style="margin: 0 auto; border: 1px solid #01D1FE; height: 400px; border-radius: 10px; overflow:scroll" id = "chatArea">
+
+			<div id="chatMessageArea" style = "margin-top : 10px; margin-left:10px;"></div>
+
+
+
+
+		</div>
+	</div>
+
+	<!-- 채팅 입력창 -->
+	<div class="col-12" style="margin-top: 20px; margin-bottom: 15px;">
+		<div class="col-12" style="float: left">
+			<textarea class="form-control"
+				style="border: 1px solid #01D1FE; height: 65px; float: left; width: 80%"
+				placeholder="Enter ..." id = "message">
+
+
+				</textarea>
+			<span
+				style="float: right; width: 18%; height: 65px; text-align: center; background-color: #01D1FE; border-radius: 5px;">
+				<a
+				style="margin-top: 30px; text-align: center; color: white; font-weight: bold;" id = "sendBtn"><br>전송</a>
+			</span>
+		</div>
+
+	</div>
+
+
+<img id="profileImg" class="img-fluid"
+					src="/displayFile?fileName=${userImage}&directory=profile" style = "display:none">
+<input type="text" id="nickname" value = "${user_name }" style = "display:none">
+ <input type="button" id="enterBtn" value="입장" style = "display:none">
+ <input type="button" id="exitBtn" value="나가기" style = "display:none">
+<script type="text/javascript">
+ connect();
+
+ function connect() {
+	    sock = new SockJS('/chat');
+	    sock.onopen = function() {
+	        console.log('open');
+	    };
+	    sock.onmessage = function(evt) {
+    	 var data = evt.data;
+    	   console.log(data)
+  		   var obj = JSON.parse(data)  	   
+    	   console.log(obj)
+    	   appendMessage(obj.message_content);
+	    };
+	    sock.onclose = function() {
+	    	 appendMessage("연결을 끊었습니다.");
+	        console.log('close');
+	    };
+	}
+
+
+
+
+ function send() {
+  var msg = $("#message").val();
+  if(msg != ""){
+	  message = {};
+	  message.message_content = $("#message").val()
+  	  message.DRIVER_USER_user_id = '${DRIVER_USER_user_id}'
+  	  message.USER_user_id = '${profile.user_id}'
+  	  message.CLASS_class_id = '${class_id}'
+  	  message.message_sender = '${profile.user_id}'
+  }
+
+
+
+
+  sock.send(JSON.stringify(message));
+  $("#message").val("");
+ }
+
+
+
+
+ function getTimeStamp() {
+   var d = new Date();
+   var s =
+     leadingZeros(d.getFullYear(), 4) + '-' +
+     leadingZeros(d.getMonth() + 1, 2) + '-' +
+     leadingZeros(d.getDate(), 2) + ' ' +
+
+     leadingZeros(d.getHours(), 2) + ':' +
+     leadingZeros(d.getMinutes(), 2) + ':' +
+     leadingZeros(d.getSeconds(), 2);
+
+   return s;
+ }
+
+ function leadingZeros(n, digits) {
+   var zero = '';
+   n = n.toString();
+
+   if (n.length < digits) {
+     for (i = 0; i < digits - n.length; i++)
+       zero += '0';
+   }
+   return zero + n;
+ }
+
+
+
+
+
+
+
+ function appendMessage(msg) {
+
+	 if(msg == ''){
+		 return false;
+	 }else{
+
+
+	 var t = getTimeStamp();
+	 $("#chatMessageArea").append("<div class='col-12 row' style = 'height : auto; margin-top : 5px;'><div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${user_name}</div></div><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")		 
+
+	  var chatAreaHeight = $("#chatArea").height();
+	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
+	  $("#chatArea").scrollTop(maxScroll);
+
+	 }
+ }
+ $(document).ready(function() {
+  $('#message').keypress(function(event){
+   var keycode = (event.keyCode ? event.keyCode : event.which);
+   if(keycode == '13'){
+    send();
+   }
+   event.stopPropagation();
+  });
+
+
+
+  $('#sendBtn').click(function() { send(); });/* $('#enterBtn').click(function() { connect(); }); $('#exitBtn').click(function() { disconnect(); }); */
+ });
+</script>
+
 </body>
 </html>

@@ -16,6 +16,7 @@
 	</properties>
 
 	<dependencies>
+		<!-- websocket -->
 	
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -192,11 +193,15 @@
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 			<version>1.16</version>
 		</dependency>
-
-
-
-
-	</dependencies>
+		<!--  0920 -->
+		
+		
+		
+		
+		
+		
+		
+</dependencies>
 	<build>
 		<plugins>
 			<plugin>

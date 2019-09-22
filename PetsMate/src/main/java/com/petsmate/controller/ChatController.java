@@ -42,10 +42,16 @@ public class ChatController {
 	@Inject
 	ChatDAO chatDAO;
 
-	@RequestMapping("/")
+	@RequestMapping("/chat_main")
 	public String chatMain() {
 		logger.info("채팅 메인화면");
 		return "/chat/chat_main";
+	}
+	
+	@RequestMapping("/note")
+	public String note() {
+		logger.info("연습");
+		return "/chat/note";
 	}
 	
 	
@@ -55,7 +61,7 @@ public class ChatController {
 		logger.info("채팅 연습화면");
 		return "/chat/chatpractice";
 	}
-	
+	/*
 	public class ChatWebSocketHandler extends TextWebSocketHandler {
 
 		@Inject
@@ -103,9 +109,9 @@ public class ChatController {
 
 
 		      ChatRoomVO roomVO  = new ChatRoomVO();
-		      roomVO.setCLASS_class_id(messageVO.getCLASS_class_id()); //클래스
-		      roomVO.setDRIVER_USER_user_id(messageVO.getDRIVER_driver_id()); //드라이버
-		      roomVO.setUSER_user_id(messageVO.getUSER_user_id()); //유저
+		     // roomVO.setclassID(messageVO.getclass_ID()); //클래스
+		     // roomVO.setdriverID(messageVO.getdriverID()); //드라이버
+		     // roomVO.setUSER_user_id(messageVO.getUSER_user_id()); //유저
 
 		      ChatRoomVO croom =null;
 		      if(!messageVO.getUSER_user_id().equals(messageVO.getDRIVER_driver_id())) {

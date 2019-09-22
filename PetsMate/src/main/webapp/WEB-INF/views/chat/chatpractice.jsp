@@ -33,23 +33,24 @@
 </head>
 
 <body>
-
-<c:set var="profile" value='<%=session.getAttribute("login")%>' />
+<!-- guest 로그인 세션 받아오는것 -->
+<c:set var="profile" value='<%=session.getAttribute("guest")%>' />
 
 
 
  	<div class="col-12 row justify-content-center align-items-center my-5 ">
-		<a href=""><img src="../../../resources/image/AlmomLogo.png"
-			alt="Almom Logo" width="180px" class="img-fluid" /></a>
+		<a href=""><img src="/resources/img/logo.PNG"
+			alt="logo" width="180px" class="img-fluid" /></a>
 	</div>
 	<div class="col-12">
 		<div class="col-2" style="float: left">
-			<span> 목록 </span>
+			<span><button type="button" id="golistBtn"class="btn btn-primary" 
+					onclick="window.open('chat_main')">목록</button></span>
 		</div>
 		<div class="col-8" style="float: left; text-align: center;">
-			${tutor_name } 님과 대화</div>
+			${driverID } 님과 대화</div>
 		<div class="col-2" style="float: right">
-			<span> 닫기 </span>
+			
 		</div>
 
 
@@ -58,7 +59,7 @@
 	<div class="col-12" style="margin-top: 40px; clear: both;">
 		<div class="col-10"
 			style="margin: 20px auto; text-align: center; color: white; background-color: #01D1FE; border: 1px solid #01D1FE; padding: 10px 10px; border-radius: 8px;">
-			수업 일정과 강의 내용에 대해 문의해보세요. <br>(연락처 문의 또는 직접 알려주는 것은 불가)
+			궁금한 점이나 상세문의에 대해 이야기하세요. <br>
 		</div>
 
 	</div>
@@ -94,11 +95,7 @@
 	</div>
 
 
-<img id="profileImg" class="img-fluid"
-					src="/displayFile?fileName=${userImage}&directory=profile" style = "display:none">
-<input type="text" id="nickname" value = "${user_name }" style = "display:none">
- <input type="button" id="enterBtn" value="입장" style = "display:none">
- <input type="button" id="exitBtn" value="나가기" style = "display:none">
+
 <script type="text/javascript">
  connect();
 

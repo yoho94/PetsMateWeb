@@ -16,6 +16,13 @@
 <title>Pets&Mate</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <script type = "text/javascript">
+	// 버튼 삭제 func
+	function deleteLine(obj) {
+		var tr = $(obj).parent().parent();
+
+		tr.remove();
+		}
+
 	function submitFunction() {
 		var fromID= '<%=userID %>';
 		var toID= '<%=toID %>';
@@ -181,27 +188,40 @@
 		<table id="example-table-3" width="100%" class="table table-bordered table-hover text-center">
 			<thead>
 				<tr>
-					<th>선택</th>
+					
 					<th>TOKEN </th>
 					<th>아이디</th>
 					<th>최근메시지</th>
+					<th>채팅하기</th>
+					<th>삭제하기</th>
+					
 					
 				</tr>
 			</thead>
 			<tbody>				
 				<tr>
-					<td><input type="checkbox" name="user_CheckBox" ></td>
+				
 					<td>1234</td>
-					<td>user07</td>
+					<td>test</td>
 					<td>저기요</td>
+					<td><button type="button" id="gochatBtn"class="btn btn-primary" 
+					onclick="window.open('chat_room')">채팅하기</button></td>
+					
+					<td><button type="button" id="deleteBtn"class="btn btn-danger"
+					onclick="deleteLine(this);">삭제하기</button></td>
 					
 				
 				</tr>
 				<tr>
-					<td><input type="checkbox" name="user_CheckBox" ></td>
+					
 					<td>2</td>
 					<td>user08</td>
 					<td>TEST</td>
+					<td><button type="button" id="gochatBtn"class="btn btn-primary" 
+					onclick="window.open('chat_room')">채팅하기</button></td>
+					
+					<td><button type="button" id="deleteBtn"class="btn btn-danger"
+					onclick="deleteLine(this);">삭제하기</button></td>
 					
 					
 				</tr>
@@ -225,9 +245,7 @@
 					<div>
 					<center>
 					
-					<button type="button" id="gochatBtn"class="btn btn-primary" onclick="window.open('chat_room')">채팅하기</button>
-					
-					<button type="button" id="deleteBtn"class="btn btn-danger">삭제하기</button>
+				
 				</div>
 				</div>
 					</div>
