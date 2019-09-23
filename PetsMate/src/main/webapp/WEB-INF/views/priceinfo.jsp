@@ -3,8 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Pets&Mate IoT</title>
+<title>Pets&Mate</title>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="test.css">
+
 </head>
 <style>
 .bd-placeholder-img {
@@ -21,7 +24,6 @@
 		font-size: 3.5rem;
 	}
 }
-
 </style>
 <!-- Custom styles for this template -->
 <link href="/resources/css/carousel.css" rel="stylesheet">
@@ -40,13 +42,15 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item "><a class="nav-link" href="/">홈
+
+					<li class="nav-item  active"><a class="nav-link" href="/">홈
+
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/intro">Pets&Mate
 							소개</a></li>
 					<li class="nav-item"><a class="nav-link" href="/priceinfo">요금예약안내</a></li>
 					<li class="nav-item"><a class="nav-link" href="/call">펫택시예약</a></li>
-					<li class="nav-item active"><a class="nav-link" href="/iot">IoT</a></li>
+					<li class="nav-item"><a class="nav-link" href="/iot">IoT</a></li>
 					<li class="nav-item"><a class="nav-link" href="/qna">Q&A</a></li>
 					<li class="nav-item"><a class="nav-link" href="/board/list">게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="/chat/chat_main">대화하기</a></li>
@@ -62,50 +66,32 @@
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 					</c:if>
 				</ul>
+				
 			</div>
 
 		</nav>
 	</header>
-	
-	
-		<div style="width:500px; height:350px;  float:left; margin:50px; margin-left:100px;
-	border:solid #7fff00 3px">
-	<img src="/resources/img/maptest.jpg" width="494" height="344" alt="임시적인 지도 이미지" >
-		<h2  style="color:#7fff00">개목걸이 위치 정보 뛰워야됨</h2>
-	</div>
-	
-	
-		<div style="width:500px; height:50px;  float:bottom; margin:50px; margin-left:100px;
-		margin-top:800x; border:solid #7fff00 3px">
-			<h6>반려동물 현위치: 대구광역시 수성구 범어동 222-22</h2>
-	</div>
-	
-		<div style="width:350px; height:100px;  float:right; margin:50px;margin-right:200px; "> 
-		<img src="/resources/img/Heart.jpg" alt="심장 그림" >
-		<h1 style="color:red">71 bpm </h1>
-		
-			<h5>도착지에서 698m 떨어져 있습니다.</h5>
-		<h5>도착지 : 대구 북구 복현로 35</h5>
-		
-		<div style="width:175px; height:30px;  float:right; margin-bottom:500px; margin:50px;margin-right:200px;border:solid red 3px"> 
-		<h5>010-0000-0000</h5>
-		</div>
-		
-		<div style="width:175px; height:30px;  float:right; margin-bottom:500px; margin:50px;margin-right:200px;border:solid red 3px"> 
-		<h5>기사님께 메세지:</h5>
-		</div>
-		
-	</div>
-	
-		
+	<main role="main" class="flex-shrink-0">
+  <div class="container">
+   <img class="mb-4" src="/resources/img/TITLE.jpg" alt="" width="500" height="150">
+    <h1 class="mt-5" style="color:#993800; font-weight:600">기본 요금</h1>
+    <h3 class="h3">6,000원 + 1km당 1,000원</h3>
+  </div>
+    <div class="container">
+    <h1 class="mt-5" style="color:#993800; font-weight:600">왕복 운행시</h1>
+    <p class="h3">네이버 지도를 기준으로 예약시점 실시간교통정보에 따른 목적지를 경유하는 경로로 계산</p>
+    <p class="h3">기본요금 6,000원 + 1km당 1,000원 + 목적지 도착 후 대기</p>
+    <p class="h3">대기시간은 1시간 무료, 1시간 이후부터 10분당 2,000원</p>
+    <p class="h3">유료 주차장 이용 시 주차요금 추가</p>
+  </div>
+   <div class="container">
+    <h1 class="mt-5" style="color:#993800; font-weight:600">그외 추가요금</h1>
+    <p class="h3">반려동물 1마리 초과시 마리당 요금 5,000원 추가</p>
+  </div>
+</main>
+<img class="mb-4" src="/resources/img/taxi.png" width="500" height="300" style="margin-left:1200px">
 
 
-	
-	
-
-	
-	
-	
 
 	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
 		<div class="container" style="text-align: center;">

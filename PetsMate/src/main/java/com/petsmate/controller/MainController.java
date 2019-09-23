@@ -46,6 +46,18 @@ public class MainController {
 		return "home";
 	}
 	
+	@RequestMapping("/priceinfo")
+	public String priceinfo() {
+		logger.info("가격안내");
+		return "priceinfo";
+	}
+	
+	@RequestMapping("/intro")
+	public String intro() {
+		logger.info("펫택시소개");
+		return "intro";
+	}
+	
 	public static Timestamp pickerToTimestamp(String str) {
 		
 		int year = Integer.parseInt(str.substring(0, 4)) - 1900;

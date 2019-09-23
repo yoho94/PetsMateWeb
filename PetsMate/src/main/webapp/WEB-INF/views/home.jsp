@@ -45,7 +45,7 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/intro">Pets&Mate
 							소개</a></li>
-					<li class="nav-item"><a class="nav-link" href="/price">요금예약안내</a></li>
+					<li class="nav-item"><a class="nav-link" href="/priceinfo">요금예약안내</a></li>
 					<li class="nav-item"><a class="nav-link" href="/call">펫택시예약</a></li>
 					<li class="nav-item"><a class="nav-link" href="/iot">IoT</a></li>
 					<li class="nav-item"><a class="nav-link" href="/qna">Q&A</a></li>
