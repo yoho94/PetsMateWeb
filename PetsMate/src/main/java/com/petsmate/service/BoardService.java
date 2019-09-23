@@ -2,6 +2,7 @@ package com.petsmate.service;
 
 import com.petsmate.domain.BoardVO;
 import com.petsmate.domain.Criteria;
+import com.petsmate.domain.ReplyVO;
 
 import java.util.List;
 
@@ -21,14 +22,14 @@ public interface BoardService {
 
 	// 목록
 	public List<BoardVO> list() throws Exception;
-	
+
 	// 목록 + 페이징
 	public List<BoardVO> listPage(Criteria cri) throws Exception;
-	
+
 	// 게시물 총 갯수
 	public int listCount() throws Exception;
-	
-	
 
+	// 댓글 조회
+	public List<ReplyVO> readReply(int bno) throws Exception;
 
 }

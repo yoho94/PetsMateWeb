@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import com.petsmate.domain.BoardVO;
 import com.petsmate.domain.Criteria;
+import com.petsmate.domain.ReplyVO;
 
 import java.util.List;
 
@@ -58,6 +59,12 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int listCount() throws Exception {
 		return sql.selectOne(namespace + ".listCount");
+	}
+
+	// 댓글 조회
+	@Override
+	public List<ReplyVO> readReply(int bno) throws Exception {
+		return sql.selectList(namespace + ".readRpley", bno);
 	}
 
 }

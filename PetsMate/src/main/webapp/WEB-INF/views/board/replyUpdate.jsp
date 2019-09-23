@@ -1,20 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <html>
 <head>
 <title>게시판</title>
-</head>
 
+<!-- 제이쿼리 -->
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
+</head>
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/css/all.css">
 <script src="/resources/js/jquery-3.4.1.js"></script>
 <script src="/resources/js/bootstrap.js"></script>
 
-<!-- Top Menu -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
 	style="background-color: #fe6f61;">
 	<a class="navbar-brand" href="/"><img src="/resources/img/home.png"
@@ -50,69 +50,78 @@
 			</c:if>
 		</ul>
 	</div>
+
 </nav>
 
-<body class="container" style='margin-top: 70px'>
+<body class="container" style="margin-top: 70px">
 	<div id="root">
-
 		<header>
 			<h1>게시판</h1>
 		</header>
+
 		<hr />
-		<a href="/board/write">글 쓰기</a>
+
 		<hr />
+
 		<section id="container">
-			<h2>글 목록</h2>
+			<form role="form" method="post" autocomplete="off">
 
-			<table>
-				<tr>
-					<th>글 번호</th>
-					<th>글 제목</th>
-					<th>작성자</th>
-					<th>작성일자</th>
-				</tr>
-				<!-- 목록 시작 -->
-				<c:forEach items="${list}" var="list">
-					<tr>
-						<td>${list.bno}</td>
-						<td><a href="/board/read?bno=${list.bno}">${list.title}</a></td>
-						<td>${list.writer}</td>
-						<td><fmt:formatDate value="${list.regDate}"
-								pattern="yyyy-MM-dd" /></td>
-					</tr>
-				</c:forEach>
-				<!-- 목록 끝 -->
-			</table>
+				<input type="hidden" id="bno" name="bno" value="${readReply.bno}"
+					readonly="readonly" /> <input type="hidden" id="rno" name="rno"
+					value="${readReply.rno}" readonly="readonly" /> <input
+					type="hidden" id="page" name="page" value="${scri.page}"
+					readonly="readonly" /> <input type="hidden" id="perPageNum"
+					name="perPageNum" value="${scri.perPageNum}" readonly="readonly" />
+				<input type="hidden" id="searchType" name="searchType"
+					value="${scri.searchType}" readonly="readonly" /> <input
+					type="hidden" id="keyword" name="keyword" value="${scri.keyword}"
+					readonly="readonly" />
 
-			<div>
-				<ul>
-					<c:if test="${pageMaker.prev}">
-						<li><a
-							href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
-					</c:if>
+				<p>
+					<label for="content">글 내용</label>
+					<textarea id="content" name="content">${readReply.content}</textarea>
+				</p>
 
-					<c:forEach begin="${pageMaker.startPage}"
-						end="${pageMaker.endPage}" var="idx">
-						<li><a href="listPage${pageMaker.makeQuery(idx)}">${idx}</a></li>
-					</c:forEach>
+				<p>
+					<button type="submit">수정</button>
+					<button type="button" id="cancel_btn">취소</button>
 
-					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-						<li><a
-							href="listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-					</c:if>
-				</ul>
-			</div>
+					<script>
+						// 폼을 변수에 저장
+						var formObj = $("form[role='form']");
 
-			<footer class="footer fixed-bottom mt-auto py-3"
-				style="background-color: #f5f5f5;">
-				<div class="container" style="text-align: center;">
-					<span class="text-muted">고객센터 053-0000-0000</span>
-				</div>
-			</footer>
+						// 취소 버튼 클릭
+						$("#cancel_btn")
+								.click(
+										function() {
+											self.location = "/board/read?bno=${readReply.bno}"
+													+ "&page=${scri.page}"
+													+ "&perPageNum=${scri.perPageNum}"
+													+ "&searchType=${scri.searchType}"
+													+ "&keyword=${scri.keyword}";
+										});
+					</script>
+				</p>
+			</form>
+		</section>
+
+		<hr />
+
+	</div>
 
 
-			<script src="/resources/js/jquery-3.4.1.js"></script>
-			<script src="/resources/js/bootstrap.js"></script>
-			<br> <br> <br>
+	<footer class="footer fixed-bottom mt-auto py-3"
+		style="background-color: #f5f5f5;">
+		<div class="container" style="text-align: center;">
+			<span class="text-muted">고객센터 053-0000-0000</span>
+		</div>
+	</footer>
+
+
+	<script src="/resources/js/jquery-3.4.1.js"></script>
+	<script src="/resources/js/bootstrap.js"></script>
+	<br>
+	<br>
+	<br>
 </body>
 </html>

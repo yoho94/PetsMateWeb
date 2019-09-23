@@ -2,6 +2,7 @@ package com.petsmate.persistence;
 
 import com.petsmate.domain.BoardVO;
 import com.petsmate.domain.Criteria;
+import com.petsmate.domain.ReplyVO;
 
 import java.util.List;
 
@@ -27,5 +28,9 @@ public interface BoardDAO {
 
 	// 게시물 총 갯수
 	public int listCount() throws Exception;
+	
+	// 댓글 조회
+	public List<ReplyVO> readReply(int bno) throws Exception;
+
 
 }
