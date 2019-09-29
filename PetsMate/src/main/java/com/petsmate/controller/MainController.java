@@ -41,6 +41,12 @@ public class MainController {
 		return "home";
 	}
 	
+	@RequestMapping("/home")
+	public String doHome3() {
+		logger.info("홈 페이지");
+		return "home";
+	}
+	
 	public String doHome2() {
 		logger.info("홈 페이지");
 		return "home";
