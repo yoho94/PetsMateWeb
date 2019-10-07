@@ -42,6 +42,10 @@ public class IotVO {
 		return date;
 	}
 	
+	public long getGenTime() {
+		return GENERATE_TIME.getTime();
+	}
+	
 	public void setGENERATE_TIME(Timestamp gENERATE_TIME) {
 		GENERATE_TIME = gENERATE_TIME;
 	}

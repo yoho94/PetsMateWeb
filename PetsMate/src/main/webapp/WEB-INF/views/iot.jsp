@@ -9,6 +9,14 @@
 <script src="/resources/js/bootstrap.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=86a6cbfcf0c93a4011071ac4cbc70d45"></script>
+<link rel="stylesheet" href="/resources/css/all.css">
+<script src='/resources/moment/moment.js'></script>
+<script src='/resources/moment/ko.js'></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
 </head>
 <body>
 	<header>
@@ -53,7 +61,83 @@
 	</header>
 
 	<div id="map" style="width: 100%; height: 350px; margin: 70px auto;"></div>
+	<div class="d-flex justify-content-center">
+		<div class='col-md-5'>
+			<div class="form-group">
+				<div class="input-group date" id="datetimepicker7"
+					data-target-input="nearest">
+					<input type="text" class="form-control datetimepicker-input"
+						data-target="#datetimepicker7" placeholder="여기부터" />
+					<div class="input-group-append" data-target="#datetimepicker7"
+						data-toggle="datetimepicker">
+						<div class="input-group-text">
+							<i class="far fa-calendar-alt"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='col-md-5'>
+			<div class="form-group">
+				<div class="input-group date" id="datetimepicker8"
+					data-target-input="nearest">
+					<input type="text" class="form-control datetimepicker-input"
+						data-target="#datetimepicker8" placeholder="여기까지" />
+					<div class="input-group-append" data-target="#datetimepicker8"
+						data-toggle="datetimepicker">
+						<div class="input-group-text">
+							<i class="far fa-calendar-alt"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+			<div class="d-flex justify-content-center">
+			<div class='form-group'>
+			<button type="button" class="btn btn-outline-primary" onclick='dateButton();'>확인</button>
+			</div>
+		</div>
 
+	<!-- 	<div class="form-group input-group"> -->
+	<!-- 		<div class="input-group-prepend" data-target="#datetimepicker1" -->
+	<!-- 			data-toggle="datetimepicker"> -->
+	<!-- 			<div class="input-group-text"> -->
+	<!-- 				<i class="fa fa-clock"></i> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 		<div class="date" data-target-input="#datetimepicker1"> -->
+	<!-- 			<input type="text" class="form-control datetimepicker-input" -->
+	<!-- 				id="datetimepicker1" placeholder="예약 날짜, 시간 선택" -->
+	<!-- 				data-target="#datetimepicker1" name='start_time' readonly /> -->
+	<!-- 		</div> -->
+	<!-- 		<div class="input-group-append" data-target="#datetimepicker1" -->
+	<!-- 			data-toggle="datetimepicker"> -->
+	<!-- 			<button class="btn btn-outline-secondary" type="button"> -->
+	<!-- 				<i class="fa fa-search"></i> -->
+	<!-- 			</button> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<!-- 	<div class="form-group input-group"> -->
+	<!-- 		<div class="input-group-prepend" data-target="#datetimepicker2" -->
+	<!-- 			data-toggle="datetimepicker"> -->
+	<!-- 			<div class="input-group-text"> -->
+	<!-- 				<i class="fa fa-clock"></i> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 		<div class="date" data-target-input="#datetimepicker2"> -->
+	<!-- 			<input type="text" class="form-control datetimepicker-input" -->
+	<!-- 				id="datetimepicker2" placeholder="예약 날짜, 시간 선택" -->
+	<!-- 				data-target="#datetimepicker2" name='des_time' readonly /> -->
+	<!-- 		</div> -->
+	<!-- 		<div class="input-group-append" data-target="#datetimepicker2" -->
+	<!-- 			data-toggle="datetimepicker"> -->
+	<!-- 			<button class="btn btn-outline-secondary" type="button"> -->
+	<!-- 				<i class="fa fa-search"></i> -->
+	<!-- 			</button> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<!-- 지도 설정 -->
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
@@ -121,9 +205,13 @@
 		        infowindow.close();
 		    };
 		}
+		
+		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+		var markers = [];
+		var times = [];
+//  		var iots = [];
 	</script>
-
-	<!-- 	iot 테이블 받아오기. -->
+	<!-- iot 테이블 받아오기. -->
 	<c:forEach var='iots' items='${iots}' varStatus='status'>
 		<script>
 			// 마커를 표시할 위치입니다 
@@ -176,9 +264,88 @@
 		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		    map.setCenter(position);
+		    markers.push(marker);
+		    times.push(${iots.genTime});
+// 		    iots.push(${iots});
 		</script>
 	</c:forEach>
 
+	<!-- 시간 설정 -->
+	<script type="text/javascript">
+
+	$.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'fa fa-clock',
+            date: 'fa fa-calendar',
+            up: 'fa fa-arrow-up',
+            down: 'fa fa-arrow-down',
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-calendar-check-o',
+            clear: 'fa fa-trash',
+            close: 'fa fa-times'
+        },
+        locale: 'ko'    
+	});
+	
+	
+//     $(function () {
+//         $('#datetimepicker1').datetimepicker({
+//         	locale: 'ko',
+// //         	minDate: moment().millisecond(0).second(0),
+//         	ignoreReadonly: true
+// //         	format: "YYYY-MM-DD HH:MM"
+// //             minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+//         });
+//     });
+	var startDate = new Date();
+	var desDate = new Date();
+
+    $(function () {
+//         $('#datetimepicker2').datetimepicker({
+//         	locale: 'ko',
+// //         	minDate: moment().millisecond(0).second(0),
+//         	ignoreReadonly: true
+// //         	format: "YYYY-MM-DD HH:MM"
+// //             minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+//         });
+		$('#datetimepicker7').datetimepicker();
+        $('#datetimepicker8').datetimepicker({
+            useCurrent: false
+        });        
+        $("#datetimepicker7").on("change.datetimepicker", function (e) {
+            $('#datetimepicker8').datetimepicker('minDate', e.date);
+            startDate.setTime(e.date);
+        });
+        $("#datetimepicker8").on("change.datetimepicker", function (e) {
+            $('#datetimepicker7').datetimepicker('maxDate', e.date);
+            desDate.setTime(e.date);
+        });
+    });
+    
+    function setMarkers(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }            
+    }
+    
+    function setIots(start, des) {
+    	for (var i=0; i<iots.length; i++) {
+    		var date = iots[i].getgetGENERATE_TIME();
+    	}
+    }
+    
+    function dateButton() {
+//     	alert(startDate.getTime());
+        for (var i = 0; i < markers.length; i++) {
+        	if(startDate.getTime() <= times[i] && desDate.getTime() >= times[i]) {
+        		markers[i].setMap(map);
+        	}else {
+        		markers[i].setMap(null);
+        	}
+        }   
+    }
+	</script>
 
 	<!-- 		<div style="width:500px; height:350px;  float:left; margin:50px; margin-left:100px; -->
 	<!-- 	border:solid #7fff00 3px"> -->
