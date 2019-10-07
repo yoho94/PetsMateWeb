@@ -93,11 +93,21 @@
 			</div>
 		</div>
 	</div>
-			<div class="d-flex justify-content-center">
-			<div class='form-group'>
-			<button type="button" class="btn btn-outline-primary" onclick='dateButton();'>확인</button>
-			</div>
+	<div class="d-flex justify-content-center">
+		<div class='form-group'>
+			<button type="button" class="btn btn-outline-primary"
+				onclick='dateButton();'>확인</button>
 		</div>
+	</div>
+
+	<hr>
+
+	<div class="d-flex justify-content-center">
+	<img src="/resources/img/Heart.jpg" alt="심장 그림" >
+	</div>
+	<div class="d-flex justify-content-center">
+	<h1 class='text-center' style="color:red" id='bpm'>71 bpm</h1>
+	</div>
 
 	<!-- 	<div class="form-group input-group"> -->
 	<!-- 		<div class="input-group-prepend" data-target="#datetimepicker1" -->
@@ -209,6 +219,7 @@
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 		var markers = [];
 		var times = [];
+		var bpms = [];
 //  		var iots = [];
 	</script>
 	<!-- iot 테이블 받아오기. -->
@@ -266,6 +277,7 @@
 		    map.setCenter(position);
 		    markers.push(marker);
 		    times.push(${iots.genTime});
+		    bpms.push(${iots.HEART_RATE});
 // 		    iots.push(${iots});
 		</script>
 	</c:forEach>
@@ -298,7 +310,7 @@
 // //             minDate: moment().millisecond(0).second(0).minute(0).hour(0)
 //         });
 //     });
-	var startDate = new Date();
+	var startDate = new Date(0);
 	var desDate = new Date();
 
     $(function () {
@@ -343,8 +355,29 @@
         	}else {
         		markers[i].setMap(null);
         	}
-        }   
+        }
+        
+        getBpm();
     }
+    
+    function getBpm() {
+    	var cnt = 0;
+    	var bpm = 0;
+    	var bpmHtml = document.getElementById("bpm");
+    	for (var i=0; i<bpms.length; i++) {
+        	if(startDate.getTime() <= times[i] && desDate.getTime() >= times[i]) {
+        		bpm += bpms[i];
+        		cnt++;
+        	}		
+    	}
+    	
+    	bpm /= cnt;
+    	if(isNaN(bpm))
+    		bpmHtml.innerHTML = "IoT 정보가 없습니다.";
+    	else
+    		bpmHtml.innerHTML = bpm.toFixed(2) + " bpm";
+    }
+    getBpm();
 	</script>
 
 	<!-- 		<div style="width:500px; height:350px;  float:left; margin:50px; margin-left:100px; -->
