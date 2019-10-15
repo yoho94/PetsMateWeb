@@ -58,6 +58,12 @@ public class MainController {
 		return "intro";
 	}
 	
+	@RequestMapping("/qna")
+	public String qna() {
+		logger.info("Q&A");
+		return "qna";
+	}
+	
 	public static Timestamp pickerToTimestamp(String str) {
 		
 		int year = Integer.parseInt(str.substring(0, 4)) - 1900;

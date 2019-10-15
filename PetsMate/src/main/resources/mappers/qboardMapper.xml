@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.petsmate.mapper.qboardMapper">
+
+<select id="getQBoardList" parameterType="com.petsmate.domain.QBoardForm" resultType="com.petsmate.dto.QBoardDto">
+
+	SELECT QBOARD_SEQ 
+		, QBOARD_RE_REF
+		, QBOARD_RE_LEV
+		, QBOARD_RE_SEQ
+		, QBOARD_WRITER
+		, QBOARD_SUBJECT
+		
+		, QBOARD_CONTENT
+		, QBOARD_HITS
+		, QDEL_YN
+		, QINS_USER_ID
+		, QINS_DATE
+		, QUPD_USER_ID
+		, QUPD_DATE
+	FROM QBOARD.TB_BOARD	
+
+</select>
+
+</mapper>
