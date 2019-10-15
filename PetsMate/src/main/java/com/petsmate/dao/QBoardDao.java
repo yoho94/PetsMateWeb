@@ -16,7 +16,7 @@ public class QBoardDao {
 	@Resource(name = "sqlSession")
 	private SqlSession sqlSession;
 
-	private static final String NAMESPACE = "com.petsmate.mapper.qboardMappe";
+	private static final String NAMESPACE = "com.petsmate.mapper.qboardMapper";
 
 	public List<QBoardDto> getQBoardList(QBoardForm qboardForm) throws Exception {
 
