@@ -5,8 +5,17 @@
 
 <mapper namespace="com.petsmate.mapper.qboardMapper">
 
+	<select id="getQBoardCnt" parameterType="com.petsmate.domain.QBoardForm" resultType="int">
+		
+		SELECT COUNT(*)
+		FROM PETS_MATE.Qnaboard	
+	
+	</select>
+
 <select id="getQBoardList" parameterType="com.petsmate.domain.QBoardForm" resultType="com.petsmate.dto.QBoardDto">
 
+SELECT *
+	FROM (
 	SELECT QBOARD_SEQ 
 		, QBOARD_RE_REF
 		, QBOARD_RE_LEV
@@ -18,11 +27,271 @@
 		, QBOARD_HITS
 		, QDEL_YN
 		, QINS_USER_ID
-		, QINS_DATE
+		, CAST(DATE_FORMAT(QINS_DATE, '%Y-%m-%d %H:%i:%s')AS CHAR(19))AS QINS_DATE
 		, QUPD_USER_ID
-		, QUPD_DATE
-	FROM QBOARD.TB_BOARD	
+		, CAST(DATE_FORMAT(QUPD_DATE, '%Y-%m-%d %H:%i:%s')AS CHAR(19))AS QUPD_DATE
+	FROM PETS_MATE.Qnaboard	
+	ORDER BY QBOARD_SEQ DESC, QBOARD_RE_SEQ ASC
+	)T1
+	LIMIT #{limit} OFFSET #{offset}
 
 </select>
+
+<delete id="updateQBoardHits" parameterType="com.petsmate.domain.QBoardForm">
+	
+	UPDATE PETS_MATE.Qnaboard	
+		SET QBOARD_HITS = QBOARD_HITS+1
+			, QUPD_USER_ID = 'NONMEMBER'
+			, QUPD_DATE = NOW()
+		WHERE QBOARD_SEQ = #{qboard_seq}
+</delete>
+
+<select id="getQBoardDetail" parameterType="com.petsmate.domain.QBoardForm" resultType="com.petsmate.dto.QBoardDto">
+
+	SELECT T1.*
+		FROM (
+				SELECT QBOARD_SEQ 
+					 , QBOARD_RE_REF 
+					 , QBOARD_RE_LEV 
+					 , QBOARD_RE_SEQ 
+					 , QBOARD_WRITER 
+					 , QBOARD_SUBJECT 
+					 , QBOARD_CONTENT 
+					 , QBOARD_HITS
+					 , QDEL_YN 
+					 , QINS_USER_ID
+					 , CAST( DATE_FORMAT( QINS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS QINS_DATE
+					 , QUPD_USER_ID
+					 , CAST( DATE_FORMAT( QUPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS QUPD_DATE  
+				FROM PETS_MATE.Qnaboard
+				WHERE QBOARD_SEQ = #{qboard_seq}		
+		      ) T1
+</select>
+
+	<select id="getQBoardFileList" parameterType="com.petsmate.domain.QBoardFileForm" resultType="com.petsmate.dto.QBoardFileDto">
+	
+		SELECT T1.*
+		FROM (
+				SELECT QBOARD_SEQ
+					 , QFILE_NO
+					 , QFILE_NAME_KEY
+					 , QFILE_NAME
+					 , QFILE_PATH
+					 , QFILE_SIZE
+					 , QREMARK
+			     	, QINS_USER_ID
+					, CAST( DATE_FORMAT( QINS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS QINS_DATE
+					, QUPD_USER_ID
+					, CAST( DATE_FORMAT( QUPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS QUPD_DATE
+				FROM TB_BOARD_FILE
+				WHERE BOARD_SEQ = #{board_seq}
+				AND DEL_YN = 'N'
+		      ) T1		
+			
+	</select>
+	
+	<select id="getQBoardReRef" parameterType="com.petsmate.domain.QBoardForm" resultType="int">
+	
+		SELECT IFNULL(MAX(QBOARD_RE_REF), 0) + 1
+		FROM PETS_MATE.Qnaboard
+	
+	</select>
+	
+	<insert id="insertQBoard" parameterType="com.petsmate.domain.QBoardForm">
+		
+		<selectKey resultType="int" keyProperty="qboard_seq" order="AFTER">
+
+			SELECT QLAST_INSERT_ID()
+
+		</selectKey>
+		
+		INSERT 
+		INTO PETS_MATE.Qnaboard 
+		(
+		  	  QBOARD_RE_REF
+		  	, QBOARD_RE_LEV
+		  	, QBOARD_RE_SEQ
+		  	, QBOARD_WRITER
+		  	, QBOARD_SUBJECT
+		  	, QBOARD_CONTENT
+		  	, QINS_USER_ID
+		  	, QINS_DATE
+		  	, QUPD_USER_ID
+		  	, QUPD_DATE
+		) 
+		VALUES 
+		(
+			  #{qboard_re_ref}
+			, 0
+			, 0
+			, #{qboard_writer}
+			, #{qboard_subject}
+			, #{qboard_content}
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+		)
+			
+	</insert>	
+	
+	<insert id="insertQBoardFile" parameterType="com.petsmate.domain.QBoardFileForm">
+	
+		<selectKey resultType="int" keyProperty="file_no" order="BEFORE">
+			
+			SELECT IFNULL(MAX(FILE_NO), 0) + 1 
+			FROM BOARD.TB_BOARD_FILE
+			WHERE QBOARD_SEQ = #{qboard_seq}
+			  
+		</selectKey>
+				
+		INSERT 
+		INTO TB_BOARD_FILE <!-- 이거 디비 만들어야겟지? -->
+		(
+			  BOARD_SEQ
+			, FILE_NO
+			, FILE_NAME_KEY
+			, FILE_NAME
+			, FILE_PATH
+			, FILE_SIZE
+			, DEL_YN 
+			, INS_USER_ID
+			, INS_DATE			
+			, UPD_USER_ID
+			, UPD_DATE
+		)
+		VALUES
+		(
+			  #{board_seq}
+			, #{file_no}
+			, #{file_name_key}
+			, #{file_name}
+			, #{file_path}
+			, #{file_size}
+			, 'N'
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+		)	
+		
+	</insert>
+	
+	<insert id="insertQBoardFail" parameterType="com.petsmate.domain.QBoardForm">
+	
+		INSERT 
+		INTO PETS_MATE.Qnaboard
+		(
+		  	  QBOARD_RE_REF
+		  	, QBOARD_RE_LEV
+		  	, QBOARD_RE_SEQ
+		  	, QBOARD_WRITER
+		  	, QBOARD_SUBJECT
+		  	, QBOARD_CONTENT
+		  	, QINS_USER_ID
+		  	, QINS_DATE
+		  	, QUPD_USER_ID
+		  	, QUPD_DATE
+		) 
+		VALUES 
+		(
+			  0
+			, 0
+			, 0
+			, #{qboard_writer1}
+			, #{qboard_subject}
+			, #{qboard_content}
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+		)
+	
+	</insert>
+		
+		<delete id="deleteQBoard" parameterType="com.petsmate.domain.QBoardForm">
+	
+		DELETE 
+		FROM PETS_MATE.Qnaboard
+		WHERE QBOARD_SEQ = #{qboard_seq}
+	
+	</delete>
+	
+	<delete id="updateQBoard" parameterType="com.petsmate.domain.QBoardForm">
+	
+		UPDATE PETS_MATE.Qnaboard
+		   SET QBOARD_SUBJECT = #{qboard_subject}
+		     , QBOARD_CONTENT = #{qboard_content}
+		     , QUPD_USER_ID = 'NONMEMBER'
+		     , QUPD_DATE = NOW()
+ 		WHERE QBOARD_SEQ = #{qboard_seq}
+	
+	</delete>
+	
+	<select id="getQBoardReplyInfo" parameterType="com.petsmate.domain.QBoardForm" resultType="com.petsmate.dto.QBoardDto">
+	
+		SELECT QBOARD_SEQ
+			 , QBOARD_RE_REF
+			 , QBOARD_RE_LEV
+			 , QBOARD_RE_SEQ
+	    FROM PETS_MATE.Qnaboard
+	    WHERE QBOARD_SEQ = #{qboard_parent_seq}
+	
+	</select>
+	
+	<delete id="updateQBoardReSeq" parameterType="com.petsmate.domain.QBoardForm">
+	
+		UPDATE PETS_MATE.Qnaboard
+		   SET QBOARD_RE_SEQ = QBOARD_RE_SEQ + 1
+		     , QUPD_USER_ID = 'NONMEMBER'
+		     , QUPD_DATE = NOW()
+		 WHERE QBOARD_RE_REF = #{qboard_re_ref} 
+	       AND QBOARD_RE_SEQ > #{qboard_re_seq}
+	
+	</delete>
+	
+	<insert id="insertQBoardReply" parameterType="com.petsmate.domain.QBoardForm">
+	
+		INSERT 
+		INTO PETS_MATE.Qnaboard
+		(
+		  	  QBOARD_RE_REF
+		  	, QBOARD_RE_LEV
+		  	, QBOARD_RE_SEQ
+		  	, QBOARD_WRITER
+		  	, QBOARD_SUBJECT
+		  	, QBOARD_CONTENT
+		  	, QINS_USER_ID
+		  	, QINS_DATE
+		  	, QUPD_USER_ID
+		  	, QUPD_DATE
+		) 
+		VALUES 
+		(
+			  #{qboard_re_ref}
+			, #{qboard_re_lev} + 1
+			, #{qboard_re_seq} + 1
+			, #{qboard_writer}
+			, #{qboard_subject}
+			, #{qboard_content}
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+		)
+	
+	</insert>
+	
+	<delete id="deleteQBoardFile" parameterType="com.petsmate.domain.QBoardFileForm">
+	
+		UPDATE BOARD.TB_BOARD_FILE <!-- db만들어야겟지..? --> 
+		   SET DEL_YN = 'Y'
+		     , UPD_USER_ID = 'NONMEMBER'
+		     , UPD_DATE = NOW()
+ 		WHERE BOARD_SEQ = #{board_seq}
+ 		  AND FILE_NO = #{file_no}
+	
+	</delete>
+
 
 </mapper>

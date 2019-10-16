@@ -72,57 +72,41 @@
 		</nav>
 	</header>
 
-<div style="margin-top:230px;">
-    <form id="qnaviewForm" name="qnaviewForm" method="post">
-        <table>
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>날짜</th>
-                    <th>조회수</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="result" items="${list }" varStatus="status">
-                    <tr>
-                        <td><c:out value="${result.code }"/></td>
-                        <td><a href='writeForm' onClick='fn_view(${result.code})'><c:out value="${result.title }"/></a></td>
-                        <td><c:out value="${result.writer }"/></td>
-                        <td><c:out value="${result.reg_datetime }"/></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        
-        <div>            
-            <a href='writeForm' onClick='fn_write()'>글쓰기</a>            
-        </div>
-    </form>
-<script>
-//글쓰기
-function fn_write(){
-    
-    var form = document.getElementById("boardForm");
-    
-    form.action = "<c:url value='/writeForm.do'/>";
-    form.submit();
-    
-}
- 
-//글조회
-function fn_view(code){
-    
-    var form = document.getElementById("boardForm");
-    var url = "<c:url value='/writeForm.do'/>";
-    url = url + "?code=" + code;
-    
-    form.action = url;    
-    form.submit(); 
-}
-</script>
-</div>
+<body class="container" style="margin-top: 70px">
+	<div id="root">
+		<header>
+			<h1>Q&A게시판</h1>
+		</header>
+		<hr />
+		<a href="/board/write">글 쓰기</a>
+		<hr />
+		<section id="container">
+			<h2>글 목록</h2>
+
+			<table class="table table-bordered">
+				<tr>
+					<th>글 번호</th>
+					<th>글 제목</th>
+					<th>작성자</th>
+					<th>작성일자</th>
+				</tr>
+
+				<!-- 목록 시작 -->
+				<c:forEach items="${list}" var="list">
+					<tr>
+						<td>${list.bno}</td>
+						<td><a href="/board/read?bno=${list.bno}">${list.title}</td>
+						<td>${list.writer}</td>
+						<td><fmt:formatDate value="${list.regDate}"
+								pattern="yyyy-MM-dd" /></td>
+					</tr>
+				</c:forEach>
+				<!-- 목록 끝 -->
+			</table>
+		</section>
+		<hr />
+	</div>
+
 
 	<footer class="footer fixed-bottom mt-auto py-3" style="background-color: #f5f5f5;">
 		<div class="container" style="text-align: center;">
