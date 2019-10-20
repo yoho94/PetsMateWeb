@@ -25,25 +25,26 @@ public class IotVO {
 		PET_CODE = pET_CODE;
 	}
 	public Timestamp getGENERATE_TIME() {
-		return GENERATE_TIME;
+		Timestamp kst = new Timestamp(GENERATE_TIME.getTime() - 3600000L * 9);
+		return kst;
 	}
 	
 	public String getDate() {
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		String date = sdf.format(GENERATE_TIME);
+		String date = sdf.format(getGENERATE_TIME());
 		return date;
 	}
 	
 	public String getTime() {
 		String pattern = "a hh:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		String date = sdf.format(GENERATE_TIME);
+		String date = sdf.format(getGENERATE_TIME());
 		return date;
 	}
 	
 	public long getGenTime() {
-		return GENERATE_TIME.getTime();
+		return getGENERATE_TIME().getTime();
 	}
 	
 	public void setGENERATE_TIME(Timestamp gENERATE_TIME) {

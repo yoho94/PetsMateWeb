@@ -159,7 +159,7 @@ function setLoginStatus() {
 	var birthday = naverLogin.user.getBirthday();			var uniqId = naverLogin.user.getId();
 	var age = naverLogin.user.getAge();
 
-	$('#id').val(email + "@naver.com");
+	$('#id').val(email);
 	$('#id').attr("readonly",true);
 	$('#password1').attr("readonly",true);
 	$('#password2').attr("readonly",true);
@@ -199,12 +199,12 @@ if(email != null && name != null) { %>
 	setFacebook();
 <%}%>
 
-<%
-	String uri[] = request.getRequestURI().split("/");
-	if(uri[uri.length-1].equalsIgnoreCase("signup.jsp")) { %>
-		naverLogin.logout();
-	<%}
-%>
+<%-- <% --%>
+// 	String uri[] = request.getRequestURI().split("/");
+<%-- 	if(uri[uri.length-1].equalsIgnoreCase("signup.jsp")) { %> --%>
+// 		naverLogin.logout();
+<%-- 	<%} --%>
+<%-- %> --%>
 
 </script>
 </html>

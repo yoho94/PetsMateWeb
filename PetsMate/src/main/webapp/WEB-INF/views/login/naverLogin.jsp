@@ -17,7 +17,8 @@
 var naverLogin = new naver.LoginWithNaverId(
 	{
 		clientId: "7nlmp3_oTZszqdkLgv2u",
-		callbackUrl: "http://localhost:8080/login/naverLogin",
+		callbackUrl: window.location.protocol + "//" + window.location.host + "/" + "login/naverLogin",
+// 		callbackUrl: "http://localhost:8080/login/naverLogin",
 		isPopup: false, /* 팝업을 통한 연동처리 여부 */
 		callbackHandle: true
 	}

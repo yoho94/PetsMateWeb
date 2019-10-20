@@ -170,7 +170,7 @@ public class LoginController {
 	public String doSignup(){
 		logger.info("SNS 회원가입 폼 페이지");
 		
-		return "login/signup";
+		return "login/signupSNS";
 	}
 	
 	@RequestMapping(value = "/login/signup/action", method = RequestMethod.POST)
